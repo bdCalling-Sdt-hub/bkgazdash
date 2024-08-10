@@ -1,0 +1,30 @@
+.custom-table .ant-table-thead > tr > th {
+    background-color: #193664 !important;
+    color: white !important; /* Optional: Change text color for better contrast */
+  }
+  
+.custom-table .ant-table-row {
+    background-color: #E8EBF0!important;
+    color: black !important; /* Optional: Change text color for better contrast */
+  }
+  
+  .custom-modal .ant-modal-content {
+    background-color: #FFF6E6 !important;
+    box-shadow: none;
+  }
+
+  
+.transaction-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Optional: Add space between paragraphs */
+  padding: 10px;
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  border-color: #FFA500;
+}
+
+.transaction-detail strong {
+  margin-right: 10px; /* Optional: Adjust the value if needed */
+}
+
