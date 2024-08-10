@@ -9,7 +9,7 @@
   }
   
   .custom-modal .ant-modal-content {
-    background-color: #FFF6E6 !important;
+    background-color: #E8EBF0 !important;
     box-shadow: none;
   }
 
@@ -21,7 +21,7 @@
   padding: 10px;
   border: 1px solid #ccc; /* Add border */
   border-radius: 5px; /* Optional: Add rounded corners */
-  border-color: #FFA500;
+  border-color: #B8C1CF;
 }
 
 .transaction-detail strong {

@@ -44,7 +44,7 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
                     Print
                 </Button>,
             ]}
-            className="bg-[#FFF6E6] custom-modal"
+            className="bg-[#E8EBF0] custom-modal"
         >
             {selectedTransaction && (
                 <div id="print-section">

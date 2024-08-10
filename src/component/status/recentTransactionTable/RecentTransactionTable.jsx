@@ -6,9 +6,9 @@ import TransactionModal from "./TransactionTableModal";
 
 const columns = (onActionClick) => [
   {
-    title: "#Tr.ID",
-    dataIndex: "taxId",
-    key: "taxId",
+    title: "#TrId",
+    dataIndex: "TrId",
+    key: "TrId",
     render: (number) => <a>{number}</a>,
   },
   {
@@ -18,8 +18,8 @@ const columns = (onActionClick) => [
     render: (text) => <a>{text}</a>,
   },
   {
-    title: "Subscription Package",
-    dataIndex: "subPackage",
+    title: "Payment Type",
+    dataIndex: "payType",
     key: "subPackage",
     render: (text) => <a>{text}</a>,
   },
@@ -47,9 +47,10 @@ const columns = (onActionClick) => [
 const data = [
   {
     key: "1",
-    taxId: "699999",
+    TrId: "699999",
+    acNumber: "*** *** *** *545",
     name: "John Brown",
-    subPackage: "basic",
+    payType: "basic",
     amount: " $250",
     date: "03-08-2024",
     action: <MdOutlineInfo></MdOutlineInfo>,
@@ -57,9 +58,9 @@ const data = [
   },
   {
     key: "2",
-    taxId: "699999",
+    TrId: "699999",
     name: "Jim Green",
-    subPackage: "basic",
+    payType: "Orrange Money",
     amount: "$250",
     date: "03-08-2024",
     action: <MdOutlineInfo></MdOutlineInfo>,
@@ -67,13 +68,12 @@ const data = [
   },
   {
     key: "3",
-    taxId: "699999",
+    TrId: "699999",
     name: "Joe Black",
-    subPackage: "basic",
     amount: "$250",
     date: "03-08-2024",
     action: <MdOutlineInfo></MdOutlineInfo>,
-    subPackage: "basic",
+    payType: "basic",
     tags: ["cool", "teacher"],
   },
 ];

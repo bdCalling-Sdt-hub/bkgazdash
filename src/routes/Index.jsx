@@ -3,6 +3,7 @@ import {
   } from "react-router-dom";
 import Main from "../layout/Main/Main";
 import DashboardHome from "../pages/Main/dashBoardHome/DashBoardHome";
+import Notification from "../layout/Main/Notification";
 
 
   const router = createBrowserRouter([
@@ -13,6 +14,10 @@ import DashboardHome from "../pages/Main/dashBoardHome/DashBoardHome";
             {
                 path: "/",
                 element: <DashboardHome />
+            },
+            {
+                path: "/notification",
+                element: <Notification />
             }
         ]
 

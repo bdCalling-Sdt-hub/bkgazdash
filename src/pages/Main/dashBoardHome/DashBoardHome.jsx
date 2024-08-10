@@ -4,13 +4,13 @@
 
 import RecentTransactionsTable from "../../../component/status/recentTransactionTable/RecentTransactionTable";
 import Status from "../../../component/status/Status";
-import SubscriptionBarChart from "../../../component/status/subscriptionChart/SubscriptionChart";
+import EarningsChart from "../../../component/status/subscriptionChart/EarningsChart";
 
 const DashboardHome = () => {
     return (
         <div className=''>
             <Status/>
-           <SubscriptionBarChart />
+        <EarningsChart />
           <RecentTransactionsTable />
            
         </div>
