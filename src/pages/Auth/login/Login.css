@@ -1,0 +1,9 @@
+/* styles.css */
+.custom-checkbox .ant-checkbox-inner {
+    @apply bg-gray-200 border-gray-400; /* Apply Tailwind classes for default state */
+  }
+  
+  .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+    @apply bg-[#1397D5] border-[#1397D5]; /* Apply Tailwind classes for checked state */
+  }
+  

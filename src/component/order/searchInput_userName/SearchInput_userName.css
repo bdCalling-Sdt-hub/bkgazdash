@@ -1,0 +1,20 @@
+.custom-search-input_user .ant-input-search-button {
+    background-color: #193664; /* Change this to your desired color */
+    color: white;
+   display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+  
+  .custom-search-input .ant-input-affix-wrapper .ant-input-suffix {
+    background-color: #FFA500; /* Change this to your desired color */
+    border-radius: 0 4px 4px 0; /* Optional: to match the input border-radius */
+    padding: 0 8px; /* Optional: adjust padding as needed */
+  }
+  
+  
+  .custom-search-icon svg {
+    color: white; /* Change this to yellow */
+    fill: white;  /* Ensure the SVG fill color is also set */
+  }

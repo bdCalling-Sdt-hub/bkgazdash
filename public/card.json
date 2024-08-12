@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "img": "../src/assets/Images/slinderImg.png",
+      "title": "Product Name",
+      "weight": "6kg",
+      "price": "$12.99",
+      "rating": "100"
+    },
+    {
+      "id": 2,
+      "img": "../src/assets/Images/slinderImg.png",
+      "title": "Product Name",
+      "weight": "6kg",
+      "price": "$12.99",
+      "rating": "100"
+    },
+    {
+      "id": 3,
+      "img": "../src/assets/Images/slinderImg.png",
+      "title": "Product Name",
+      "weight": "6kg",
+      "price": "$12.99",
+      "rating": "100"
+    }
+  ]
+  

@@ -2,14 +2,15 @@
 
 // import RecentTransaction from '../../../Components/RecentTransaction';
 
-import RecentTransactionsTable from "../../../component/status/recentTransactionTable/RecentTransactionTable";
+import RecentTransactionsTable from "../../../component/dashHome/recentTransactionTable/RecentTransactionTable";
+
+import EarningsChart from "../../../component/dashHome/earningsChart/EarningsChart";
 import Status from "../../../component/status/Status";
-import EarningsChart from "../../../component/status/subscriptionChart/EarningsChart";
 
 const DashboardHome = () => {
     return (
         <div className=''>
-            <Status/>
+          <Status />
         <EarningsChart />
           <RecentTransactionsTable />
            

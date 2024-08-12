@@ -71,20 +71,20 @@ const Sidebar = () => {
           <BiSolidDashboard size={20} />
           {!collapsed && <span className='text-[18px]'>Dashboard</span>}
         </NavLink>
-        <NavLink to="/subscription" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
+        <NavLink to="/earnings" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
 
           <FaMoneyBills size={20} />
           {!collapsed && <span className='text-[18px]'>Earnings</span>}
         </NavLink>
-        <NavLink to="/userManagement" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
+        <NavLink to="/users" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
           <FaUserFriends size={20} />
           {!collapsed && <span className='text-[18px]'>Users</span>}
         </NavLink>
-        <NavLink to="/restaurantManagement" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
+        <NavLink to="/order" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
           <MdOutlineCalendarToday size={20} />
           {!collapsed && <span className='text-[18px]'>Order</span>}
         </NavLink>
-        <NavLink to="/subscriptionPlan" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
+        <NavLink to="/categories" className="flex items-center gap-3 p-3 mb-2 rounded-lg text-white hover:bg-white hover:text-[#193664] transition-colors duration-300">
           <BiSolidCategory size={20} />
           {!collapsed && <span className='text-[18px]'>Categories</span>}
         </NavLink>
