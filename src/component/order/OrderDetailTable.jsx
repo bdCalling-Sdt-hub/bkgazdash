@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { Table } from 'antd';
 import './OrderTable.css';
 import { MdOutlineInfo } from "react-icons/md";
-
 import SearchByDate from '../../component/comnon/datePicker/SearchByDate';
 import moment from 'moment';
-import OrderTransactionModal from './OrderTransactionModal';
 import SearchInput_UserName from './searchInput_userName/SearchInput_userName';
 import SearchInput_itemName from './searchInput_itemName/SearchInput_itemName';
+
 import { useNavigate } from 'react-router-dom';
+import PaymentStatusSelectItem from '../comnon/selectIem/PaymentStatusSelecttem';
+import AssignSelectItem from '../comnon/selectIem/assignSelectItem/AssignSelectItem';
 
-
-const columns = (onActionClick) => [
+const columns = (onActionClick, onPaymentTypeChange) => [
     {
         title: 'Package Item',
         dataIndex: 'package',
@@ -21,76 +21,78 @@ const columns = (onActionClick) => [
         dataIndex: 'orderId',
     },
     {
-        title: 'Payment Type',
+        title: 'Payment Status',
         dataIndex: 'paymentType',
+        render: (text, record) => (
+            <PaymentStatusSelectItem
+                defaultValue={record.paymentType} 
+                onChange={(value) => onPaymentTypeChange(record.key, value)} 
+            />
+        ),
     },
     {
-        title: 'Date & Time',
+        title: 'Location & Date',
         dataIndex: 'date_time',
     },
     {
-        title: 'Status',
+        title: 'Order Status',
         dataIndex: 'status',
     },
     {
-        title: 'Details',
+        title: 'Assign',
         key: 'action',
         render: (text, record) => (
-            <MdOutlineInfo onClick={() => onActionClick(record)} />
+           <AssignSelectItem 
+           defaultValue={record.paymentType}
+           onChange={(value) => onPaymentTypeChange(record.ke, value)}
+            />
         ),
     },
 ];
 
 const originalData = [];
-console.log(originalData)
-for (let i = 0; i < 46; i++) {
+for (let i = 0; i < 1; i++) {
     originalData.push({
         key: i,
         id: `963222`,
         package: `36 kg(1)`,
         orderId: `#GAZ-06-001`,
-        paymentType: `cash`,
+        paymentType: `cash`,  // Default value that can be changed
         date_time: `10/12/2024 8pm`,
-        status: `pending`,
+        status: `complete`,
         userName: `leo jhon`,
         email: `abc@gmail.com`,
         phoneNumber: `12345678`,
         payType: `kfc`,
         amount: `$250`,
-        joindate: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
+        joindate: moment().subtract(i, 'days').format("MM-DD-YYYY"),
         address: `London, Park Lane no. ${i}`,
     });
 }
 
-const OrderTable = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
+const OrderDetailTable = () => {
     const [filteredData, setFilteredData] = useState(originalData);
     const navigate = useNavigate();
 
     const onActionClick = (record) => {
-        navigate('/orderDetails', { state: { orderDetails: record } }); // Navigate with state
+        navigate('/orderDetails', { state: { orderDetails: record } });
     };
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const onSelectChange = (newSelectedRowKeys) => {
-        setSelectedRowKeys(newSelectedRowKeys);
+    const onPaymentTypeChange = (key, value) => {
+        setFilteredData((prevData) =>
+            prevData.map((item) =>
+                item.key === key ? { ...item, paymentType: value } : item
+            )
+        );
     };
 
     const handleDateSearch = (date) => {
-        console.log("Selected date:", date ? date.format("MM-DD-YYYY") : "No date selected");
         if (date) {
-            const filtered = originalData.filter(item => item.date === date.format("MM-DD-YYYY"));
-            console.log("Filtered data:", filtered);
+            const filtered = originalData.filter(item => item.date_time === date.format("MM-DD-YYYY"));
             setFilteredData(filtered);
         } else {
             setFilteredData(originalData);
         }
-    };
-
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
     };
 
     return (
@@ -98,28 +100,22 @@ const OrderTable = () => {
             <div className='grid grid-cols-3'>
                 <div> <h1 className='p-4'>Order</h1></div>
                 <div className='grid grid-cols-3 gap-4 py-4'>
-                   
+                    {/* Add other filters or components here if needed */}
                 </div>
-                <div className='justify-end space-x-4 p-4 flex'> 
-                <SearchByDate onDateChange={handleDateSearch} />
+                <div className='justify-end space-x-4 p-4 flex'>
+                    <SearchByDate onDateChange={handleDateSearch} />
                     <SearchInput_UserName />
-                <SearchInput_itemName />
-                 </div>
+                    <SearchInput_itemName />
+                </div>
             </div>
             <Table
                 className='custom-table'
-                rowSelection={rowSelection}
-                columns={columns(onActionClick)}
+                columns={columns(onActionClick, onPaymentTypeChange)}  // Pass the onPaymentTypeChange handler
                 dataSource={filteredData}
-            />
-            <OrderTransactionModal
-                isModalVisible={isModalVisible}
-                setIsModalVisible={setIsModalVisible}
-                setSelectedTransaction={setSelectedTransaction}
-                selectedTransaction={selectedTransaction}
+                pagination={false}
             />
         </div>
     );
 };
 
-export default OrderTable;
+export default OrderDetailTable;

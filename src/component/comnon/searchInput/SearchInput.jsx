@@ -18,7 +18,7 @@ const onSearch = (value, _e, info) => console.log(info?.source, value);
 const SearchInput = () => (
   <Space direction="vertical">
     <Search
-      placeholder="input search text"
+      placeholder="User Name"
       onSearch={onSearch}
       className='custom-search-input custom-search-icon'
       style={{

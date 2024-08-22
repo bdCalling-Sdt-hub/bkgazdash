@@ -2,36 +2,43 @@
 import { Button, Image } from "antd";
 import { GoPlus } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useGetProductQuery } from "../../redux/api/services/productApi";
-import { selectedProduct } from "../../redux/features/product/productSlice";
+import OpenCloseSlectItem from "./OpenCloseSlectItem";
+// import { useDispatch } from "react-redux";
+// import { useGetProductQuery } from "../../redux/api/services/productApi";
+// import { selectedProduct } from "../../redux/features/product/productSlice";
 
 const Categories = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
-  const { data: products = [], error, isLoading } = useGetProductQuery();
+  // const dispatch = useDispatch();
+  const products = [
+    1, 2, 3
+  ]
+  // const { data: products = [], error, isLoading } = useGetProductQuery();
 
   const handleAddProduct = () => {
     navigate('/addproduct');
   };
+const handleUpdate = () => {
+  navigate('/updateProduct/:id')
+}
+  // const handleUpdate = (id) => {
+  //   dispatch(selectedProduct(id));
+  //   console.log(id)
+  //   navigate(`/updateProduct/${id}`);
+  // };
 
-  const handleUpdate = (id) => {
-    dispatch(selectedProduct(id));
-    console.log(id)
-    navigate(`/updateProduct/${id}`);
-  };
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading Products</p>;
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <p>Error loading Products</p>;
 
   return (
     <div>
-      <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
+      <div className="flex justify-between 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw] py-6">
+      <OpenCloseSlectItem />
         <Button onClick={handleAddProduct} type="primary" className="flex items-center bg-[#193664]">
           <GoPlus className="mr-2" />
           Add Product
         </Button>
+       
       </div>
       {/* card */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-2/4">
@@ -50,7 +57,7 @@ const Categories = () => {
             </div>
             <div className="flex space-x-4 py-6">
               <Button>Delete</Button>
-              <Button onClick={() => handleUpdate(product.id)} className="bg-[#193664] text-white">Edit</Button>
+              <Button onClick={handleUpdate}  className="bg-[#193664] text-white">Edit</Button>
             </div>
           </div>
         ))}

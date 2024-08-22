@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input } from "antd";
 
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/Images/bkGazLogo.svg";
+import logo from "../../../assets/bkGazLogo.png";
 import { GoArrowLeft } from "react-icons/go";
 // import baseURL from "../../config";
 // import Swal from "sweetalert2";
@@ -73,7 +73,7 @@ const ResetPassword = () => {
                 <GoArrowLeft className="text-[32px]" />
               </Link>
 
-              <h1 className="text-[24px] font-medium my-[8px]">
+              <h1 className="text-[24px] font-medium my-[8px] py-8">
                Reset password
               </h1>
             </div>
@@ -117,6 +117,7 @@ const ResetPassword = () => {
                   }
                   style={{
                     border: "2px solid #1397D5",
+                    borderRadius: "16px",
                     height: "52px",
                     background: "#ffffff",
                     outline: "none",
@@ -150,6 +151,7 @@ const ResetPassword = () => {
                   }
                   style={{
                     border: "2px solid #1397D5",
+                    borderRadius: "16px",
                     height: "52px",
                     background: "#ffffff",
                     outline: "none",
@@ -166,6 +168,7 @@ const ResetPassword = () => {
                   // type="primary"
                   style={{
                     backgroundColor: "#1397D5",
+                    borderRadius: "16px",
                     color: "#fff",
                     size: "18px",
                     height: "56px",

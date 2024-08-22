@@ -89,13 +89,13 @@ const RecentTransactionsTable = () => {
 
   return (
     <div className="bg-[#E8EBF0] my-12">
-      <h1 className="p-4">Transactions</h1>
+      <h1 className="p-4">Recent Transactions</h1>
       <Table
         className="custom-table"
         columns={columns(onActionClick)}
         dataSource={data}
         style={{
-          "--antd-table-header-bg": "red", // Custom CSS variable for header background
+          "--antd-table-header-bg": "red", 
         }}
       />
       <TransactionModal

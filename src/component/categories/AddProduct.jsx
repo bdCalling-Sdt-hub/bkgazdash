@@ -87,7 +87,7 @@ const AddProduct = () => {
      </MyFormItemGroup>
 
 {/* Upload */}
-<Form.Item label="Restaurant Thumbnail" valuePropName="fileList" getValueFromEvent={normFile}>
+<Form.Item label="" valuePropName="fileList" getValueFromEvent={normFile}>
           <Upload action="/upload.do" listType="picture-card">
             <button
               style={{

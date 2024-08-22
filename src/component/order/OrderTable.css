@@ -2,9 +2,10 @@
     background-color: #193664 !important;
     color: white !important; /* Optional: Change text color for better contrast */
   }
-  
-.custom-table .ant-table-row {
-    background-color: #E8EBF0 !important;
-    color: black !important; /* Optional: Change text color for better contrast */
+
+  .custom-table .ant-table-row {
+padding-top: 200px !important;
+color: black !important;
+height: 100px !important;
+background-color: 'transparent' !important;
   }
-  

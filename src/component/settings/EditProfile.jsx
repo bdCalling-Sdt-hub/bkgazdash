@@ -10,7 +10,7 @@ import { GoPlus } from "react-icons/go";
 
 
 
-const PersonalInformation = () => {
+const EditProfile = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
 
@@ -31,16 +31,7 @@ const PersonalInformation = () => {
           Personal Information
         </Button>
       </div>
-      <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
-        <Button
-          onClick={handleEditProfile}
-          type="primary"
-          className="flex items-center bg-[#193664]"
-        >
-          <GoPlus className="mr-2" />
-        Edit Profile
-        </Button>
-      </div>
+      
       {/* Profile section */}
       <div className="mt-12 flex">
         <div className="w-1/12">
@@ -205,7 +196,7 @@ const PersonalInformation = () => {
                 className=" w-[300px] 
                    h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
               >
-                Update Profile
+              Save changes
               </Button>
               {/* <Link to="/dashboard"
               // type="primary"
@@ -222,6 +213,6 @@ const PersonalInformation = () => {
   );
 };
 
-export default PersonalInformation;
+export default EditProfile;
 
 

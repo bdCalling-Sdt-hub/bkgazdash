@@ -1,11 +1,12 @@
 import EarningsTransactionTable from "../../../component/earnings/earningTransactionTable/EarningsTransactionTable"
-import Status from "../../../component/status/Status"
+import EarningsStatus from "../../../component/status/EarningsStatus"
+
 
 
 const Earnings = () => {
   return (
     <div>
-    <Status />    
+   <EarningsStatus />
     <EarningsTransactionTable />
     </div>
   )

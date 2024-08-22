@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal as AntdModal, Button } from "antd";
+import './RecentTransactions.css';
 
 const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedTransaction, selectedTransaction }) => {
     const handleDownload = () => {
@@ -36,32 +37,51 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             title="Transaction Details"
             visible={isModalVisible}
             onCancel={handleCancel}
-            footer={[
-                <Button key="download" onClick={handleDownload}>
+            footer={
+               <div style={{display:"flex", justifyContent: 'center', gap: "20px", padding: "20px" }}>
+                 <Button
+                 style={{
+                    backgroundColor: '#193664', 
+                    color: 'white', 
+                    borderRadius: '8px', 
+                    
+                }}
+                 key="download" onClick={handleDownload}>
                     Download
                 </Button>,
-                <Button key="print" onClick={handlePrint}>
+                <Button 
+                 style={{
+                    backgroundColor: '#193664', 
+                    color: 'white', 
+                    borderRadius: '15px', 
+                   
+                }}
+                key="print" onClick={handlePrint}>
                     Print
                 </Button>,
-            ]}
-            className="bg-[#E8EBF0] custom-modal"
+               </div>
+            }
+            className="bg-[#E8EBF0] custom-modal rounded-lg"
         >
             {selectedTransaction && (
-                <div id="print-section">
+                <div className='px-4' id="print-section">
                     <p className="transaction-detail">
                         <strong>Transaction ID:</strong> {selectedTransaction.taxId}
                     </p>
                     <p className="transaction-detail">
-                        <strong>User Name:</strong> {selectedTransaction.name}
+                        <strong>Date:</strong> {selectedTransaction.name}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Subscription Package:</strong> {selectedTransaction.subPackage}
+                        <strong>User name:</strong> {selectedTransaction.subPackage}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Amount:</strong> {selectedTransaction.amount}
+                        <strong>A/C number:</strong> {selectedTransaction.amount}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Date:</strong> {selectedTransaction.date}
+                        <strong>A/C holder name:</strong> {selectedTransaction.amount}
+                    </p>
+                    <p className="transaction-detail">
+                        <strong>Transaction amount:</strong> {selectedTransaction.date}
                     </p>
                 </div>
             )}

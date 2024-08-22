@@ -2,8 +2,8 @@ import { Button, Form, Input } from "antd";
 import { GoArrowLeft } from "react-icons/go";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import logo from "../../../assets/Images/bkGazLogo.svg";
-import { useState } from "react";
+import logo from "../../../assets/bkgazLogo.png";
+import { useState, } from "react";
 import OTPInput from "react-otp-input";
 import Swal from "sweetalert2";
 // import { usePostOtpMutation } from "../../redux/Features/postOtpApi";
@@ -91,7 +91,7 @@ const VerifyEmail = () => {
               </h1>
             </div>
             <p className="text-center mx-auto w-[80%] font-medium mb-[24px] text-[#5C5C5C] text-[16px]">
-              Please enter your email address to reset your password.
+            Please enter the otp we have sent you in your email.
             </p>
             <div className="mx-auto space-y-7 fit-content object-contain">
             
@@ -102,7 +102,7 @@ const VerifyEmail = () => {
                   onChange={setOtp}
                   numInputs={6}
                   inputStyle={{
-                    height: "40px",
+                    height: "50px",
                     background: "#ffff",
                     width: "40px",
                     border: "1px solid #1397D5",
@@ -117,23 +117,41 @@ const VerifyEmail = () => {
                 />
                  
               </div>
-              <h1 className="flex justify-end">Resend</h1>
+              <Button
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: '#0E71A0',
+                fontWeight: 'bold',
+                boxShadow: 'none'
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              onFocus={(e) => {
+                e.currentTarget.style.outline = 'none';
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.border = 'none';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.outline = 'none';
+                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.border = 'none';
+              }}
+              className="flex mx-auto">Resend</Button>
             
             </div>
-        
-        
-      
                 <Button
                 onClick={handleMatchOtp}
                   type="primary"
                   style={{
                     backgroundColor: "#1397D5",
+                    borderRadius: "16px",
                     color: "#fff",
                     size: "18px",
                     height: "56px",
                   }}
                   htmlType="submit"
-                  className="block mx-auto w-[400px] hover:bg-secondary h-[56px] py-4 my-8 text-white bg-secondary rounded-lg"
+                  className="block mx-auto w-[400px] hover:bg-secondary h-[56px] py-4 my-8 text-white bg-secondary rounded-3xl "
                 >
                  Verify Email
                 </Button>

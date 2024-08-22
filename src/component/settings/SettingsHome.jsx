@@ -39,6 +39,18 @@ const SettingsHome = () => {
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
+         <div onClick={handlePersonalInformation} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+            <p className='text-[#333333] font-bold px-6'>
+                Shop Operation
+            </p>
+            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
+        </div>
+         <div onClick={handlePersonalInformation} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+            <p className='text-[#333333] font-bold px-6'>
+                Discount Coupon
+            </p>
+            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
+        </div>
 
          <div onClick={handleChangePassword} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>

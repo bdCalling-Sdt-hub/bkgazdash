@@ -89,12 +89,10 @@ const UsersTable = () => {
       <div className='grid grid-cols-3'>
         <div> <h1 className='p-4'>Users List</h1></div>
         <div className='grid grid-cols-3 gap-4 py-4'>
-          <div className=''>
-            <SearchByDate onDateChange={handleDateSearch} />
-          </div>
-          <div><h1>User Name</h1></div>
-        </div>
-        <div className='justify-end p-4 flex'> <SearchInput /> </div>
+           </div>
+        <div className='justify-end p-4 flex gap-4'> 
+        <SearchByDate onDateChange={handleDateSearch} />
+          <SearchInput /> </div>
       </div>
       <Table 
         className='custom-table' 

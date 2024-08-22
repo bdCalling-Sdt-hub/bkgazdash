@@ -4,7 +4,7 @@ import { FaCamera } from "react-icons/fa";
 import './AddProduct.css'
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 const MyFormItemContext = React.createContext([]);
 function toArr(str) {
   return Array.isArray(str) ? str : [str];
@@ -28,7 +28,7 @@ const MyFormItem = ({ name, ...props }) => {
 const UpdateProcuct = () => {
   const naviate = useNavigate();
   const [form] = Form.useForm();
-  const selectedProduct = useSelector((state) => state.product.selectedProduct);
+  // const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const onFinish = (value) => {
     console.log(value);
   };
@@ -90,7 +90,7 @@ const UpdateProcuct = () => {
      </MyFormItemGroup>
 
 {/* Upload */}
-<Form.Item label="Restaurant Thumbnail" valuePropName="fileList" getValueFromEvent={normFile}>
+<Form.Item label="" valuePropName="fileList" getValueFromEvent={normFile}>
           <Upload action="/upload.do" listType="picture-card">
             <button
               style={{

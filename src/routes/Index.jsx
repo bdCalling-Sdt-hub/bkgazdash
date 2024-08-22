@@ -23,6 +23,9 @@ import PrivacyPolicy from "../component/settings/PrivacyPolicy";
 import EditPrivacyPolicy from "../component/settings/EditPrivacyPolicy";
 import Aboutus from "../component/settings/Aboutus";
 import EditAboutus from "../component/settings/EditAboutUs";
+import DeliveryEmployeeTable from "../component/deliveryEmployee/DeliveryEmployeeTable";
+import OrderDetails from "../pages/Main/order/orderDetails/OrderDetails";
+import EditProfile from "../component/settings/EditProfile";
 
 
 
@@ -53,6 +56,10 @@ import EditAboutus from "../component/settings/EditAboutUs";
                 element: <OrderTable />
             },
             {
+                path: "/orderDetails",
+                element: <OrderDetails />
+            },
+            {
                 path: "/categories",
                 element: <Categories />
             },
@@ -65,12 +72,20 @@ import EditAboutus from "../component/settings/EditAboutUs";
                 element: <UpdateProduct />
             },
             {
+                path: "/deliveryEmployee",
+                element: <DeliveryEmployeeTable/>
+            },
+            {
                 path: "/settings",
                 element: <SettingsHome />
             },
             {
                 path: "/personalInformation",
                 element: <PersonalInformation/>
+            },
+            {
+                path: "/editProfile",
+                element: <EditProfile />
             },
             {
                 path: "/termsAndConditons",

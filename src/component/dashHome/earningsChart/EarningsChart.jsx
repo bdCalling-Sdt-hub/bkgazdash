@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import SearchByDate from './../../comnon/datePicker/SearchByDate';
+import moment from 'moment';
 
 const EarningsChart = () => {
   const [year, setYear] = useState('2024');
+ 
 
   const data = [
     { name: 'Jan', uv: 4000, pv: 2000, amt: 2400 },
@@ -24,9 +27,37 @@ const EarningsChart = () => {
     return `${tickItem / 1000}k`;
   };
 
+  const originalData = [];
+console.log(originalData)
+for (let i = 0; i < 46; i++) {
+  originalData.push({
+    key: i,
+    id: `963222`,
+    userName: `leo jhon`,
+    payType: `kfc`,
+    amount: `$250`,
+    date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
+    address: `London, Park Lane no. ${i}`,
+  });
+}
+const [filteredData, setFilteredData] = useState(originalData);
+
+const handleDateSearch = (date) => {
+  console.log("Selected date:", date ? date.format("MM-DD-YYYY") : "No date selected");
+  if (date) {
+    const filtered = originalData.filter(item => item.date === date.format("MM-DD-YYYY"));
+    console.log("Filtered data:", filtered);
+    setFilteredData(filtered);
+  } else {
+    setFilteredData(originalData);
+  }
+};
   return (
     <div className='mt-12 bg-[#E8EBF0] rounded-lg'>
-      <h1 className='text-[#333333] text-[20px] font-bold p-6'>Earnings</h1>
+     <div className='flex justify-between p-6'>
+     <h1 className='text-[#333333] text-[20px] font-bold'>Earnings</h1>
+     <SearchByDate onDateChange={handleDateSearch}/>
+     </div>
       <div className="pt-12 w-[79vw] h-[318px] mt-5 rounded-xl border-2 shadow-xl">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input } from "antd";
 
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/Images/bkGazLogo.svg";
+import logo from "../../../assets/bkgazLogo.png";
 import { GoArrowLeft } from "react-icons/go";
 // import baseURL from "../../config";
 // import Swal from "sweetalert2";
@@ -78,7 +78,8 @@ const ForgetPassword = () => {
               </h1>
             </div>
             <p className="text-center mx-auto w-[80%] font-medium mb-[24px] text-[#5C5C5C] text-[16px]">
-              Please enter your email address to reset your password.
+            Please enter your email address to reset
+            your password.
             </p>
             <Form
               name="normal_login"
@@ -118,6 +119,7 @@ const ForgetPassword = () => {
                   }
                   style={{
                     border: "2px solid #1397D5",
+                    borderRadius: "16px",
                     height: "52px",
                     background: "#ffffff",
                     outline: "none",
@@ -134,6 +136,7 @@ const ForgetPassword = () => {
                   // type="primary"
                   style={{
                     backgroundColor: "#1397D5",
+                    borderRadius: "16px",  
                     color: "#fff",
                     size: "18px",
                     height: "56px",

@@ -2,6 +2,14 @@
     background-color: #193664 !important;
     color: white !important; /* Optional: Change text color for better contrast */
   }
+
+ 
+
+  .custom-modal .ant-modal-title {
+    text-align: center;
+    font-weight: bold; 
+    padding: 20px;
+}
   
 .custom-table .ant-table-row {
     background-color: #E8EBF0!important;
@@ -11,6 +19,16 @@
   .custom-modal .ant-modal-content {
     background-color: #E8EBF0 !important;
     box-shadow: none;
+  }
+
+  .custom-modal .ant-modal-close {
+    background-color: #FF6347; /* Replace with your desired color */
+   
+    color: white; /* Change the color of the 'x' */
+  }
+  
+  .custom-modal .ant-modal-close:hover {
+    background-color: #FF4500; Optional: Hover effect
   }
 
   

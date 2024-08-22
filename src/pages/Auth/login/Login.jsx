@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input } from "antd";
 
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/Images/bkGazLogo.svg";
+import logo from "../../../assets/bkgazLogo.png";
 // import baseURL from "../../config";
 // import Swal from "sweetalert2";
 // import { IconLock } from "@tabler/icons-react";
@@ -62,6 +62,7 @@ const Login = () => {
         <div className="bg-[#B6DFF2] p-24 rounded-xl">
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
+            
             <h1 className="text-[24px] py-6 text-center font-medium mt-[2px] mb-4px]">
               Sign In
             </h1>
@@ -117,6 +118,7 @@ const Login = () => {
                   // }
                   style={{
                     border: "2px solid #1397D5",
+                    borderRadius: "16px",
                     height: "52px",
                     background: "#ffffff",
                     outline: "none",
@@ -152,6 +154,7 @@ const Login = () => {
                   }
                   style={{
                     border: "2px solid #1397D5",
+                    borderRadius: "16px",
                     height: "52px",
                     background: "#ffffff",
                     outline: "none",
@@ -202,7 +205,7 @@ const Login = () => {
                   }}
                   htmlType="submit"
                   className=" w-[300px] 
-                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
+                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-2xl"
                 >
                   Sign in
                 </Button>
