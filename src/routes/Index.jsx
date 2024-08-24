@@ -26,6 +26,16 @@ import EditAboutus from "../component/settings/EditAboutUs";
 import DeliveryEmployeeTable from "../component/deliveryEmployee/DeliveryEmployeeTable";
 import OrderDetails from "../pages/Main/order/orderDetails/OrderDetails";
 import EditProfile from "../component/settings/EditProfile";
+import DetailsDeliveryEmployee from "../pages/Main/deliveryEmloyee/DetailsDeliveryEmployee";
+import AddEmployee from "../pages/Main/deliveryEmloyee/addEmployee/AddEmployee";
+import UpdateEmployee from "../pages/Main/deliveryEmloyee/updateEmployee/UpdateEmployee";
+import ShopOperation from "../pages/Main/settings/ShopOperation";
+import DiscountCoupon from "../pages/Main/settings/discountCoupon/DiscountCoupon";
+import AddCoupon from "../pages/Main/settings/discountCoupon/addCoupon/AddCoupon";
+import UpdateCoupon from "../pages/Main/settings/discountCoupon/updateCoupon/UpdateCoupon";
+import Product from "../pages/Main/product/Product";
+import Users from "../pages/Main/users/Users";
+import AdminRoutes from "./AdminRoutes";
 
 
 
@@ -33,7 +43,7 @@ import EditProfile from "../component/settings/EditProfile";
   const router = createBrowserRouter([
     {
         path: "/",
-        element: <Main />,
+        element: <AdminRoutes> <Main /></AdminRoutes>,
         children: [
             {
                 path: "/",
@@ -49,7 +59,7 @@ import EditProfile from "../component/settings/EditProfile";
             },
             {
                 path: "/users",
-                element: <UsersTable/>
+                element: <Users />
             },
             {
                 path: "/Order",
@@ -60,8 +70,8 @@ import EditProfile from "../component/settings/EditProfile";
                 element: <OrderDetails />
             },
             {
-                path: "/categories",
-                element: <Categories />
+                path: "/product",
+                element: <Product />
             },
             {
                 path: "/addProduct",
@@ -70,10 +80,22 @@ import EditProfile from "../component/settings/EditProfile";
             {
                 path: "/updateProduct/:id",
                 element: <UpdateProduct />
-            },
+        },
             {
                 path: "/deliveryEmployee",
                 element: <DeliveryEmployeeTable/>
+            },
+            {
+                path: "/addEmployee",
+                element: <AddEmployee />
+            },
+            {
+                path: "/updateEmployee",
+                element: <UpdateEmployee />
+            },
+            {
+                path: "/detialsDeliveryEmployee",
+                element: <DetailsDeliveryEmployee />
             },
             {
                 path: "/settings",
@@ -82,6 +104,23 @@ import EditProfile from "../component/settings/EditProfile";
             {
                 path: "/personalInformation",
                 element: <PersonalInformation/>
+            },
+            {
+                path: "/shopOperation",
+                element: <ShopOperation />
+            },
+            
+            {
+                path: "/discountCoupon",
+                element: <DiscountCoupon />
+            },
+            {
+                path: "/addCoupon",
+                element: <AddCoupon />
+            },
+            {
+                path: "/updateCoupon",
+                element: <UpdateCoupon />
             },
             {
                 path: "/editProfile",

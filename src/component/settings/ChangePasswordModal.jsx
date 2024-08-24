@@ -166,7 +166,7 @@ const navigate = useNavigate();
                   }}
                   htmlType="submit"
                   className=" w-[300px] 
-                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
+                   h-[56px] my-8 text-white hover:border-none border-none rounded-lg"
                 >
                 Update Password
                 </Button>

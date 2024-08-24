@@ -97,7 +97,7 @@ const Sidebar = () => {
           <MdOutlineCalendarToday size={20} />
           {!collapsed && <span className='text-[18px]'>Order</span>}
         </NavLink>
-        <NavLink to="/categories" className={({ isActive }) =>
+        <NavLink to="/product" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white '
           }`

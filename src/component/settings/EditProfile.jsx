@@ -14,12 +14,8 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
 
-  const handleEditProfile = () => {
-    navigate('/editProfile');
-  };
-
   const handleBackSettings = () => {
-    navigate('/settings');
+    navigate('/personalInformation');
   };
 
   return (
@@ -28,7 +24,7 @@ const EditProfile = () => {
       <div>
         <Button onClick={handleBackSettings} className='border-none text-[#193664]'>
           <IoIosArrowBack />
-          Personal Information
+          Edit Profile
         </Button>
       </div>
       

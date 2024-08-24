@@ -7,6 +7,7 @@ import SearchByDate from "../comnon/datePicker/SearchByDate";
 import moment from "moment";
 import DeliveryEmployeeTableModal from "./DeliveryEmployeeModal";
 import { GoPlus } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 const columns = (onActionClick) => [
   {
@@ -30,7 +31,7 @@ const columns = (onActionClick) => [
     dataIndex: "date",
   },
   {
-    title: "Action",
+    title: "Details",
     key: "action",
     render: (text, record) => (
       <MdOutlineInfo onClick={() => onActionClick(record)} />
@@ -53,13 +54,13 @@ for (let i = 0; i < 46; i++) {
 }
 
 const DeliveryEmployeeTable = () => {
+  const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filteredData, setFilteredData] = useState(originalData);
-
   const onActionClick = (record) => {
     setSelectedTransaction(record);
-    setIsModalVisible(true);
+    navigate("/detialsDeliveryEmployee", { state: { transaction: record } });
   };
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -67,34 +68,36 @@ const DeliveryEmployeeTable = () => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
-  const handleDateSearch = (date) => {
-    console.log(
-      "Selected date:",
-      date ? date.format("MM-DD-YYYY") : "No date selected"
-    );
-    if (date) {
-      const filtered = originalData.filter(
-        (item) => item.date === date.format("MM-DD-YYYY")
-      );
-      console.log("Filtered data:", filtered);
-      setFilteredData(filtered);
-    } else {
-      setFilteredData(originalData);
-    }
-  };
+  // const handleDateSearch = (date) => {
+  //   console.log(
+  //     "Selected date:",
+  //     date ? date.format("MM-DD-YYYY") : "No date selected"
+  //   );
+  //   if (date) {
+  //     const filtered = originalData.filter(
+  //       (item) => item.date === date.format("MM-DD-YYYY")
+  //     );
+  //     console.log("Filtered data:", filtered);
+  //     setFilteredData(filtered);
+  //   } else {
+  //     setFilteredData(originalData);
+  //   }
+  // };
 
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
 
-  const handleAddProduct = () => {};
+  const handleAddEmployee = () => {
+    navigate('/addEmployee')
+  };
 
   return (
     <div className="bg-[#E8EBF0] my-12 w-[79vw]">
       <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
         <Button
-          onClick={handleAddProduct}
+          onClick={handleAddEmployee}
           type="primary"
           className="flex items-center bg-[#193664]"
         >
@@ -111,7 +114,6 @@ const DeliveryEmployeeTable = () => {
           <div className=""></div>
         </div>
         <div className="justify-end p-4 gap-4 flex">
-          <SearchByDate onDateChange={handleDateSearch} />
           <SearchInput />{" "}
         </div>
       </div>

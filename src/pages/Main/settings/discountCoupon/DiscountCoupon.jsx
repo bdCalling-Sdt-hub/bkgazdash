@@ -1,9 +1,14 @@
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import ChangePersonalModal from "./ChangePasswordModal";
+// import ChangePersonalModal from "../../ChangePersonalModal";
 import { useState } from "react";
+import ChangePersonalModal from './../../../../component/settings/ChangePasswordModal';
+import { Button } from "antd";
+import { IoIosArrowBack } from "react-icons/io";
+import { GoPlus } from "react-icons/go";
 
-const SettingsHome = () => {
+
+const DiscountCoupon = () => {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -12,9 +17,6 @@ const SettingsHome = () => {
     };
     const handleShopOperation = () => {
         navigate('/shopOperation');
-    };
-    const handleDiscountCoupon = () => {
-        navigate('/discountCoupon');
     };
 
     const handleChangePassword = () => {
@@ -36,31 +38,60 @@ const SettingsHome = () => {
     const handleAboutus = () => {
         navigate('/aboutus')
     }
+    const handleBackSettings = () => {
+        navigate('/settings')
+    }
 
+    const handleAddCoupon = () => {
+    
+        navigate('/addCoupon')
+    }
+const handleUpdateCoupon = () => {
+    navigate('/updateCoupon')
+}
     return (
        <div>
-         <div onClick={handlePersonalInformation} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+  <div>
+        <Button onClick={handleBackSettings} className='border-none text-[#193664]'>
+          <IoIosArrowBack />
+       Discount Coupon
+        </Button>
+      </div>
+      <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
+        <Button
+          onClick={handleAddCoupon}
+          type="primary"
+          className="flex items-center bg-[#193664]"
+        >
+          <GoPlus className="mr-2" />
+      Add Coupon
+        </Button>
+      </div>
+
+
+
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-                Personal Information
+              Coupon 1
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
-         <div onClick={handleShopOperation} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-                Shop Operation
+            Coupon 2
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
-         <div onClick={handleDiscountCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-                Discount Coupon
+            Coupon 3
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
 
-         <div onClick={handleChangePassword} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-               Change Password
+            Coupon 4
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
          </div>
@@ -72,23 +103,23 @@ const SettingsHome = () => {
 
          {/* Other items */}
          
-         <div onClick={handleTermAndConditions} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-               Terms & Condition
+            Coupon 5
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
 
-         <div onClick={handlePrivacyPolicy} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-                Privacy Policy
+            Coupon 6
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
 
-         <div onClick={handleAboutus} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
+         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
             <p className='text-[#333333] font-bold px-6'>
-                About Us
+            Coupon 7
             </p>
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
@@ -96,4 +127,4 @@ const SettingsHome = () => {
     );
 }
 
-export default SettingsHome;
+export default DiscountCoupon;
