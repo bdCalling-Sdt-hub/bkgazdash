@@ -7,6 +7,6 @@ const SearchByDate = ({onDateChange}) =>{
     onDateChange(date)
 
   }
-  return <DatePicker onChange={handleChange} />
+  return <DatePicker onChange={handleChange}  />
 } 
 export default SearchByDate;

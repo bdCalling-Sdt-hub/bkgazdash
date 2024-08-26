@@ -1,7 +1,12 @@
 
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { usePostLoginMutation } from "../../redux/features/postLoginApi";
+
+
 const Header = () => {
+  const [setData, { isLoading, isError, status, error, data }] = usePostLoginMutation();
+  console.log(data);
 const navigation = useNavigate();
 const handleNotificaton = () => {
 navigation('/notification')

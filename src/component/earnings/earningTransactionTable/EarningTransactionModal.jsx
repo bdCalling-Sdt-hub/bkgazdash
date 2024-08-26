@@ -11,7 +11,7 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
                 { type: "text/plain" }
             );
             element.href = URL.createObjectURL(file);
-            element.download = `transaction_${selectedTransaction.taxId}.txt`;
+            element.download = `transaction_${selectedTransaction.trId}.txt`;
             document.body.appendChild(element);
             element.click();
         }
@@ -66,19 +66,19 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             {selectedTransaction && (
                 <div className='px-4' id="print-section">
                     <p className="transaction-detail">
-                        <strong>Transaction ID:</strong> {selectedTransaction.taxId}
+                        <strong>Transaction ID:</strong> {selectedTransaction.trId}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Date:</strong> {selectedTransaction.name}
+                        <strong>Date:</strong> {selectedTransaction.date}
                     </p>
                     <p className="transaction-detail">
-                        <strong>User name:</strong> {selectedTransaction.subPackage}
+                        <strong>User name:</strong> {selectedTransaction.userName}
                     </p>
                     <p className="transaction-detail">
-                        <strong>A/C number:</strong> {selectedTransaction.amount}
+                        <strong>A/C number:</strong> {selectedTransaction.acNo}
                     </p>
                     <p className="transaction-detail">
-                        <strong>A/C holder name:</strong> {selectedTransaction.amount}
+                        <strong>A/C holder name:</strong> {selectedTransaction.acName}
                     </p>
                     <p className="transaction-detail">
                         <strong>Transaction amount:</strong> {selectedTransaction.date}

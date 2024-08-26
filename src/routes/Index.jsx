@@ -44,6 +44,7 @@ import AdminRoutes from "./AdminRoutes";
     {
         path: "/",
         element: <AdminRoutes> <Main /></AdminRoutes>,
+        // element: <Main />,
         children: [
             {
                 path: "/",

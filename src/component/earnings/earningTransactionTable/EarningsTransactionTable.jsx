@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import './EarningTransaction.css';
 import { MdOutlineInfo } from "react-icons/md";
@@ -6,11 +6,13 @@ import SearchInput from '../../comnon/searchInput/SearchInput';
 import EarningTransactionModal from './EarningTransactionModal';
 import SearchByDate from '../../comnon/datePicker/SearchByDate';
 import moment from 'moment';
+import { useGetEarningRecentTransactionQuery } from '../../../redux/features/getEarningsRecentTransactionApi';
+
 
 const columns = (onActionClick) => [
   {
     title: '#Tr.Id',
-    dataIndex: 'id',
+    dataIndex: 'trId',
   },
   {
     title: 'User name',
@@ -29,6 +31,14 @@ const columns = (onActionClick) => [
     dataIndex: 'date',
   },
   {
+    title: 'A/C Number',
+    dataIndex: 'acNo',
+  },
+  {
+    title: 'A/C Name',
+    dataIndex: 'acName',
+  },
+  {
     title: 'Action',
     key: 'action',
     render: (text, record) => (
@@ -37,24 +47,45 @@ const columns = (onActionClick) => [
   },
 ];
 
-const originalData = [];
-console.log(originalData)
-for (let i = 0; i < 46; i++) {
-  originalData.push({
-    key: i,
-    id: `963222`,
-    userName: `leo jhon`,
-    payType: `kfc`,
-    amount: `$250`,
-    date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
-    address: `London, Park Lane no. ${i}`,
-  });
-}
+// const originalData = [];
+// console.log(originalData)
+// for (let i = 0; i < 46; i++) {
+//   originalData.push({
+//     key: i,
+//     id: `963222`,
+//     userName: `leo jhon`,
+//     payType: `kfc`,
+//     amount: `$250`,
+//     date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
+//     address: `London, Park Lane no. ${i}`,
+//   });
+// }
 
 const TransactionList = () => {
+  const { data, isLoading, isError, error } = useGetEarningRecentTransactionQuery();
+  console.log(data);
+  
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [filteredData, setFilteredData] = useState(originalData);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    if(data && data?.data && data?.data?.attributes?.results) {
+      const formattedData = data?.data?.attributes?.results?.map((item) => ({
+        key: item?._id,
+        trId: item?.transitionId,
+        userName: item?.userId?.fullName,
+        // acNo: item?.userId?.fullName,
+        // acName: item?.userId?.fullName,
+        payType: item?.paymentMethod,
+        amount: `$${item?.totalPrice}`, 
+        date: moment(item.createdAt).format("MM-DD-YYYY"),
+      }));
+      setFilteredData(formattedData);
+
+    }
+  }, [data])
 
   const onActionClick = (record) => {
     setSelectedTransaction(record);
@@ -67,20 +98,30 @@ const TransactionList = () => {
   };
 
   const handleDateSearch = (date) => {
-    console.log("Selected date:", date ? date.format("MM-DD-YYYY") : "No date selected");
+  
     if (date) {
-      const filtered = originalData.filter(item => item.date === date.format("MM-DD-YYYY"));
+      const filtered = filteredData.filter(item => item.date === date.format("MM-DD-YYYY"));
       console.log("Filtered data:", filtered);
       setFilteredData(filtered);
     } else {
-      setFilteredData(originalData);
+      setFilteredData(data);
     }
   };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: onSelectChange,
+    onChange: (newSelectedRowKeys) => {
+      setSelectedRowKeys(newSelectedRowKeys);
+    }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className='bg-[#E8EBF0] my-12 w-[79vw]'>

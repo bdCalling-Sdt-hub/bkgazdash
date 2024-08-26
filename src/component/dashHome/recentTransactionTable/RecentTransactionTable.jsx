@@ -3,6 +3,7 @@ import { Space, Table, Tag, Button } from "antd";
 import { MdOutlineInfo } from "react-icons/md";
 import "./RecentTransactions.css";
 import TransactionModal from "./TransactionTableModal";
+import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
 
 const columns = (onActionClick) => [
   {
@@ -79,6 +80,7 @@ const data = [
 ];
 
 const RecentTransactionsTable = () => {
+  const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
