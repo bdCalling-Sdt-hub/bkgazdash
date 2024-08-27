@@ -24,7 +24,7 @@ const DeliveryChart = () => {
 
   const formatYAxis = (tickItem) => {
     // Display the Y-axis values in the format of 0k, 2k, 4k, etc.
-    return `${tickItem / 1000}k`;
+    return `${tickItem / 1000}`;
   };
 
   const originalData = [];
@@ -53,12 +53,12 @@ const handleDateSearch = (date) => {
   }
 };
   return (
-    <div className='mt- bg-[#E8EBF0] rounded-lg'>
+    <div className=' bg-[#E8EBF0] rounded-lg '>
      <div className='flex justify-between p-2'>
      <h1 className='text-[#333333] text-[20px] font-bold'>Delivery</h1>
      <SearchByDate onDateChange={handleDateSearch}/>
      </div>
-      <div className="pt-12 w-[800px] h-[318px] mt-5 rounded-xl border-2 shadow-xl">
+      <div className="pt-8 w-full   pb-6 h-[318px] mt-5 rounded-xl border-2 shadow-xl">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             width={500}
@@ -80,7 +80,7 @@ const handleDateSearch = (date) => {
               interval={0} // Ensure that all tick values are shown
             />
             <Tooltip />
-            <Legend />
+            {/* <Legend /> */}
             <CartesianGrid strokeDasharray="3 3" />
             <Bar dataKey="pv" fill="#193664" background={{ fill: '#eee' }} />
           </BarChart>

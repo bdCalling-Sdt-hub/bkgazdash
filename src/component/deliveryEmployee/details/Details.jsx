@@ -25,7 +25,7 @@ const MyFormItem = ({ name, ...props }) => {
 
 
 const Details = () => {
-  const naviate = useNavigate()
+  const navigate = useNavigate()
   const onFinish = (value) => {
     console.log(value);
   };
@@ -40,16 +40,18 @@ const Details = () => {
   };
 
   const handleAddProduct = () => {
-    naviate('/categories')
+    navigate('/categories')
   }
-
+  const handleUpdateEmployee = () => {
+    navigate("/updateEmployee");
+  };
 
   return (
   <div className='px-12'>
-    <h1 className='border-none text-[#193664] font-bold text-2xl mt-24'>
+    <h1 className='border-none text-[#193664] font-bold text-2xl mt-8'>
      Details
     </h1>
-      <div className='xl:w-[1440px] py-24 '>
+      <div className='xl:w-[1440px]'>
       
       <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
     
@@ -75,6 +77,18 @@ const Details = () => {
           </div>
         </MyFormItemGroup>
     </Form>
+
+    <div className="flex gap-6 ">
+          <Button className="w-48 h-12 rounded-xl custom-delete-button ">
+            Delete
+          </Button>
+          <Button
+            onClick={handleUpdateEmployee}
+            className="w-48 h-12 rounded-xl custom-Edit-button"
+          >
+            Edit
+          </Button>
+        </div>
     </div>
   </div>
   );

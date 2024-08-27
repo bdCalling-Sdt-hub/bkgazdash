@@ -1,5 +1,5 @@
 import { Image } from "antd";
-import logo from "../../assets/bkgazLogo.png"; // Import the image
+import logo from "../../assets/Images/detailsDeliveryEmployProfile.jpg"; // Import the image
 import ReviewRating from "./ReviewRating";
 
 const Review = () => {
@@ -14,14 +14,14 @@ const Review = () => {
               {/* Use the imported image */}
             </div>
             <div>
-              <h1>User Name</h1>
+              <h1>Julian Frederick</h1>
               <div>
-                <ReviewRating />
+                <ReviewRating/>
               </div>
             </div>
           </div>
           <div>
-            <h1>Time</h1>
+            <h1>10:45pm</h1>
           </div>
         </div>
         <div>

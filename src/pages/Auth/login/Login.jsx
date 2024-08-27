@@ -33,8 +33,9 @@ const Login = () => {
       console.log(response);
       if (response?.data) {
         console.log(response?.data?.code == 200);
-        localStorage.setItem("token", response?.data?.data?.attributes?.token);
-        console.log("token", response?.data?.data?.attributes?.token);
+        localStorage.setItem("token", response?.data?.data?.attributes?.tokens?.accessToken);
+        localStorage.setItem("refresh_token", response?.data?.data?.attributes?.tokens?.refreshToken);
+        console.log("token", response?.data?.data?.attributes?.tokens?.accessToken);
         localStorage.setItem(
           "user-update",
           JSON.stringify(response?.data?.data?.attributes)

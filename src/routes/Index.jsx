@@ -35,7 +35,9 @@ import AddCoupon from "../pages/Main/settings/discountCoupon/addCoupon/AddCoupon
 import UpdateCoupon from "../pages/Main/settings/discountCoupon/updateCoupon/UpdateCoupon";
 import Product from "../pages/Main/product/Product";
 import Users from "../pages/Main/users/Users";
-import AdminRoutes from "./AdminRoutes";
+import Promotion from "../pages/Main/promotion/Promotion";
+import SeePost from "../pages/Main/promotion/seePost/SeePost";
+// import AdminRoutes from "./AdminRoutes";
 
 
 
@@ -43,8 +45,8 @@ import AdminRoutes from "./AdminRoutes";
   const router = createBrowserRouter([
     {
         path: "/",
-        element: <AdminRoutes> <Main /></AdminRoutes>,
-        // element: <Main />,
+        // element: <AdminRoutes> <Main /></AdminRoutes>,
+        element: <Main />,
         children: [
             {
                 path: "/",
@@ -57,6 +59,14 @@ import AdminRoutes from "./AdminRoutes";
             {
                 path: "/earnings",
                 element: <Earnings />
+            },
+            {
+                path: "/promotion",
+                element: <Promotion />
+            },
+            {
+                path: "/seePost",
+                element: <SeePost />
             },
             {
                 path: "/users",

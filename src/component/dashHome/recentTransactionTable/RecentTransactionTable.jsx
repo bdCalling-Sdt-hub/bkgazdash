@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Space, Table, Tag, Button } from "antd";
 import { MdOutlineInfo } from "react-icons/md";
 import "./RecentTransactions.css";
 import TransactionModal from "./TransactionTableModal";
-import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
+// import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
+import Loading from "../../loading/Loading";
 
 const columns = (onActionClick) => [
   {
@@ -80,14 +81,39 @@ const data = [
 ];
 
 const RecentTransactionsTable = () => {
-  const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
+  // const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
+  console.log(data?.data?.attributes);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [fomattedData, setFormattedData] = useState([]);
+  console.log("88, recent Transaction",fomattedData);
+
+  useEffect(() => {
+    if(data?.data?.attributes && Array.isArray(data?.data?.attributes)) {
+      const formatted = data?.data?.attributes.map((item) => ({
+        key: item._id,
+        trId: item?.transitionId,
+        name: item?.fullName,
+        payType: item.payType,
+        amount: `$${item.amount}`,
+        date: item.date,
+      }))
+      setFormattedData(formatted)
+    }
+  }, [data])
 
   const onActionClick = (record) => {
     setSelectedTransaction(record);
     setIsModalVisible(true);
   };
+
+  // if(isLoading) {
+  //   return <Loading />
+  // }
+
+  // if (isError) {
+  //   return <div>Error: {error.message}</div>
+  // }
 
   return (
     <div className="bg-[#E8EBF0] my-12">

@@ -56,9 +56,9 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
       className="text-center custom-modal"
     >
       {selectedTransaction && (
-        <div id="print-section">
+        <div className='px-4' id="print-section">
              <p className="transaction-detail">
-            <strong>User Name:</strong> {selectedTransaction.userName}
+            <strong>User Nam:</strong> {selectedTransaction.userName}
           </p>
              <p className="transaction-detail">
             <strong>Email:</strong> {selectedTransaction.email}

@@ -6,7 +6,7 @@ import SearchInput from '../../comnon/searchInput/SearchInput';
 import EarningTransactionModal from './EarningTransactionModal';
 import SearchByDate from '../../comnon/datePicker/SearchByDate';
 import moment from 'moment';
-import { useGetEarningRecentTransactionQuery } from '../../../redux/features/getEarningsRecentTransactionApi';
+// import { useGetEarningRecentTransactionQuery } from '../../../redux/features/getEarningsRecentTransactionApi';
 
 
 const columns = (onActionClick) => [
@@ -47,45 +47,44 @@ const columns = (onActionClick) => [
   },
 ];
 
-// const originalData = [];
-// console.log(originalData)
-// for (let i = 0; i < 46; i++) {
-//   originalData.push({
-//     key: i,
-//     id: `963222`,
-//     userName: `leo jhon`,
-//     payType: `kfc`,
-//     amount: `$250`,
-//     date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
-//     address: `London, Park Lane no. ${i}`,
-//   });
-// }
+const originalData = [];
+console.log(originalData)
+for (let i = 0; i < 46; i++) {
+  originalData.push({
+    key: i,
+    trId: `963222`,
+    userName: `leo jhon`,
+    payType: `kfc`,
+    amount: `$250`,
+    acNo: `02000055555`,
+    acName: `David`,
+    date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
+    address: `London, Park Lane no. ${i}`,
+  });
+}
 
 const TransactionList = () => {
-  const { data, isLoading, isError, error } = useGetEarningRecentTransactionQuery();
-  console.log(data);
+  // const { data, isLoading, isError, error } = useGetEarningRecentTransactionQuery();
   
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
 
-  useEffect(() => {
-    if(data && data?.data && data?.data?.attributes?.results) {
-      const formattedData = data?.data?.attributes?.results?.map((item) => ({
-        key: item?._id,
-        trId: item?.transitionId,
-        userName: item?.userId?.fullName,
-        // acNo: item?.userId?.fullName,
-        // acName: item?.userId?.fullName,
-        payType: item?.paymentMethod,
-        amount: `$${item?.totalPrice}`, 
-        date: moment(item.createdAt).format("MM-DD-YYYY"),
-      }));
-      setFilteredData(formattedData);
-
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if(data && data?.data && Array.isArray(data?.data?.attributes?.results)) {
+  //     const formattedData = data.data.attributes.results.map((item) => ({
+  //       key: item._id,
+  //       trId: item.transitionId,
+  //       userName: item.userId?.fullName,
+  //       payType: item.paymentMethod,
+  //       amount: `$${item.totalPrice}`, 
+  //       date: moment(item.createdAt).format("MM-DD-YYYY"),
+  //     }));
+  //     setFilteredData(formattedData);
+  //   } else {
+  //     setFilteredData([]);  // Default to an empty array if data is not in expected format
+  //   }
+  // }, [data]);
 
   const onActionClick = (record) => {
     setSelectedTransaction(record);
@@ -98,46 +97,43 @@ const TransactionList = () => {
   };
 
   const handleDateSearch = (date) => {
-  
     if (date) {
       const filtered = filteredData.filter(item => item.date === date.format("MM-DD-YYYY"));
-      console.log("Filtered data:", filtered);
       setFilteredData(filtered);
     } else {
-      setFilteredData(data);
+      setFilteredData(date);
     }
   };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: (newSelectedRowKeys) => {
-      setSelectedRowKeys(newSelectedRowKeys);
-    }
+    onChange: onSelectChange,
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
+  // if (isError) {
+  //   return <div>Error: {error.message}</div>;
+  // }
 
   return (
     <div className='bg-[#E8EBF0] my-12 w-[79vw]'>
       <div className='grid grid-cols-3'>
-        <div> <h1 className='p-4'>Recent Transaction</h1></div>
+        <div><h1 className='p-4'>Recent Transaction</h1></div>
         <div className='grid grid-cols-3 gap-4 py-4'>
         </div>
         <div className='flex justify-end gap-4 p-4'> 
-        <SearchByDate onDateChange={handleDateSearch} />
-          <SearchInput /> </div>
+          <SearchByDate onDateChange={handleDateSearch} />
+          <SearchInput /> 
+        </div>
       </div>
       <Table 
         className='custom-table' 
         rowSelection={rowSelection} 
         columns={columns(onActionClick)} 
-        dataSource={filteredData} 
+        dataSource={originalData} 
       />
       <EarningTransactionModal 
         isModalVisible={isModalVisible}

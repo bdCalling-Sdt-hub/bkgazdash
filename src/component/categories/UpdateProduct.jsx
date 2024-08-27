@@ -43,7 +43,7 @@ const UpdateProcuct = () => {
   };
 
   const handleAddProduct = () => {
-    naviate('/categories')
+    naviate('/product')
   }
 
 

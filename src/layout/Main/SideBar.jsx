@@ -44,7 +44,9 @@ const Sidebar = () => {
       }
     });
   };
-
+const handleBackHome = () => {
+  navigate('/')
+}
   return (
     <div className={`fixed flex-col bg-[#193664] rounded-e-3xl border-2 border-[#193664] transition-width duration-300 ${collapsed ? 'w-20' : 'xl:w-80 xl:h-[940px] 2xl:h-[screen] lg:h-[screen] lg:w-60'}`}>
       {collapsed ? <button
@@ -53,7 +55,7 @@ const Sidebar = () => {
       >
         <FiMenu size={15} />
       </button> : ""}
-      <div className="text-center py-6">
+      <div onClick={handleBackHome} className="text-center py-6">
         <img
           src={logo}
           alt="B.k logo"
@@ -71,15 +73,24 @@ const Sidebar = () => {
           <BiSolidDashboard size={20} />
           {!collapsed && <span className='text-[18px]'>Dashboard</span>}
         </NavLink>
+
         <NavLink to="/earnings" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`
         }
         >
-
           <FaMoneyBills size={20} />
           {!collapsed && <span className='text-[18px]'>Earnings</span>}
+        </NavLink>
+
+        <NavLink to="/promotion" className={({ isActive }) =>
+          `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
+            isActive ? 'bg-white text-[#193664]' : 'text-white'
+          }`
+        }>
+          <FaUserFriends size={20} />
+          {!collapsed && <span className='text-[18px]'>Promotion</span>}
         </NavLink>
         <NavLink to="/users" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${

@@ -6,12 +6,16 @@ import './AssignSelect.css'
 
 const treeData = [
   {
-    title: 'Completed',
+    title: 'Liam',
     value: '0-0',
   },
   {
-    title: 'Not Completed',
+    title: 'James',
     value: '0-1',
+  },
+  {
+    title: 'Henry',
+    value: '0-2',
   },
 ];
 const AssignSelectItem = () => {

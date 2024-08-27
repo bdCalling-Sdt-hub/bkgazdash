@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import './OrderTable.css';
-import { MdOutlineInfo } from "react-icons/md";
 import SearchByDate from '../../component/comnon/datePicker/SearchByDate';
 import moment from 'moment';
 import SearchInput_UserName from './searchInput_userName/SearchInput_userName';
 import SearchInput_itemName from './searchInput_itemName/SearchInput_itemName';
-
 import { useNavigate } from 'react-router-dom';
 import PaymentStatusSelectItem from '../comnon/selectIem/PaymentStatusSelecttem';
 import AssignSelectItem from '../comnon/selectIem/assignSelectItem/AssignSelectItem';
+import { jsPDF } from "jspdf";
 
-const columns = (onActionClick, onPaymentTypeChange) => [
+const columns = (onActionClick, onPaymentTypeChange, handleDownload) => [
     {
         title: 'Package Item',
         dataIndex: 'package',
@@ -25,8 +24,8 @@ const columns = (onActionClick, onPaymentTypeChange) => [
         dataIndex: 'paymentType',
         render: (text, record) => (
             <PaymentStatusSelectItem
-                defaultValue={record.paymentType} 
-                onChange={(value) => onPaymentTypeChange(record.key, value)} 
+                defaultValue={record.paymentType}
+                onChange={(value) => onPaymentTypeChange(record.key, value)}
             />
         ),
     },
@@ -40,12 +39,27 @@ const columns = (onActionClick, onPaymentTypeChange) => [
     },
     {
         title: 'Assign',
-        key: 'action',
+        key: 'assign',
         render: (text, record) => (
            <AssignSelectItem 
            defaultValue={record.paymentType}
            onChange={(value) => onPaymentTypeChange(record.ke, value)}
             />
+        ),
+    },
+    {
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+            <div className="flex space-x-2">
+                <Button
+                    type="default"
+                    onClick={() => handleDownload(record)}
+                    style={{ border: '1px solid #000', color: '#000' }}
+                >
+                    Download
+                </Button>
+            </div>
         ),
     },
 ];
@@ -58,7 +72,7 @@ for (let i = 0; i < 1; i++) {
         package: `36 kg(1)`,
         orderId: `#GAZ-06-001`,
         paymentType: `cash`,  // Default value that can be changed
-        date_time: `10/12/2024 8pm`,
+        date_time: `2715 Ash Dr. San `,
         status: `complete`,
         userName: `leo jhon`,
         email: `abc@gmail.com`,
@@ -86,6 +100,79 @@ const OrderDetailTable = () => {
         );
     };
 
+    const handleDownload = (record) => {
+        const doc = new jsPDF();
+        
+        const padding = 20;  // Define padding value
+    
+        // Set up content with styling
+        doc.setFontSize(22);
+        doc.setTextColor(40);
+        doc.text("Order Details", 105, padding, null, null, "center");
+    
+        // Add padding for the line below the title
+        doc.setDrawColor(0, 0, 0);
+        doc.line(padding, padding + 5, 210 - padding, padding + 5);
+    
+        doc.setFontSize(16);
+        doc.setTextColor(0);
+        doc.text(`Order ID:`, padding, padding + 15);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.orderId}`, padding + 50, padding + 15);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Package Item:`, padding, padding + 25);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.package}`, padding + 50, padding + 25);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Payment Status:`, padding, padding + 35);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.paymentType}`, padding + 50, padding + 35);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Location & Date:`, padding, padding + 45);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.date_time}`, padding + 50, padding + 45);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Order Status:`, padding, padding + 55);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.status}`, padding + 50, padding + 55);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`User Name:`, padding, padding + 65);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.userName}`, padding + 50, padding + 65);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Email:`, padding, padding + 75);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.email}`, padding + 50, padding + 75);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Phone Number:`, padding, padding + 85);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.phoneNumber}`, padding + 50, padding + 85);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Amount:`, padding, padding + 95);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.amount}`, padding + 50, padding + 95);
+    
+        doc.setFont("helvetica", "normal");
+        doc.text(`Address:`, padding, padding + 105);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${record.address}`, padding + 50, padding + 105);
+    
+        // Optional: Add a footer
+        doc.setFontSize(12);
+        doc.text("Thank you for your order!", 105, 280, null, null, "center");
+    
+        // Save the PDF with the order ID as the file name
+        doc.save(`${record.orderId}.pdf`);
+    };
+    
     const handleDateSearch = (date) => {
         if (date) {
             const filtered = originalData.filter(item => item.date_time === date.format("MM-DD-YYYY"));
@@ -110,7 +197,7 @@ const OrderDetailTable = () => {
             </div>
             <Table
                 className='custom-table'
-                columns={columns(onActionClick, onPaymentTypeChange)}  // Pass the onPaymentTypeChange handler
+                columns={columns(onActionClick, onPaymentTypeChange, handleDownload)}  // Pass the handleDownload function
                 dataSource={filteredData}
                 pagination={false}
             />

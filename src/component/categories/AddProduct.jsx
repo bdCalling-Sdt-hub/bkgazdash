@@ -40,7 +40,7 @@ const AddProduct = () => {
   };
 
   const handleAddProduct = () => {
-    naviate('/categories')
+    naviate('/product')
   }
 
 

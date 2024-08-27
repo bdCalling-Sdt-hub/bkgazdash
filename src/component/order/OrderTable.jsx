@@ -42,7 +42,7 @@ const columns = (onActionClick) => [
 ];
 
 const originalData = [];
-console.log(originalData)
+console.log(originalData)       
 for (let i = 0; i < 46; i++) {
     originalData.push({
         key: i,
