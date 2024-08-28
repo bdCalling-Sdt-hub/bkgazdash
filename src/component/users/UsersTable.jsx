@@ -1,11 +1,11 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import { Table } from 'antd';
 import './UsersTable.css';
 import { MdOutlineInfo } from "react-icons/md";
-import SearchInput from '../comnon/searchInput/SearchInput';
 import EarningTransactionModal from './UsersTransactionModal';
-import SearchByDate from '../../component/comnon/datePicker/SearchByDate';
 import moment from 'moment';
+import UserSearchInput from './searchInput/UserSearchInput';
+import UserSearchByDate from './userSearchByDate/UserSearchByDate';
 
 const columns = (onActionClick) => [
   {
@@ -21,7 +21,7 @@ const columns = (onActionClick) => [
     dataIndex: 'email',
   },
   {
-    title: 'Phome Number',
+    title: 'Phone Number',
     dataIndex: 'phoneNumber',
   },
   {
@@ -38,7 +38,6 @@ const columns = (onActionClick) => [
 ];
 
 const originalData = [];
-console.log(originalData)
 for (let i = 0; i < 46; i++) {
   originalData.push({
     key: i,
@@ -69,10 +68,8 @@ const UsersTable = () => {
   };
 
   const handleDateSearch = (date) => {
-    console.log("Selected date:", date ? date.format("MM-DD-YYYY") : "No date selected");
     if (date) {
       const filtered = originalData.filter(item => item.date === date.format("MM-DD-YYYY"));
-      console.log("Filtered data:", filtered);
       setFilteredData(filtered);
     } else {
       setFilteredData(originalData);
@@ -87,20 +84,35 @@ const UsersTable = () => {
   return (
     <div className='bg-[#E8EBF0] my-12 w-[79vw]'>
       <div className='grid grid-cols-3'>
-        <div> <h1 className='p-4'>Users List</h1></div>
+        <div><h1 className='p-4'>Users List</h1></div>
         <div className='grid grid-cols-3 gap-4 py-4'>
-           </div>
-        <div className='justify-end p-4 flex gap-4'> 
-        <SearchByDate onDateChange={handleDateSearch} />
-          <SearchInput /> </div>
+        </div>
+        <div className='justify-end p-4 flex'>
+          <UserSearchByDate onDateChange={handleDateSearch} />
+          <UserSearchInput />
+        </div>
       </div>
-      <Table 
-        className='custom-table' 
-        rowSelection={rowSelection} 
-        columns={columns(onActionClick)} 
-        dataSource={filteredData} 
+      <Table
+        className='custom-table'
+        columns={columns(onActionClick)}
+        dataSource={filteredData}
+        pagination={{
+          total: filteredData.length,
+          showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+          defaultPageSize: 10,
+          showSizeChanger: false,
+          itemRender: (current, type, originalElement) => {
+            if (type === 'prev') {
+              return <a>Back</a>;
+            }
+            if (type === 'next') {
+              return <a>Next</a>;
+            }
+            return originalElement;
+          },
+        }}
       />
-      <EarningTransactionModal 
+      <EarningTransactionModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         setSelectedTransaction={setSelectedTransaction}

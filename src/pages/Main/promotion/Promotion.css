@@ -4,3 +4,10 @@
     height: 300px !important;
    
 }
+.no-padding-textarea .ant-input {
+    padding: 0 !important;  /* Remove padding */
+  }
+
+  .ant-input {
+    padding: 0;
+  }

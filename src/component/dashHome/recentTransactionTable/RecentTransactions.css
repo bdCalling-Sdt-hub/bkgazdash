@@ -1,10 +1,32 @@
 .custom-table .ant-table-thead > tr > th {
-    background-color: #193664 !important;
-    color: white !important; /* Optional: Change text color for better contrast */
+  
+    border: none !important;
+    border-left: none;
+   
+  }
+.custom-table .ant-table-thead {
+   
+    border: none !important;
+    border-left: none;
+   
+  }
+.custom-table .ant-table-thead > tr > th .ant-table-cell {
+  
+    border: none !important;
+    border-left: none;
+    
+  }
+.custom-table .ant-table-thead > tr > th::before {
+      border: none !important;
+    border-left: none;
+    
   }
 
  
-
+.custom-table .ant-table-cell {
+  border: none !important;
+  border-left: none;
+}
   .custom-modal .ant-modal-title {
     text-align: center;
     font-weight: bold; 
@@ -13,7 +35,7 @@
   
 .custom-table .ant-table-row {
     background-color: #E8EBF0!important;
-    color: black !important; /* Optional: Change text color for better contrast */
+    color: black !important; 
   }
   
   .custom-modal .ant-modal-content {
@@ -22,27 +44,37 @@
   }
 
   .custom-modal .ant-modal-close {
-    background-color: #FF6347; /* Replace with your desired color */
+    background-color: #FF6347; 
    
-    color: white; /* Change the color of the 'x' */
+    color: white; 
   }
   
   .custom-modal .ant-modal-close:hover {
-    background-color: #FF4500; Optional: Hover effect
+    background-color: #FF4500; 
   }
 
   
 .transaction-detail {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px; /* Optional: Add space between paragraphs */
+  margin-bottom: 10px; 
   padding: 10px;
-  border: 1px solid #ccc; /* Add border */
-  border-radius: 5px; /* Optional: Add rounded corners */
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
   border-color: #B8C1CF;
 }
 
 .transaction-detail strong {
-  margin-right: 10px; /* Optional: Adjust the value if needed */
+  margin-right: 10px; 
 }
 
+.custom-modal .download-button {
+  background-color: white;
+  color: #193664;
+  border: 2px solid #193664 !important; /* Ensure the border is applied */
+  border-radius: 15px;
+  width: 200px;
+  height: 44px;
+  font-weight: bold;
+  text-align: center;
+}

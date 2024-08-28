@@ -1,5 +1,5 @@
 .custom-table .ant-table-thead > tr > th {
-    background-color: #193664 !important;
+    /* background-color: #193664 !important; */
     color: white !important; /* Optional: Change text color for better contrast */
   }
   
@@ -10,3 +10,61 @@
   
   
 
+
+  /* pagination part */
+  /* UsersTable.css */
+
+/* Style the pagination container */
+.custom-table .ant-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style the individual page numbers */
+.custom-table .ant-pagination-item {
+  background-color: #ffffff; /* White background */
+  border: 1px solid #193664; /* Dark blue border */
+  border-radius: 4px; /* Rounded corners */
+  color: #193664; /* Dark blue text */
+  margin: 0 4px; /* Spacing between items */
+}
+
+/* Style the active page number */
+.custom-table .ant-pagination-item-active {
+  background-color: #193664; /* Dark blue background */
+  color: #ffffff; /* White text */
+  border: none; /* Remove border */
+}
+
+/* Style the previous and next buttons */
+.custom-table .ant-pagination-prev, 
+.custom-table .ant-pagination-next {
+  background-color: #193664; /* Dark blue background */
+  border: none; /* Remove border */
+  color: #ffffff; /* White text */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Add hover effect for pagination items */
+.custom-table .ant-pagination-item:hover, 
+.custom-table .ant-pagination-prev:hover, 
+.custom-table .ant-pagination-next:hover {
+  background-color: #0a2746; /* Slightly darker blue on hover */
+  color: #ffffff; /* Ensure text remains white on hover */
+}
+
+/* Ensure no left and right border overlap on adjacent items */
+.custom-table .ant-pagination-item + .ant-pagination-item {
+  border-left: none;
+}
+
+/* Adjust the size of the pagination controls */
+.custom-table .ant-pagination-item,
+.custom-table .ant-pagination-prev, 
+.custom-table .ant-pagination-next {
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  text-align: center;
+}

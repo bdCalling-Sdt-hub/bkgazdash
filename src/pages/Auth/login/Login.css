@@ -1,9 +1,16 @@
-/* styles.css */
 .custom-checkbox .ant-checkbox-inner {
-    @apply bg-gray-200 border-gray-400; /* Apply Tailwind classes for default state */
-  }
-  
-  .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
-    @apply bg-[#1397D5] border-[#1397D5]; /* Apply Tailwind classes for checked state */
-  }
-  
+  @apply bg-gray-200 border-gray-400; /* Apply Tailwind classes for default state */
+}
+
+.custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+  @apply bg-[#1397D5] border-[#1397D5]; /* Apply Tailwind classes for checked state */
+}
+
+.ant-input-affix-wrapper .ant-input-suffix {
+  color: red !important;
+}
+
+.ant-input-affix-wrapper .ant-input-suffix .anticon-eye,
+.ant-input-affix-wrapper .ant-input-suffix .anticon-eye-invisible {
+  color: #1397D5 !important; /* Change to your desired color */
+}

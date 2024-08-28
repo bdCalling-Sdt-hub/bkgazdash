@@ -1,0 +1,25 @@
+.year-picker.ant-picker {
+    background-color: transparent !important; /* Make the picker background transparent */
+    border: none !important; /* Remove any borders */
+    box-shadow: none !important; /* Remove any shadows */
+    width: 75px !important; /* Set specific width */
+}
+
+.year-picker.ant-picker .ant-picker-input > input {
+    font-size: 14px !important; /* Adjust font size */
+    color: #2e2e2e !important; /* Ensure the input text color */
+    font-weight: bold;
+    background-color: transparent !important; /* Ensure input background is transparent */
+    border: none !important; /* Ensure no border on the input itself */
+}
+
+.year-picker.ant-picker .ant-picker-suffix {
+    color: #2e2e2e !important; /* Customize the color of the suffix icon */
+}
+
+.year-picker.ant-picker.ant-picker-focused,
+.year-picker.ant-picker:hover,
+.year-picker.ant-picker:active {
+    border-color: transparent !important; /* Ensure no border appears in different states */
+    box-shadow: none !important; /* Ensure no shadow appears in different states */
+}

@@ -38,12 +38,18 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             visible={isModalVisible}
             onCancel={handleCancel}
             footer={
-               <div style={{display:"flex", justifyContent: 'center', gap: "20px", padding: "20px" }}>
+               <div style={{display:"flex", justifyContent: 'center', gap: "10px", padding: "20px" }}>
                  <Button
+                  className="download-button"
                  style={{
-                    backgroundColor: '#193664', 
-                    color: 'white', 
-                    borderRadius: '8px', 
+                    backgroundColor: 'transparent', 
+                    color: '#193664', 
+                    borderRadius: '15px', 
+                    width: "200px",
+                    height: "44px",
+                    fontWeight: "bold",
+                    border: "2px solid #193664",
+                    
                     
                 }}
                  key="download" onClick={handleDownload}>
@@ -54,6 +60,8 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
                     backgroundColor: '#193664', 
                     color: 'white', 
                     borderRadius: '15px', 
+                    width: "200px",
+                    height: "44px"
                    
                 }}
                 key="print" onClick={handlePrint}>

@@ -8,7 +8,7 @@ import Loading from "../../loading/Loading";
 
 const columns = (onActionClick) => [
   {
-    title: "#TrId",
+    title: "#Tr.Id",
     dataIndex: "TrId",
     key: "TrId",
     render: (number) => <a>{number}</a>,
@@ -122,6 +122,7 @@ const RecentTransactionsTable = () => {
         className="custom-table"
         columns={columns(onActionClick)}
         dataSource={data}
+        pagination={false}
         style={{
           "--antd-table-header-bg": "red", 
         }}

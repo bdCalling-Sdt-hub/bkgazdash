@@ -4,8 +4,9 @@ import './EarningTransaction.css';
 import { MdOutlineInfo } from "react-icons/md";
 import SearchInput from '../../comnon/searchInput/SearchInput';
 import EarningTransactionModal from './EarningTransactionModal';
-import SearchByDate from '../../comnon/datePicker/SearchByDate';
+
 import moment from 'moment';
+import EarningSearchByDate from '../earningSearchByDate/EarningSearchByDate';
 // import { useGetEarningRecentTransactionQuery } from '../../../redux/features/getEarningsRecentTransactionApi';
 
 
@@ -125,15 +126,35 @@ const TransactionList = () => {
         <div className='grid grid-cols-3 gap-4 py-4'>
         </div>
         <div className='flex justify-end gap-4 p-4'> 
-          <SearchByDate onDateChange={handleDateSearch} />
+          <EarningSearchByDate onDateChange={handleDateSearch} />
           <SearchInput /> 
         </div>
       </div>
-      <Table 
+      {/* <Table 
         className='custom-table' 
         rowSelection={rowSelection} 
         columns={columns(onActionClick)} 
         dataSource={originalData} 
+      /> */}
+      <Table
+        className='custom-table'
+        columns={columns(onActionClick)}
+        dataSource={originalData}
+        pagination={{
+          total: filteredData.length,
+          showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+          defaultPageSize: 10,
+          showSizeChanger: false,
+          itemRender: (current, type, originalElement) => {
+            if (type === 'prev') {
+              return <a>Back</a>;
+            }
+            if (type === 'next') {
+              return <a>Next</a>;
+            }
+            return originalElement;
+          },
+        }}
       />
       <EarningTransactionModal 
         isModalVisible={isModalVisible}

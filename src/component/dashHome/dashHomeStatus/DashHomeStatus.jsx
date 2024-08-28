@@ -30,7 +30,7 @@ const DashHomeStatus = () => {
         <div>
           <p className="text-black font-bold">Total Earnings</p>
           <h1 className="text-secondary text-[44px]">
-            ${data?.data?.attributes?.totalEarnings || 0}
+            ${data?.data?.attributes?.totalEarnings || 24.88}
           </h1>
         </div>
       </div>
@@ -38,7 +38,7 @@ const DashHomeStatus = () => {
         <div>
           <p className="text-black font-bold">Total Users</p>
           <h1 className="text-secondary text-[44px]">
-            ${data?.data?.attributes?.totalUser || 0}
+            ${data?.data?.attributes?.totalUser || 6500}
           </h1>
         </div>
       </div>
@@ -46,7 +46,7 @@ const DashHomeStatus = () => {
         <div>
           <p className="text-black font-bold">Total Delivery</p>
           <h1 className="text-secondary text-[44px]">
-            ${data?.data?.attributes?.totalDelivery || 0}
+            ${data?.data?.attributes?.totalDelivery || 740}
           </h1>
         </div>
       </div>
