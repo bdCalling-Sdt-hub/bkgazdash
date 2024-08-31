@@ -2,11 +2,12 @@ import { Button, Image } from "antd";
 import { GoPlus } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import OpenCloseSlectItem from "./OpenCloseSlectItem";
+import styles from './Products.module.css';
 
 // Correctly import the image
 import slinderImg from "../../assets/Images/slinderImg.png";
 
-const Categories = () => {
+const Products = () => {
   const navigate = useNavigate();
 
   // Use the correct image path here
@@ -50,7 +51,7 @@ const Categories = () => {
     <div>
       <div className="flex justify-between 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw] py-6">
         <OpenCloseSlectItem />
-        <Button onClick={handleAddProduct} type="primary" className="flex items-center bg-[#193664]">
+        <Button onClick={handleAddProduct} type="primary" className="flex items-center w-[206px] h-[56px] rounded-md  bg-[#193664]">
           <GoPlus className="mr-2" />
           Add Product
         </Button>
@@ -70,9 +71,9 @@ const Categories = () => {
                 <p>Rating: {product.rating}</p>
               </div>
             </div>
-            <div className="flex space-x-4 py-6">
-              <Button>Delete</Button>
-              <Button onClick={() => handleUpdate(product.id)} className="bg-[#193664] text-white">Edit</Button>
+            <div className="flex space-x-4 justify-center py-6">
+              <Button className={styles.customBtn}>Delete</Button>
+              <Button className={styles.customBtn1}  onClick={() => handleUpdate(product.id)} >Edit</Button>
             </div>
           </div>
         ))}
@@ -81,4 +82,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Products;

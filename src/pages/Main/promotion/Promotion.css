@@ -1,7 +1,7 @@
 
 .ant-upload .ant-upload-select {
     /* width: 800px !important; */
-    height: 300px !important;
+    height: 290px !important;
    
 }
 .no-padding-textarea .ant-input {
@@ -11,3 +11,16 @@
   .ant-input {
     padding: 0;
   }
+
+
+  .custom-delete-button {
+    border: 2px solid red;
+    color: #193664;
+    background-color: transparent;
+  }
+  
+  .custom-delete-button:hover {
+    background-color: red;
+    color: white;
+  }
+  

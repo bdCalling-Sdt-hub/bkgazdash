@@ -1,0 +1,17 @@
+.customBtn {
+    background-color: #E8EBF0 !important;
+    border: 1px solid #193664 !important;
+    width: 56px !important;
+    height: 20px !important;
+    padding: 10px !important;
+    border-radius: 4px !important;
+}
+.customBtn1 {
+    background-color: #193664 !important;
+    color: white;
+    border: 1px solid #193664 !important;
+    width: 56px !important;
+    height: 20px !important;
+    padding: 10px !important;
+    border-radius: 4px !important;
+}

@@ -24,6 +24,9 @@ const OpenCloseSlectItem = () => {
       className='custom-component'
         style={{
           width: '10%',
+          // height: '56px',
+          // backgroundColor: '#E8EBF0',
+          // borderRadius: '16px',
         }}
         value={value}
         dropdownStyle={{

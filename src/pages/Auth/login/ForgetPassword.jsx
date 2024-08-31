@@ -121,6 +121,7 @@ const ForgetPassword = () => {
                     border: "2px solid #1397D5",
                     borderRadius: "16px",
                     height: "52px",
+                    paddingLeft: '16px',
                     background: "#ffffff",
                     outline: "none",
                     marginBottom: "10px",

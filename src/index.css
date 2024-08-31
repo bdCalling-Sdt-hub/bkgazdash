@@ -213,3 +213,88 @@ body {
 .jodit-workplace {
   height: 400px !important;
 }
+
+
+ /* css of ant design table style   */
+.ant-table-wrapper table {
+  background-color: #e9f4f3;
+  border-radius: 0;
+}
+:where(.css-dev-only-do-not-override-d2lrxs).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-d2lrxs).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td {
+  background: #1f8d84;
+  color: white;
+  /* text-align: center; */
+  padding-left: 50px !important;
+}
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:first-child {
+  border-start-start-radius: 0px;
+  padding-left: 24px;
+}
+.ant-table-wrapper .ant-table-tbody > tr:first-child > *:first-child {
+  /* padding-left: 24px; */
+}
+
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:last-child {
+  border-start-end-radius: 0;
+  text-align: start;
+}
+
+
+/* data roe */
+.ant-table-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 0;
+  padding-left: 50px;
+}
+.ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th:not(:last-child):not(.ant-table-selection-column):not(
+    .ant-table-row-expand-icon-cell
+  ):not([colspan])::before,
+:where(.css-dev-only-do-not-override-1pg9a38).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td:not(:last-child):not(.ant-table-selection-column):not(
+    .ant-table-row-expand-icon-cell
+  ):not([colspan])::before {
+  width: 0;
+  height: 0;
+  content: "";
+}
+
+.ant-table-wrapper .ant-table-container table > tbody > tr > *:last-child {
+  text-align: start;
+}
+.ant-table-wrapper .ant-table-container table > tbody > tr {
+  color: #4e4e4e;
+}
+
+
+
+
+.ant-upload {
+  background-color: transparent !important;
+  /* align-items: center;
+  justify-content: center; */
+  /* display: flex; */
+  /* width: 0px !important; */
+  /* border-radius: 'none !important'; */
+
+}

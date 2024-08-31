@@ -4,7 +4,6 @@ import { FaCamera } from "react-icons/fa";
 import './AddProduct.css'
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 const MyFormItemContext = React.createContext([]);
 function toArr(str) {
   return Array.isArray(str) ? str : [str];
@@ -25,10 +24,8 @@ const MyFormItem = ({ name, ...props }) => {
 
 
 
-const UpdateProcuct = () => {
-  const naviate = useNavigate();
-  const [form] = Form.useForm();
-  // const selectedProduct = useSelector((state) => state.product.selectedProduct);
+const AddProduct = () => {
+  const naviate = useNavigate()
   const onFinish = (value) => {
     console.log(value);
   };
@@ -49,31 +46,31 @@ const UpdateProcuct = () => {
 
   return (
   <div>
-    <Button onClick={handleAddProduct} className='border-none text-[#193664]'>
+    <div onClick={handleAddProduct} className='border-none text-[#193664] flex gap-2 items-center cursor-pointer'>
       <IoIosArrowBack />
       Add Product
-    </Button>
+    </div>
       <div className='xl:w-[1440px] items-center justify-center py-24 flex'>
       
       <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
     
         <MyFormItemGroup prefix={['name']}>
-          <div className='flex space-x-14'>
+          <div className='flex space-x-6'>
           <MyFormItem name="productName" label="Product Name">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
           </MyFormItem>
           <MyFormItem name="price" label="Price">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
           </MyFormItem>
           </div>
         </MyFormItemGroup>
         <MyFormItemGroup prefix={['name']}>
-          <div className='flex space-x-14'>
+          <div className='flex space-x-6'>
           <MyFormItem name="categoryName" label="Category Name">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
           </MyFormItem>
           <MyFormItem name="loyalityPrice" label="Loyality Price">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
           </MyFormItem>
           
           </div>
@@ -82,10 +79,10 @@ const UpdateProcuct = () => {
      <MyFormItemGroup>
       
      <MyFormItem name="description" label="Description">
-        <Input size='large' style={{ width: '', borderColor: "#193664" }}/>
+        <Input size='large' style={{ width: '1026px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
         </MyFormItem>
      <MyFormItem name="loyalityGift" label="Loyality Gift">
-        <Input size='large' style={{ width: '', borderColor: "#193664" }}/>
+        <Input size='large' style={{ width: '1026px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
         </MyFormItem>
      </MyFormItemGroup>
 
@@ -117,7 +114,7 @@ const UpdateProcuct = () => {
 
       <div className='update-button border-t-2 border-[#193664] py-4'>
       <Button className='w-[860px] h-14 bg-[#193664] text-white font-bold'  htmlType="submit">
-     Update Product
+      AddProduct
       </Button>
       </div>
     </Form>
@@ -128,4 +125,4 @@ const UpdateProcuct = () => {
 }
 
 
-export default UpdateProcuct;
+export default AddProduct;

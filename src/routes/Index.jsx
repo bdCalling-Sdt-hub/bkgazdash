@@ -12,9 +12,9 @@ import VerifyEmail from "../pages/Auth/login/VerifyEmail";
 import ResetPassword from "../pages/Auth/login/ResetPassword";
 import UsersTable from "../component/users/UsersTable";
 import OrderTable from "../component/order/OrderTable";
-import Categories from "../component/categories/Categories";
-import AddProduct from "../component/categories/AddProduct";
-import UpdateProduct from "../component/categories/UpdateProduct";
+import Categories from "../component/product/Products";
+import AddProduct from "../component/product/AddProduct";
+import UpdateProduct from "../component/product/UpdateProduct";
 import SettingsHome from "../component/settings/SettingsHome";
 import PersonalInformation from "../component/settings/PersonalInformation";
 import TermsAndConditions from "../component/settings/TermsAndConditions";
@@ -86,7 +86,7 @@ import SeePost from "../pages/Main/promotion/seePost/SeePost";
             },
             {
                 path: "/addProduct",
-                element: <AddProduct />
+                element: <AddProduct/>
             },
             {
                 path: "/updateProduct/:id",

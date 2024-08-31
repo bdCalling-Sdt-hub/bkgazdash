@@ -1,0 +1,11 @@
+.orderCustomDatePicker {
+    border-radius: 86px; /* Customize this value as needed */
+  border: 1px solid #d9d9d9; /* Optional: Customize the border color */
+  overflow: hidden; /* Ensures the radius applies correctly */
+  width: 164px;
+  height: 36px;
+  padding: 4px 16px;
+  align-items: center;
+  /* margin-top: 2.5px; */
+  }
+  

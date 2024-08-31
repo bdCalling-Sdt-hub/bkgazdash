@@ -1,10 +1,14 @@
-import Categories from "../../../component/categories/Categories";
+// import Categories from "../../../component/product/Categories";
+
+import Products from "../../../component/product/Products";
+
+
 
 
 const Product = () => {
     return (
         <div>
-            <Categories />
+            <Products />
         </div>
     );
 };

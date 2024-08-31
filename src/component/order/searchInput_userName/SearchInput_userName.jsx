@@ -20,9 +20,9 @@ const SearchInput_UserName = () => (
     <Search
       placeholder="User Name"
       onSearch={onSearch}
-      className='custom-search-input_user custom-search-icon'
+      className='custom-search-input_user custom-search-icon custom-search-input'
       style={{
-        width: 200,
+        // width: 200,
         backgroundColor: "",
         activeBg: "red"
       }}

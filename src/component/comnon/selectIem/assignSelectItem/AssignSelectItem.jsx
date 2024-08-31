@@ -29,7 +29,10 @@ const AssignSelectItem = () => {
       <TreeSelect
       className='custom-component'
         style={{
-          width: '100%',
+          width: '80%',
+          height: "38px",
+          border: "1px solid #193664",
+          borderRadius: "20px"
         }}
         value={value}
         dropdownStyle={{

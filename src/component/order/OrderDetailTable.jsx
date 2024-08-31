@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Table, Button } from 'antd';
-import './OrderTable.css';
+import styles from  './OrderTable.module.css';
 import SearchByDate from '../../component/comnon/datePicker/SearchByDate';
 import moment from 'moment';
 import SearchInput_UserName from './searchInput_userName/SearchInput_userName';
@@ -36,12 +36,19 @@ const columns = (onActionClick, onPaymentTypeChange, handleDownload) => [
     {
         title: 'Order Status',
         dataIndex: 'status',
+        render: (text, record) => (
+            <span className={record.status === 'complete' ? styles.completeStatus : ''}>
+                {record.status}
+            </span>
+        ),
+        
     },
     {
         title: 'Assign',
         key: 'assign',
         render: (text, record) => (
            <AssignSelectItem 
+            className="bordered-select"
            defaultValue={record.paymentType}
            onChange={(value) => onPaymentTypeChange(record.ke, value)}
             />
@@ -53,9 +60,10 @@ const columns = (onActionClick, onPaymentTypeChange, handleDownload) => [
         render: (text, record) => (
             <div className="flex space-x-2">
                 <Button
+                className={styles.customBtn} 
                     type="default"
                     onClick={() => handleDownload(record)}
-                    style={{ border: '1px solid #000', color: '#000' }}
+                    
                 >
                     Download
                 </Button>
@@ -189,11 +197,11 @@ const OrderDetailTable = () => {
                 <div className='grid grid-cols-3 gap-4 py-4'>
                     {/* Add other filters or components here if needed */}
                 </div>
-                <div className='justify-end space-x-4 p-4 flex'>
+                {/* <div className='justify-end space-x-4 p-4 flex'>
                     <SearchByDate onDateChange={handleDateSearch} />
                     <SearchInput_UserName />
                     <SearchInput_itemName />
-                </div>
+                </div> */}
             </div>
             <Table
                 className='custom-table'

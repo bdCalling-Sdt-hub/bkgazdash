@@ -1,6 +1,6 @@
 
 import { DatePicker} from 'antd';
-import './UserSearchDatePicker.css'
+import styles from './UserSearchDatePicker.module.css'
 
 const UserSearchByDate = ({onDateChange}) =>{
   const handleChange = (date) => {
@@ -9,7 +9,7 @@ const UserSearchByDate = ({onDateChange}) =>{
 
   }
   return <DatePicker placeholder='Date' onChange={handleChange}
-  className="custom-datepicker" // Apply the custom class
+  className={styles.userDatepicker} // Apply the custom class
   />
 } 
 export default UserSearchByDate;

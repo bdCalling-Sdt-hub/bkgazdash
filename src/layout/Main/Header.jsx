@@ -17,11 +17,13 @@ const Header = () => {
     navigation('/personalInformation')
   }
   return (
-    <div className="fixed mt-0 z-50 h-[78px] w-[79vw] px-[24px] bg-[#E8EBF0] text-black rounded-lg">
+  <div className="fixed w-[79vw] bg-white text-black z-50  h-28 mb-4">
+      <div className="w-full px-[24px] bg-[rgb(232,235,240)] text-black rounded-lg  h-24">
+      
       <div className="flex justify-between">
         <div className="w-8/12 p-2 rounded-md">
           <h1 className="text-xl font-bold">Welcome Anny</h1>
-          <p>Have a nice day</p>
+        <p>Have a nice day</p>
         </div>
         <div className="flex space-x-6 justify-end w-4/12">
           <div className="text-2xl py-4">
@@ -40,6 +42,8 @@ const Header = () => {
         </div>
       </div>
     </div>
+   
+  </div>
   );
 };
 

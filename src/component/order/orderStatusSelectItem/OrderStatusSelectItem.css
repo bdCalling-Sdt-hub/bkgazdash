@@ -1,0 +1,20 @@
+/* OrderStatusSelectItem.css */
+.custom-component .ant-select-selector {
+    background-color: white !important;
+    border: none !important; /* Remove the border */
+    border-radius: 20px !important;
+    height: 10px !important;
+    padding: 18px !important;
+ 
+  }
+  
+  .custom-component .ant-select-arrow {
+    color: #193664; /* Change the color of the dropdown icon */
+  }
+  
+  .custom-component .ant-select-tree {
+    min-width: 200px; /* Set a minimum width for the dropdown */
+  }
+
+
+  

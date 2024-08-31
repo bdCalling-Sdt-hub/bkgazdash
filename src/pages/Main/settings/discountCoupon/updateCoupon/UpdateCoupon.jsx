@@ -45,31 +45,31 @@ const UpdateCoupon = () => {
 
   return (
   <div>
-    <Button onClick={handleEmployee} className='border-none text-[#193664]'>
+    <div onClick={handleEmployee} className='flex gap-2 items-center cursor-pointer border-none text-[#193664]'>
       <IoIosArrowBack />
 Coupon
-    </Button>
+    </div>
       <div className='xl:w-[1440px] items-center justify-center py-24 flex'>
       
       <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
     
         <MyFormItemGroup prefix={['name']}>
-          <div className='flex space-x-14'>
+          <div className='flex space-x-4'>
           <MyFormItem name="companyName" label="Company Name">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
           <MyFormItem name="disCount" label="Discount">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
           </div>
         </MyFormItemGroup>
         <MyFormItemGroup prefix={['name']}>
-          <div className='flex space-x-14'>
+          <div className='flex space-x-4'>
           <MyFormItem name="startDate" label="Start Date">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
           <MyFormItem name="endDate" label="End Date">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
         
           </div>
@@ -78,7 +78,7 @@ Coupon
      <MyFormItemGroup>
       
      <MyFormItem name="timeUse" label="Time use">
-        <Input size='large' style={{ width: '', borderColor: "#193664" }}/>
+        <Input size='large'style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
         </MyFormItem>
      
      </MyFormItemGroup>

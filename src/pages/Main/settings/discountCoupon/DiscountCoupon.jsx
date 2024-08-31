@@ -52,16 +52,16 @@ const handleUpdateCoupon = () => {
     return (
        <div>
   <div>
-        <Button onClick={handleBackSettings} className='border-none text-[#193664]'>
+        <div onClick={handleBackSettings} className='flex gap-2 items-center cursor-pointer border-none text-[#193664]'>
           <IoIosArrowBack />
        Discount Coupon
-        </Button>
+        </div>
       </div>
       <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
         <Button
           onClick={handleAddCoupon}
           type="primary"
-          className="flex items-center bg-[#193664]"
+          className="flex items-center bg-[#193664] w-[206px] h-[56px]"
         >
           <GoPlus className="mr-2" />
       Add Coupon

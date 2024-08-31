@@ -48,7 +48,7 @@ const Details = () => {
 
   return (
   <div className='px-12'>
-    <h1 className='border-none text-[#193664] font-bold text-2xl mt-8'>
+    <h1 className='border-none text-[#193664] font-bold text-2xl mt-8 py-6'>
      Details
     </h1>
       <div className='xl:w-[1440px]'>
@@ -56,22 +56,23 @@ const Details = () => {
       <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
     
         <MyFormItemGroup prefix={['name']}>
-          <div className='flex space-x-14'>
+          <div className='flex space-x-6'>
           <MyFormItem name="userName" label="User Name">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
-          <MyFormItem name="password" label="Password">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
+          {/* <MyFormItem name="password" label="Password">
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
+          </MyFormItem> */}
+           <MyFormItem name="phoneNumber" label="Phone Number">
+          <Input size='large' style={{ width: '500px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
           </div>
         </MyFormItemGroup>
         <MyFormItemGroup prefix={['name']}>
           <div className=''>
-          <MyFormItem name="phoneNumber" label="Phone Number">
-          <Input size='large' style={{ width: '400px', borderColor: "#193664" }}/>
-          </MyFormItem>
+         
           <MyFormItem name="address" label="Address">
-          <Input size='large' style={{ width: '800px', borderColor: "#193664" }}/>
+          <Input size='large' style={{ width: '1026px', height: '56px', borderColor: "#193664" }}/>
           </MyFormItem>
           
           </div>

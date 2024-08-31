@@ -14,7 +14,7 @@ const DetailsDeliveryEmployee = () => {
       <div className="flex justify-center w-[79vw]">
         <div className="flex items-center justify-center gap-6 w-4/12">
           {/* Employee Img */}
-          <div className="bg-[#E7F5FB] p-16">
+          <div className="bg-[#E7F5FB] p-8">
             <div className=" rounded-full h-48 w-48 overflow-hidden">
               <Image src={detailsDeliveryImg} width={200} height={250} />
             </div>

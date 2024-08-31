@@ -15,13 +15,13 @@ const ShopOperation = () => {
     <div className="w-[79vw]">
       <div className="flex justify-between">
         <div>
-          <Button
+          <div
             onClick={handleBackSettings}
-            className="border-none text-[#193664]"
+            className="border-none text-[#193664] flex gap-2 cursor-pointer items-center"
           >
-            <IoIosArrowBack style={{ paddingRight: '8px' }} /> 
+            <IoIosArrowBack style={{ }} /> 
             Shop Operation
-          </Button>
+          </div>
         </div>
         <div className="justify-end">
           <ShopOperationSelectItem />
@@ -75,6 +75,7 @@ const ShopOperation = () => {
                   border: "2px solid #193664",
                   height: "52px",
                   width: "720px",
+                  paddingLeft: "16px",
                   background: "#ffffff",
                   outline: "none",
                   marginBottom: "10px",
@@ -112,6 +113,7 @@ const ShopOperation = () => {
                   border: "2px solid #193664",
                   height: "52px",
                   background: "#ffffff",
+                  paddingLeft: "16px",
                   outline: "none",
                   marginBottom: "10px",
                   width: "720px"

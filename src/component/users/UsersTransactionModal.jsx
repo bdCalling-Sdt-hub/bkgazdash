@@ -1,32 +1,29 @@
 import React from 'react';
 import { Modal as AntdModal, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
 
 const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedTransaction, selectedTransaction }) => {
   const navigate = useNavigate();
 
-  const handleEdit = () => {
+  const handleDownloadPDF = () => {
     if (selectedTransaction) {
-      console.log(`Editing user ${selectedTransaction.userName}.`);
-      setIsModalVisible(false);
-      setSelectedTransaction(null);
-    }
-  };
+      const pdf = new jsPDF();
 
-  const handleAddMenu = () => {
-    if (selectedTransaction) {
-      console.log(`Adding menu for user ${selectedTransaction.userName}`);
-      setIsModalVisible(false);
-      setSelectedTransaction(null);
-      navigate('/addMenu'); // Use navigate to go to the add menu page
-    }
-  };
+      // Add title
+      pdf.setFontSize(20);
+      pdf.text('User Transaction Details', 105, 20, { align: 'center' });
 
-  const handleDelete = () => {
-    if (selectedTransaction) {
-      console.log(`Deleting user ${selectedTransaction.userName}`);
-      setIsModalVisible(false);
-      setSelectedTransaction(null);
+      // Add content
+      pdf.setFontSize(12);
+      pdf.text(`User Name: ${selectedTransaction.userName}`, 20, 40);
+      pdf.text(`Email: ${selectedTransaction.email}`, 20, 50);
+      pdf.text(`Subscription Package: ${selectedTransaction.phoneNumber}`, 20, 60);
+      pdf.text(`Address: ${selectedTransaction.address}`, 20, 70);
+      pdf.text(`Joining Date: ${selectedTransaction.joindate}`, 20, 80);
+
+      // Save PDF
+      pdf.save(`transaction_${selectedTransaction.userName}.pdf`);
     }
   };
 
@@ -41,26 +38,31 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
       visible={isModalVisible}
       onCancel={handleCancel}
       footer={
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-          {/* <Button className='bg-[#193664] text-white hover:bg-white hover:text-[#193664] hover:border-[#193664]' key="edit" type="danger" onClick={handleEdit}>
-            Edit
-          </Button>
-          <Button className='bg-white text-[#193664] hover:bg-[#193664] hover:text-white border-[#193664]'  key="addMenu" type="danger" onClick={handleAddMenu}>
-            Add Menu
-          </Button>
-          <Button className='bg-[#193664] text-white hover:bg-white hover:text-[#193664] hover:border-[#193664]' key="delete" type="danger" onClick={handleDelete}>
-            Delete
-          </Button> */}
+        <div style={{ display: "flex", justifyContent: 'center', gap: "10px", padding: "20px" }}>
+          <Button
+            className="download-button"
+            style={{
+              backgroundColor: 'transparent', 
+              color: '#193664', 
+              borderRadius: '15px', 
+              width: "200px",
+              height: "44px",
+              fontWeight: "bold",
+              border: "2px solid #193664",
+            }}
+            key="download" onClick={handleDownloadPDF}>
+            Download
+          </Button>,
         </div>
       }
       className="text-center custom-modal"
     >
       {selectedTransaction && (
-        <div className='px-4' id="print-section">
-             <p className="transaction-detail">
-            <strong>User Nam:</strong> {selectedTransaction.userName}
+        <div id="print-section">
+          <p className="transaction-detail">
+            <strong>User Name:</strong> {selectedTransaction.userName}
           </p>
-             <p className="transaction-detail">
+          <p className="transaction-detail">
             <strong>Email:</strong> {selectedTransaction.email}
           </p>
           <p className="transaction-detail">
@@ -69,14 +71,9 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
           <p className="transaction-detail">
             <strong>Address:</strong> {selectedTransaction.address}
           </p>
-         
-          
           <p className="transaction-detail">
             <strong>Joining Date:</strong> {selectedTransaction.joindate}
           </p>
-          {/* <p className="transaction-detail">
-            <strong>Date:</strong> {selectedTransaction.date}
-          </p> */}
         </div>
       )}
     </AntdModal>

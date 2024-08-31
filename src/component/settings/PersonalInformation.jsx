@@ -1,18 +1,22 @@
-import { Button, Form, Image, Input } from "antd";
+import { Button, Form, Image, Input, Upload } from "antd";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import profileImg from '../../assets/Images/bkProfile.jpg';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import './PhoneInput.css'
+import './PersonalInformation.css'
+
 import { useState } from "react";
 import { GoPlus } from "react-icons/go";
+import { TbCameraPlus } from "react-icons/tb";
 
 
 
 const PersonalInformation = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
+  const [imageUrl, setImageUrl] = useState(null);
 
   const handleEditProfile = () => {
     navigate('/editProfile');
@@ -21,21 +25,41 @@ const PersonalInformation = () => {
   const handleBackSettings = () => {
     navigate('/settings');
   };
+  
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+  const handleChange = (info) => {
+    let fileList = [...info.fileList];
+
+    // We only keep the latest file in the list to replace the previous image
+    fileList = fileList.slice(-1);
+
+    if (fileList[0] && fileList[0].originFileObj) {
+      const imagePreviewUrl = URL.createObjectURL(fileList[0].originFileObj);
+      setImageUrl(imagePreviewUrl);
+    } else {
+      setImageUrl(null);
+    }
+  };
 
   return (
     <div className="2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
       
       <div>
-        <Button onClick={handleBackSettings} className='border-none text-[#193664]'>
+        <div onClick={handleBackSettings} className='border-none text-[#193664] flex gap-2 items-center cursor-pointer'>
           <IoIosArrowBack />
           Personal Information
-        </Button>
+        </div>
       </div>
       <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
         <Button
           onClick={handleEditProfile}
           type="primary"
-          className="flex items-center bg-[#193664]"
+          className="flex items-center bg-[#193664] w-[206px] h-[56px]"
         >
           <GoPlus className="mr-2" />
         Edit Profile
@@ -44,14 +68,58 @@ const PersonalInformation = () => {
       {/* Profile section */}
       <div className="mt-12 flex">
         <div className="w-1/12">
-          <div className="border-[#193664] border bg-[#E8EBF0] rounded-md items-center w-[300px] h-[365px] flex flex-col justify-center">
-            <div className="rounded-full overflow-hidden h-[100px] w-[100px] mx-auto">
-              <Image src={profileImg} height={100} width={100} />
+          <div className="border border-[#193664] w-[300px] h-[365px] py-6 rounded-md">
+           
+            <div className="  rounded-ful items-center w-[300px] h-[300px] flex flex-col justify-center">
+              {/* <Image src={profileImg} height={100} width={100} />
             </div>
             <div className="text-center py-6">
               <h1 className="text-[#5C5C5C]">Profile</h1>
-              <p className="text-xl py-2 text-[#333333] font-bold">Admin</p>
-            </div>
+              <p className="text-xl py-2 text-[#333333] font-bold">Admin</p> */}
+          
+          
+           {/* Upload */}
+           <Form.Item
+            label=""
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+          >
+            <Upload 
+              // listType="picture-card"
+              showUploadList={false} // Hide the default upload list
+              onChange={handleChange}
+              // beforeUpload={() => false} // Prevent automatic upload
+           className="custom-upload"
+            >
+              {imageUrl ? (
+                <div className='relative w-60 h-60 custom-upload'>
+                  <img 
+                    src={imageUrl} 
+                    alt="Uploaded" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', overflow: "hidden",  }} 
+                  />
+                  <TbCameraPlus className="text-6xl absolute top-[30%] left-[40%] opacity-60 text-white" />
+                </div>
+              ) : (
+                <div
+                className="custom-upload"
+                  style={{
+                    width: '80%',
+                    height: '190px',
+                    display: "flex",
+                    margin: 'auto',
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#f0f0f0",
+                    borderRadius: '50%'
+                  }}
+                >
+                  <TbCameraPlus className="text-6xl text-[#193664]" />
+                </div>
+              )}
+            </Upload>
+          </Form.Item>
+          </div>
           </div>
         </div>
         <div className="w-6/12">
@@ -112,6 +180,7 @@ const PersonalInformation = () => {
                   background: "#ffffff",
                   outline: "none",
                   marginBottom: "10px",
+                  paddingLeft: "6px"
                 }}
                 required
                 bordered={false}
@@ -148,7 +217,8 @@ const PersonalInformation = () => {
                   background: "#ffffff",
                   outline: "none",
                   marginBottom: "10px",
-                  width: "720px"
+                  width: "720px",
+                  paddingLeft: "6px"
                 }}
                 bordered={false}
               />

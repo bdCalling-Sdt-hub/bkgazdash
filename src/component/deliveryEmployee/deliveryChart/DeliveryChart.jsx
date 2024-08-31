@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import SearchByDate from './../../comnon/datePicker/SearchByDate';
+// import SearchByDate from './../../comnon/datePicker/SearchByDate';
 import moment from 'moment';
+import DemployeeSearchByYear from './../../comnon/datePicker/SearchByDate';
 
 const DeliveryChart = () => {
   const [year, setYear] = useState('2024');
@@ -56,9 +57,9 @@ const handleDateSearch = (date) => {
     <div className=' bg-[#E8EBF0] rounded-lg '>
      <div className='flex justify-between p-2'>
      <h1 className='text-[#333333] text-[20px] font-bold'>Delivery</h1>
-     <SearchByDate onDateChange={handleDateSearch}/>
+     <DemployeeSearchByYear onDateChange={handleDateSearch}/>
      </div>
-      <div className="pt-8 w-full   pb-6 h-[318px] mt-5 rounded-xl border-2 shadow-xl">
+      <div className="pt-8 w-full   pb-6 h-[280px] mt-5 rounded-xl border-2 shadow-xl">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             width={500}

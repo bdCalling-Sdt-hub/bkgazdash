@@ -23,7 +23,7 @@ const ShopOperationSelectItem = () => {
       <TreeSelect
       className='custom-component'
         style={{
-          width: '100%',
+          width: '120px',
         }}
         value={value}
         dropdownStyle={{

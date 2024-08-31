@@ -113,11 +113,11 @@ const Login = () => {
             </Form.Item> */}
        <Form.Item
                 name="email"
-                label={
-                  <span className="text-secondary text-[12px] font-medium">
-               Email
-                  </span>
-                }
+              //   label={
+              //     <span className="text-secondary text-[12px] font-medium">
+              //  Email
+              //     </span>
+              //   }
                 rules={[
                   {
                     type: 'email',
@@ -139,6 +139,7 @@ const Login = () => {
                     border: "2px solid #1397D5",
                     borderRadius: "16px",
                     height: "52px",
+                    paddingLeft: "16px",
                     background: "#ffffff",
                     outline: "none",
                     marginBottom: "10px",
@@ -148,11 +149,11 @@ const Login = () => {
               </Form.Item>
             <Form.Item
               name="password"
-              label={
-                <span className="text-secondary text-[12px] font-medium">
-                  Password
-                </span>
-              }
+              // label={
+              //   <span className="text-secondary text-[12px] font-medium">
+              //     Password
+              //   </span>
+              // }
               rules={[
                 {
                   required: true,
@@ -171,6 +172,7 @@ const Login = () => {
                   border: "2px solid #1397D5",
                   borderRadius: "16px",
                   height: "52px",
+                  paddingLeft: "16px",
                   background: "#ffffff",
                   outline: "none",
                   marginBottom: "10px",

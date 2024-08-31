@@ -38,33 +38,41 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             visible={isModalVisible}
             onCancel={handleCancel}
             footer={
-               <div style={{display:"flex", justifyContent: 'center', gap: "20px", padding: "20px" }}>
-                 <Button
-                 style={{
-                    backgroundColor: '#193664', 
-                    color: 'white', 
-                    borderRadius: '8px', 
+                <div style={{display:"flex", justifyContent: 'center', gap: "10px", padding: "20px" }}>
+                  <Button
+                   className="download-button"
+                  style={{
+                     backgroundColor: 'transparent', 
+                     color: '#193664', 
+                     borderRadius: '15px', 
+                     width: "200px",
+                     height: "44px",
+                     fontWeight: "bold",
+                     border: "2px solid #193664",
+                     
+                     
+                 }}
+                  key="download" onClick={handleDownload}>
+                     Download
+                 </Button>,
+                 <Button 
+                  style={{
+                     backgroundColor: '#193664', 
+                     color: 'white', 
+                     borderRadius: '15px', 
+                     width: "200px",
+                     height: "44px"
                     
-                }}
-                 key="download" onClick={handleDownload}>
-                    Download
-                </Button>,
-                <Button 
-                 style={{
-                    backgroundColor: '#193664', 
-                    color: 'white', 
-                    borderRadius: '15px', 
-                   
-                }}
-                key="print" onClick={handlePrint}>
-                    Print
-                </Button>,
-               </div>
-            }
-            className="bg-[#E8EBF0] custom-modal rounded-lg"
+                 }}
+                 key="print" onClick={handlePrint}>
+                     Print
+                 </Button>,
+                </div>
+             }
+             className="bg-[#E8EBF0] custom-modal rounded-lg"
         >
             {selectedTransaction && (
-                <div className='px-4' id="print-section">
+                <div className='' id="print-section">
                     <p className="transaction-detail">
                         <strong>Transaction ID:</strong> {selectedTransaction.trId}
                     </p>

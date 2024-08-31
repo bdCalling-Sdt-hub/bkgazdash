@@ -1,13 +1,27 @@
+import React from 'react';
+import { DatePicker } from 'antd';
+import moment from 'moment';
+import '../../dashHome/earningsChart/SearchByYear.css';  
+import DownArrowIcon from '../../dashHome/earningsChart/DownArrowIcon';
 
-import { DatePicker} from 'antd';
-
-
-const SearchByDate = ({onDateChange}) =>{
+const DemployeeSearchByYear = ({ onDateChange }) => {
   const handleChange = (date) => {
-    
-    onDateChange(date)
+    // Trigger the onDateChange callback with the selected year
+    if (date) {
+      onDateChange(date.year());
+    }
+  };
 
-  }
-  return <DatePicker onChange={handleChange}  />
-} 
-export default SearchByDate;
+  return (
+    <DatePicker
+      picker="year"  // Set picker to "year" to allow only year selection
+      onChange={handleChange}
+      defaultValue={moment()}  // Default to the current year
+      suffixIcon={<DownArrowIcon />}  // Custom icon if needed
+      className="year-picker"
+      placeholder='2024'
+    />
+  );
+};
+
+export default DemployeeSearchByYear;

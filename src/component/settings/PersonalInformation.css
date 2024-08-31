@@ -1,0 +1,21 @@
+/* Remove background color from the Ant Design Upload component */
+.custom-upload.ant-upload {
+    background-color: transparent !important; /* Make the background transparent */
+    border: none; /* Remove the border if needed */
+  }
+  
+  .custom-upload.ant-upload.ant-upload-select-picture-card {
+    background-color: transparent !important; /* Ensure picture card type also has no background */
+    border: none; /* Remove the border if needed */
+  }
+  
+  .custom-upload.ant-upload:hover {
+    background-color: transparent !important; /* Keep the hover state transparent */
+  }
+  
+  .custom-upload img {
+    border-radius: 50%; /* Maintain the circular image style */
+    display: block;
+  }
+  
+  

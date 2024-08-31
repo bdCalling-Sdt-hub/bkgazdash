@@ -1,6 +1,6 @@
 
 import { DatePicker} from 'antd';
-import './EarningSearchByDatePicker.css'
+import styles from './EarningSearchByDatePicker.module.css';
 
 const EarningSearchByDate = ({onDateChange}) =>{
   const handleChange = (date) => {
@@ -9,7 +9,7 @@ const EarningSearchByDate = ({onDateChange}) =>{
 
   }
   return <DatePicker placeholder='Date' onChange={handleChange}
-  className="custom-datepicker" // Apply the custom class
+  className={styles.customDatePicker} // Apply the custom class
   />
 } 
 export default EarningSearchByDate;

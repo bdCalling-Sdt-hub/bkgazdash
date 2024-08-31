@@ -33,8 +33,29 @@ const columns = (onActionClick) => [
   {
     title: "Details",
     key: "action",
+    onHeaderCell: () => ({
+      style: {
+        backgroundColor: '#193664',
+        color: 'white',
+        fontWeight: 'bold',
+        border: 'none'
+      },
+    }),
     render: (text, record) => (
-      <MdOutlineInfo onClick={() => onActionClick(record)} />
+      <Button
+        style={{
+          backgroundColor: "#0B5B80",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          padding: "8px 16px",
+          fontWeight: "bold",
+          fontSize: "14px",
+        }}
+        onClick={() => onActionClick(record)}
+      >
+        Details
+      </Button>
     ),
   },
 ];
@@ -90,45 +111,46 @@ const DeliveryEmployeeTable = () => {
   };
 
   const handleAddEmployee = () => {
-    navigate('/addEmployee')
+    navigate("/addEmployee");
   };
 
   return (
-    <div className="bg-[#E8EBF0] my-12 w-[79vw]">
-      <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
+    <div>
+      <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]]">
         <Button
           onClick={handleAddEmployee}
           type="primary"
-          className="flex items-center bg-[#193664]"
+          className="flex items-center bg-[#193664] w-[206px] h-[56px] rounded-md"
         >
           <GoPlus className="mr-2" />
           Add Employee
         </Button>
       </div>
-      <div className="grid grid-cols-3">
-        <div>
-          {" "}
-          <h1 className="p-4 text-xl font-bold">Employee</h1>
+      <div className="bg-[#E8EBF0] my-6 w-[79vw]">
+        <div className="grid grid-cols-3">
+          <div>
+            <h1 className="p-4 text-xl font-bold">Employee</h1>
+          </div>
+          <div className="grid grid-cols-3 gap-4 py-4">
+            <div className=""></div>
+          </div>
+          <div className="justify-end p-4 gap-4 flex">
+            <SearchInput />{" "}
+          </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 py-4">
-          <div className=""></div>
-        </div>
-        <div className="justify-end p-4 gap-4 flex">
-          <SearchInput />{" "}
-        </div>
+        <Table
+          className="custom-table"
+          // rowSelection={rowSelection}
+          columns={columns(onActionClick)}
+          dataSource={filteredData}
+        />
+        <DeliveryEmployeeTableModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          setSelectedTransaction={setSelectedTransaction}
+          selectedTransaction={selectedTransaction}
+        />
       </div>
-      <Table
-        className="custom-table"
-        rowSelection={rowSelection}
-        columns={columns(onActionClick)}
-        dataSource={filteredData}
-      />
-      <DeliveryEmployeeTableModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-        setSelectedTransaction={setSelectedTransaction}
-        selectedTransaction={selectedTransaction}
-      />
     </div>
   );
 };

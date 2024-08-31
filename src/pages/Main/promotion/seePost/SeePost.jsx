@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import proImg from '../../../../assets/Images/promotionImg.png'
 import { Button, Image } from 'antd';
+import '../Promotion.css'
 
 const SeePost = () => {
     const navigate = useNavigate()
@@ -25,8 +26,8 @@ const SeePost = () => {
                   height: "56px",
                 }}
                 htmlType="submit"
-                className=" w-[150px] 
-                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
+                className=" w-[185px] 
+                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-2xl"
               >
                Edit
               </Button>
@@ -34,14 +35,14 @@ const SeePost = () => {
             //   onClick={handleSeePost}
                 // type="primary"
                 style={{
-                  backgroundColor: "#193664",
-                  color: "#fff",
+                  backgroundColor: "transparent",
+                  color: "#193664",
                   size: "18px",
                   height: "56px",
                 }}
                 htmlType="submit"
-                className=" w-[150px] 
-                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
+                className=" w-[185px] custom-delete-button font-bold 
+                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-2xl"
               >
           Delete
               </Button>
