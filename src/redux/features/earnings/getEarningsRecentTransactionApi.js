@@ -1,4 +1,5 @@
-import { baseApi } from "../api/baseApi";
+import { baseApi } from "../../api/baseApi";
+
 
 const getEarningRecentTransaction = baseApi.injectEndpoints({
     endpoints: (builder) => ({

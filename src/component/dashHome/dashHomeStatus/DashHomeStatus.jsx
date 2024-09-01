@@ -6,13 +6,13 @@ import Loading from "../../loading/Loading";
 
 const DashHomeStatus = () => {
   const token = localStorage.getItem("token");
-  console.log("Auth Token page 10", token);
+  // console.log("Auth Token page 10", token);
   const { data, isLoading, isError, error } = useGetDashHomeStatusApiQuery({
     skip: !token,
   });
-  console.log("Data:", data?.data?.attributes?.totalUser);
+  // console.log("Data:", data?.data?.attributes?.totalUser);
 
-  console.log("Error:", error);
+  // console.log("Error:", error);
 
   if (isLoading) {
     return <Loading />;

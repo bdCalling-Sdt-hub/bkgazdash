@@ -16,11 +16,11 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
 
       // Add content
       pdf.setFontSize(12);
-      pdf.text(`User Name: ${selectedTransaction.userName}`, 20, 40);
-      pdf.text(`Email: ${selectedTransaction.email}`, 20, 50);
-      pdf.text(`Subscription Package: ${selectedTransaction.phoneNumber}`, 20, 60);
-      pdf.text(`Address: ${selectedTransaction.address}`, 20, 70);
-      pdf.text(`Joining Date: ${selectedTransaction.joindate}`, 20, 80);
+      pdf.text(`User Name: ${selectedTransaction?.userName}`, 20, 40);
+      pdf.text(`Email: ${selectedTransaction?.email}`, 20, 50);
+      pdf.text(`Phone Number: ${selectedTransaction?.phoneNumber}`, 20, 60);
+      pdf.text(`Address: ${selectedTransaction?.address}`, 20, 70);
+      pdf.text(`Joining Date: ${selectedTransaction?.joinDate}`, 20, 80);
 
       // Save PDF
       pdf.save(`transaction_${selectedTransaction.userName}.pdf`);
@@ -60,19 +60,19 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
       {selectedTransaction && (
         <div id="print-section">
           <p className="transaction-detail">
-            <strong>User Name:</strong> {selectedTransaction.userName}
+            <strong>User Name:</strong> {selectedTransaction?.userName || 'N/A'} 
           </p>
           <p className="transaction-detail">
-            <strong>Email:</strong> {selectedTransaction.email}
+            <strong>Email:</strong> {selectedTransaction?.email || 'N/A'}
           </p>
           <p className="transaction-detail">
-            <strong>Subscription Package:</strong> {selectedTransaction.phoneNumber}
+            <strong>Phone Number:</strong> {selectedTransaction?.phoneNumber || 'N/A'}
           </p>
           <p className="transaction-detail">
-            <strong>Address:</strong> {selectedTransaction.address}
+            <strong>Address:</strong> {selectedTransaction?.address || 'N/A' }
           </p>
           <p className="transaction-detail">
-            <strong>Joining Date:</strong> {selectedTransaction.joindate}
+            <strong>Joining Date:</strong> {selectedTransaction?.joinDate || 'N/A'}
           </p>
         </div>
       )}

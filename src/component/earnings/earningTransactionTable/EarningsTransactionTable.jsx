@@ -7,7 +7,8 @@ import EarningTransactionModal from './EarningTransactionModal';
 
 import moment from 'moment';
 import EarningSearchByDate from '../earningSearchByDate/EarningSearchByDate';
-// import { useGetEarningRecentTransactionQuery } from '../../../redux/features/getEarningsRecentTransactionApi';
+import { useGetEarningRecentTransactionQuery } from '../../../redux/features/earnings/getEarningsRecentTransactionApi';
+
 
 
 const columns = (onActionClick) => [
@@ -48,44 +49,44 @@ const columns = (onActionClick) => [
   },
 ];
 
-const originalData = [];
-console.log(originalData)
-for (let i = 0; i < 46; i++) {
-  originalData.push({
-    key: i,
-    trId: `963222`,
-    userName: `leo jhon`,
-    payType: `kfc`,
-    amount: `$250`,
-    acNo: `02000055555`,
-    acName: `David`,
-    date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
-    address: `London, Park Lane no. ${i}`,
-  });
-}
+// const originalData = [];
+// console.log(originalData)
+// for (let i = 0; i < 46; i++) {
+//   originalData.push({
+//     key: i,
+//     trId: `963222`,
+//     userName: `leo jhon`,
+//     payType: `kfc`,
+//     amount: `$250`,
+//     acNo: `02000055555`,
+//     acName: `David`,
+//     date: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
+//     address: `London, Park Lane no. ${i}`,
+//   });
+// }
 
 const TransactionList = () => {
-  // const { data, isLoading, isError, error } = useGetEarningRecentTransactionQuery();
+  const { data, isLoading, isError, error } = useGetEarningRecentTransactionQuery();
   
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
 
-  // useEffect(() => {
-  //   if(data && data?.data && Array.isArray(data?.data?.attributes?.results)) {
-  //     const formattedData = data.data.attributes.results.map((item) => ({
-  //       key: item._id,
-  //       trId: item.transitionId,
-  //       userName: item.userId?.fullName,
-  //       payType: item.paymentMethod,
-  //       amount: `$${item.totalPrice}`, 
-  //       date: moment(item.createdAt).format("MM-DD-YYYY"),
-  //     }));
-  //     setFilteredData(formattedData);
-  //   } else {
-  //     setFilteredData([]);  // Default to an empty array if data is not in expected format
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if(data && data?.data && Array.isArray(data?.data?.attributes?.results)) {
+      const formattedData = data.data.attributes.results.map((item) => ({
+        key: item._id,
+        trId: item.transitionId,
+        userName: item.userId?.fullName,
+        payType: item.paymentMethod,
+        amount: `$${item.totalPrice}`, 
+        date: moment(item.createdAt).format("MM-DD-YYYY"),
+      }));
+      setFilteredData(formattedData);
+    } else {
+      setFilteredData([]);  // Default to an empty array if data is not in expected format
+    }
+  }, [data]);
 
   const onActionClick = (record) => {
     setSelectedTransaction(record);
@@ -106,18 +107,18 @@ const TransactionList = () => {
     }
   };
 
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
+  // const rowSelection = {
+  //   selectedRowKeys,
+  //   onChange: onSelectChange,
+  // };
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  // if (isError) {
-  //   return <div>Error: {error.message}</div>;
-  // }
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className='bg-[#E8EBF0] my-12 w-[79vw]'>
@@ -139,7 +140,7 @@ const TransactionList = () => {
       <Table
         className='custom-table'
         columns={columns(onActionClick)}
-        dataSource={originalData}
+        dataSource={filteredData}
         pagination={{
           total: filteredData.length,
           showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,

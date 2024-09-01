@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'antd';
 import './UsersTable.css';
 import { MdOutlineInfo } from "react-icons/md";
@@ -6,27 +6,33 @@ import EarningTransactionModal from './UsersTransactionModal';
 import moment from 'moment';
 import UserSearchInput from './searchInput/UserSearchInput';
 import UserSearchByDate from './userSearchByDate/UserSearchByDate';
+import { useGetAllUserApiQuery } from '../../redux/features/user/getAllUserApi';
 
 const columns = (onActionClick) => [
   {
     title: 'Address',
     dataIndex: 'address',
+    render: (text) => text || 'N/A',
   },
   {
     title: 'User name',
     dataIndex: 'userName',
+    render: (text) => text || 'N/A',
   },
   {
     title: 'Email',
     dataIndex: 'email',
+    render: (text) => text || 'N/A',
   },
   {
     title: 'Phone Number',
     dataIndex: 'phoneNumber',
+    render: (text) => text || 'N/A',
   },
   {
     title: 'Join Date',
-    dataIndex: 'joindate',
+    dataIndex: 'joinDate',
+    render: (text) => text || 'N/A',
   },
   {
     title: 'Action',
@@ -37,25 +43,27 @@ const columns = (onActionClick) => [
   },
 ];
 
-const originalData = [];
-for (let i = 0; i < 46; i++) {
-  originalData.push({
-    key: i,
-    id: `963222`,
-    userName: `leo jhon`,
-    email: `abc@gmail.com`,
-    phoneNumber: `12345678`,
-    payType: `kfc`,
-    amount: `$250`,
-    joindate: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
-    address: `London, Park Lane no. ${i}`,
-  });
-}
-
 const UsersTable = () => {
+  const { data, isLoading, isError, error } = useGetAllUserApiQuery();
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [filteredData, setFilteredData] = useState(originalData);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    if (data?.data?.attributes?.results) {
+      const formattedData = data.data.attributes.results.map((user, index) => ({
+        key: user._id,
+        userName: user.fullName || 'N/A',
+        email: user.email || 'N/A',
+        phoneNumber: user.phoneNumber || 'N/A',
+        joinDate: moment(user.createdAt).format("MM-DD-YYYY"),
+        address: user.address || 'N/A',
+        ...user, // Include the rest of the user object if needed
+      }));
+      setFilteredData(formattedData);
+    }
+  }, [data]);
 
   const onActionClick = (record) => {
     setSelectedTransaction(record);
@@ -69,10 +77,10 @@ const UsersTable = () => {
 
   const handleDateSearch = (date) => {
     if (date) {
-      const filtered = originalData.filter(item => item.date === date.format("MM-DD-YYYY"));
+      const filtered = filteredData.filter(item => moment(item.joinDate).isSame(date, 'day'));
       setFilteredData(filtered);
     } else {
-      setFilteredData(originalData);
+      setFilteredData(filteredData);
     }
   };
 
@@ -80,6 +88,14 @@ const UsersTable = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className='bg-[#E8EBF0] my-12 w-[79vw]'>
@@ -123,3 +139,23 @@ const UsersTable = () => {
 };
 
 export default UsersTable;
+
+
+
+
+
+
+// const originalData = [];
+// for (let i = 0; i < 46; i++) {
+//   originalData.push({
+//     key: i,
+//     id: `963222`,
+//     userName: `leo jhon`,
+//     email: `abc@gmail.com`,
+//     phoneNumber: `12345678`,
+//     payType: `kfc`,
+//     amount: `$250`,
+//     joindate: moment().subtract(i, 'days').format("MM-DD-YYYY"), // Generate dates dynamically
+//     address: `London, Park Lane no. ${i}`,
+//   });
+// }

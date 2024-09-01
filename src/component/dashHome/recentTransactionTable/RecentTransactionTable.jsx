@@ -3,7 +3,7 @@ import { Space, Table, Tag, Button } from "antd";
 import { MdOutlineInfo } from "react-icons/md";
 import "./RecentTransactions.css";
 import TransactionModal from "./TransactionTableModal";
-// import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
+import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
 import Loading from "../../loading/Loading";
 
 const columns = (onActionClick) => [
@@ -25,6 +25,18 @@ const columns = (onActionClick) => [
     key: "subPackage",
     render: (text) => <a>{text}</a>,
   },
+  // {
+  //   title: "A/C No",
+  //   dataIndex: "accountNumber",
+  //   key: "accountNumber",
+  //   render: (text) => <a>{text}</a>,
+  // },
+  // {
+  //   title: "A/C Name",
+  //   dataIndex: "accountHolderName",
+  //   key: "accountHolderName",
+  //   render: (text) => <a>{text}</a>,
+  // },
   {
     title: "Amount",
     dataIndex: "amount",
@@ -46,43 +58,42 @@ const columns = (onActionClick) => [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    TrId: "699999",
-    acNumber: "*** *** *** *545",
-    name: "John Brown",
-    payType: "basic",
-    amount: " $250",
-    date: "03-08-2024",
-    action: <MdOutlineInfo></MdOutlineInfo>,
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    TrId: "699999",
-    name: "Jim Green",
-    payType: "Orrange Money",
-    amount: "$250",
-    date: "03-08-2024",
-    action: <MdOutlineInfo></MdOutlineInfo>,
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    TrId: "699999",
-    name: "Joe Black",
-    amount: "$250",
-    date: "03-08-2024",
-    action: <MdOutlineInfo></MdOutlineInfo>,
-    payType: "basic",
-    tags: ["cool", "teacher"],
-  },
-];
-
+// const data = [
+//   {
+//     key: "1",
+//     TrId: "699999",
+//     acNumber: "*** *** *** *545",
+//     name: "John Brown",
+//     payType: "basic",
+//     amount: " $250",
+//     date: "03-08-2024",
+//     action: <MdOutlineInfo></MdOutlineInfo>,
+//     tags: ["nice", "developer"],
+//   },
+//   {
+//     key: "2",
+//     TrId: "699999",
+//     name: "Jim Green",
+//     payType: "Orrange Money",
+//     amount: "$250",
+//     date: "03-08-2024",
+//     action: <MdOutlineInfo></MdOutlineInfo>,
+//     tags: ["loser"],
+//   },
+//   {
+//     key: "3",
+//     TrId: "699999",
+//     name: "Joe Black",
+//     amount: "$250",
+//     date: "03-08-2024",
+//     action: <MdOutlineInfo></MdOutlineInfo>,
+//     payType: "basic",
+//     tags: ["cool", "teacher"],
+//   },
+// ];
 const RecentTransactionsTable = () => {
-  // const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
-  console.log(data?.data?.attributes);
+  const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
+  console.log("84", data?.data?.attributes);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [fomattedData, setFormattedData] = useState([]);
@@ -91,12 +102,12 @@ const RecentTransactionsTable = () => {
   useEffect(() => {
     if(data?.data?.attributes && Array.isArray(data?.data?.attributes)) {
       const formatted = data?.data?.attributes.map((item) => ({
-        key: item._id,
-        trId: item?.transitionId,
-        name: item?.fullName,
-        payType: item.payType,
-        amount: `$${item.amount}`,
-        date: item.date,
+        key: item?._id,
+        TrId: item?.transitionId,
+        name: item?.userId?.fullName,
+        payType: item?.paymentMethod,
+        amount: `$${item?.totalPrice}`,
+        date: item?.createdAt,
       }))
       setFormattedData(formatted)
     }
@@ -107,13 +118,13 @@ const RecentTransactionsTable = () => {
     setIsModalVisible(true);
   };
 
-  // if(isLoading) {
-  //   return <Loading />
-  // }
+  if(isLoading) {
+    return <Loading />
+  }
 
-  // if (isError) {
-  //   return <div>Error: {error.message}</div>
-  // }
+  if (isError) {
+    return <div>Error: {error.message}</div>
+  }
 
   return (
     <div className="bg-[#E8EBF0] my-12">
@@ -121,7 +132,7 @@ const RecentTransactionsTable = () => {
       <Table
         className="custom-table"
         columns={columns(onActionClick)}
-        dataSource={data}
+        dataSource={fomattedData}
         pagination={false}
         style={{
           "--antd-table-header-bg": "red", 

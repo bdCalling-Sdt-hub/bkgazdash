@@ -11,7 +11,7 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
                 { type: "text/plain" }
             );
             element.href = URL.createObjectURL(file);
-            element.download = `transaction_${selectedTransaction.taxId}.txt`;
+            element.download = `transaction_${selectedTransaction.TrId}.txt`;
             document.body.appendChild(element);
             element.click();
         }
@@ -38,55 +38,55 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             visible={isModalVisible}
             onCancel={handleCancel}
             footer={
-               <div style={{ display: "flex", justifyContent: 'center', gap: "10px", padding: "20px" }}>
-                 <Button
-                    className="download-button"
-                    style={{
-                        backgroundColor: 'transparent', 
-                        color: '#193664', 
-                        borderRadius: '15px', 
-                        width: "200px",
-                        height: "44px",
-                        fontWeight: "bold",
-                        border: "2px solid #193664",
-                    }}
-                    key="download" onClick={handleDownload}>
-                    Download
-                </Button>,
-                <Button 
-                    style={{
-                        backgroundColor: '#193664', 
-                        color: 'white', 
-                        borderRadius: '15px', 
-                        width: "200px",
-                        height: "44px"
-                    }}
-                    key="print" onClick={handlePrint}>
-                    Print
-                </Button>,
-               </div>
+                <div style={{ display: "flex", justifyContent: 'center', gap: "10px", padding: "20px" }}>
+                    <Button
+                        className="download-button"
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: '#193664',
+                            borderRadius: '15px',
+                            width: "200px",
+                            height: "44px",
+                            fontWeight: "bold",
+                            border: "2px solid #193664",
+                        }}
+                        key="download" onClick={handleDownload}>
+                        Download
+                    </Button>,
+                    <Button
+                        style={{
+                            backgroundColor: '#193664',
+                            color: 'white',
+                            borderRadius: '15px',
+                            width: "200px",
+                            height: "44px"
+                        }}
+                        key="print" onClick={handlePrint}>
+                        Print
+                    </Button>,
+                </div>
             }
             className="custom-modal rounded-lg"
         >
             {selectedTransaction && (
                 <div className='transaction-details' id="print-section">
                     <p className="transaction-detail">
-                        <strong>Transaction ID:</strong> {selectedTransaction.taxId}
+                        <strong>Transaction ID:</strong> {selectedTransaction?.TrId || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Date:</strong> {selectedTransaction.name}
+                        <strong>Date:</strong> {selectedTransaction?.date || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>User name:</strong> {selectedTransaction.subPackage}
+                        <strong>User name:</strong> {selectedTransaction?.name || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>A/C number:</strong> {selectedTransaction.amount}
+                        <strong>A/C number:</strong> {selectedTransaction?.accountNumber || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>A/C holder name:</strong> {selectedTransaction.amount}
+                        <strong>A/C holder name:</strong> {selectedTransaction?.accountHolderName || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Transaction amount:</strong> {selectedTransaction.date}
+                        <strong>Transaction amount:</strong> {selectedTransaction?.amount || "N/A"}
                     </p>
                 </div>
             )}

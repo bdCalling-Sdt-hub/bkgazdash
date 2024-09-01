@@ -74,22 +74,22 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             {selectedTransaction && (
                 <div className='' id="print-section">
                     <p className="transaction-detail">
-                        <strong>Transaction ID:</strong> {selectedTransaction.trId}
+                        <strong>Transaction ID:</strong> {selectedTransaction?.trId || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Date:</strong> {selectedTransaction.date}
+                        <strong>Date:</strong> {selectedTransaction?.date || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>User name:</strong> {selectedTransaction.userName}
+                        <strong>User name:</strong> {selectedTransaction?.userName || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>A/C number:</strong> {selectedTransaction.acNo}
+                        <strong>A/C number:</strong> {selectedTransaction?.acNo || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>A/C holder name:</strong> {selectedTransaction.acName}
+                        <strong>A/C holder name:</strong> {selectedTransaction?.acName || "N/A"}
                     </p>
                     <p className="transaction-detail">
-                        <strong>Transaction amount:</strong> {selectedTransaction.date}
+                        <strong>Transaction amount:</strong> {selectedTransaction?.date || "N/A"}
                     </p>
                 </div>
             )}
