@@ -9,6 +9,10 @@ import EarningsChart from "../../../component/dashHome/earningsChart/EarningsCha
 import DashHomeStatus from "../../../component/dashHome/dashHomeStatus/DashHomeStatus";
 
 const DashboardHome = () => {
+
+  const token = localStorage.getItem("token");
+  console.log(token)
+
     return (
         <div className=''>
         <DashHomeStatus />

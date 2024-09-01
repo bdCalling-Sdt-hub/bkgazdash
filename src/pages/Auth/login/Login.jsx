@@ -4,14 +4,14 @@ import logo from "../../../assets/bkgazLogo.png";
 import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { usePostLoginMutation } from "../../../redux/features/postLoginApi";
+// import { usePostLoginMutation } from "../../../redux/features/postLoginApi";
 import { useState } from "react";
 import './Login.css'
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [setData, { isLoading, isError, status, error, data }] = usePostLoginMutation();
+  // const [setData, { isLoading, isError, status, error, data }] = usePostLoginMutation();
 
   const navigate = useNavigate();
 
@@ -204,7 +204,7 @@ const Login = () => {
                 }}
                 htmlType="submit"
                 className="w-[300px] h-[56px] py-4 mt-2 text-white hover:border-none border-none rounded-2xl"
-                loading={isLoading}
+                // loading={isLoading}
               >
                 Sign in
               </Button>

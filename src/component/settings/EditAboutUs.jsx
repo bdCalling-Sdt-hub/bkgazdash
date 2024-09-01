@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Swal from "sweetalert2";
 
+
 const data = [1, 2, 3, 4]
 
 
@@ -48,13 +49,16 @@ const EditAboutus = () => {
         })
       }
       }
+      const handleBackAboutUs = () => {
+        navigate('/aboutus')
+      }
     return (
         
         <div className="relative ml-[24px]">
-        <div className=" mt-[44px] cursor-pointer flex items-center pb-3 gap-2">
+        <div onClick={handleBackAboutUs} className=" mt-[44px] cursor-pointer flex items-center pb-3 gap-2">
           <MdOutlineKeyboardArrowLeft
             className=""
-            onClick={() => navigate("/settings/terms-conditions")}
+           
             size={34}
           />
           <h1 className="text-[24px] font-semibold">
