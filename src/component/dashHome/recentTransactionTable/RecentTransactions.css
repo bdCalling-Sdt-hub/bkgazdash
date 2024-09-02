@@ -1,105 +1,87 @@
-.custom-table .ant-table-thead > tr > th {
-  
-    border: none !important;
-    border-left: none;
-   
-  }
-.custom-table .ant-table-thead {
-   
-    border: none !important;
-    border-left: none;
-   
-  }
-.custom-table .ant-table-thead > tr > th .ant-table-cell {
-  
-    border: none !important;
-    border-left: none;
-    
-  }
-.custom-table .ant-table-thead > tr > th::before {
-      border: none !important;
-    border-left: none;
-    
-  }
 
- 
-.custom-table .ant-table-cell {
-  border: none !important;
-  border-left: none;
-}
-  .custom-modal .ant-modal-title {
-    text-align: center;
-    font-weight: bold; 
-    padding: 20px;
-}
-  
-.custom-table .ant-table-row {
-    background-color: #E8EBF0!important;
-    color: black !important; 
-  }
-
-  /* modal css start */
-  
-  .custom-modal .ant-modal-content {
-    background-color: #E8EBF0 !important;
-    box-shadow: none;
-  }
-
-  .custom-modal .ant-modal-close {
-    background-color: #FF6347; 
-    color: white; 
-  }
-  
-  .custom-modal .ant-modal-close:hover {
-    background-color: #FF4500; 
-  }
-
-  
-.transaction-detail {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px; 
-  padding: 20px 20px 20px 20px ;
-  background-color: #E8EBF0; 
-  border-top: 1px solid #B8C1CF; /* Border on top */
-  /* border-bottom: 1px solid #B8C1CF;  */
-  color: #333333;
-  font-weight: normal;
-  background-color: #E8EBF0;
-  
-}
-.transaction-detail:last-child {
- border-bottom: 1px solid #B8C1CF; 
-  
-  
+.table-container {
+  /* background-color: #1e26; Light beige background color */
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.transaction-detail strong {
-  margin-right: 10px; 
+.ant-table {
+  background-color: #f7fbfc; /* Matching the background color of table */
+  border: none;
 }
 
-.custom-modal .download-button {
-  background-color: white;
-  color: #333333;
-  border: 1px solid #333333 !important; /* Ensure the border is applied */
-  border-radius: 15px;
-  width: 200px;
-  height: 44px;
+.ant-table-thead > tr > th {
+  background-color: #193664 !important; /* Header background color */
+  color: #FFFF !important;
   font-weight: bold;
+}
+
+.ant-table-tbody > tr > td {
+  /* background-color: #fdf6e3; Body background color */
+  color: #000;
+} 
+
+.ant-table-tbody > tr > td:last-child {
   text-align: center;
 }
 
-
-/* updated css for transaction details */
-.custom-modal .ant-modal-title {
-  background-color: #E8EBF0; /* Same background color as rows */
-  padding: 35px;
-  font-weight: bold;
-  color: #333333;
-}
-
-.custom-modal .ant-modal-footer {
-padding: 50px !important;
+.anticon {
+  vertical-align: middle;
 }
 
 
+/* //pagination/////// */
+
+.custom-table .ant-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style the individual page numbers */
+.custom-table .ant-pagination-item {
+  background-color: #ffffff; /* White background */
+  border: 1px solid #193664; /* Dark blue border */
+  border-radius: 4px; /* Rounded corners */
+  color: #193664; /* Dark blue text */
+  margin: 0 4px; /* Spacing between items */
+}
+
+/* Style the active page number */
+.custom-table .ant-pagination-item-active {
+  background-color: #193664; /* Dark blue background */
+  color: #ffffff; /* White text */
+  border: none; /* Remove border */
+}
+
+/* Style the previous and next buttons */
+.custom-table .ant-pagination-prev, 
+.custom-table .ant-pagination-next {
+  background-color: #193664; /* Dark blue background */
+  border: none; /* Remove border */
+  color: #ffffff; /* White text */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Add hover effect for pagination items */
+.custom-table .ant-pagination-item:hover, 
+.custom-table .ant-pagination-prev:hover, 
+.custom-table .ant-pagination-next:hover {
+  background-color: #0a2746; /* Slightly darker blue on hover */
+  color: #ffffff; /* Ensure text remains white on hover */
+}
+
+/* Ensure no left and right border overlap on adjacent items */
+.custom-table .ant-pagination-item + .ant-pagination-item {
+  border-left: none;
+}
+
+/* Adjust the size of the pagination controls */
+.custom-table .ant-pagination-item,
+.custom-table .ant-pagination-prev, 
+.custom-table .ant-pagination-next {
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  text-align: center;
+}

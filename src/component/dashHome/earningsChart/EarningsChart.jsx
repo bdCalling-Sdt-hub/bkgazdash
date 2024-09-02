@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import moment from 'moment';
-// import { useGetDashEarningGraphChartApiQuery } from '../../../redux/features/getDashEarningGraphChartApi';
-// import Loading from '../../loading/Loading';
+ 
+
 import SearchByYear from './SearchByYear';
+import { useGetDashEarningApiQuery } from '../../../redux/features/getDashEarningGraphChartApi';
+ 
 
 const EarningsChart = () => {
-  // const { data, isLoading, isError, error } = useGetDashEarningGraphChartApiQuery({
-  // });
+  const [year, setYear] = useState(moment().year());
+ 
+
+ 
+  const {data: dashEarning, isLoading} = useGetDashEarningApiQuery(year)
 
   // console.log("12 dashEarnChart", data?.data?.attributes?.monthlyIncomeRatio);
 // const dashEarnChart = data?.data?.attributes?.monthlyIncomeRatio || [];
-// console.log(dashEarnChart);
+// console.log(dashEarning?.data?.attributes?.monthlyIncomeRatio);
 
-  const [year, setYear] = useState(moment().year());
+ 
   const data = [
     { name: 'Jan', uv: 4000, pv: 2000, amt: 2400 },
     { name: 'Feb', uv: 3000, pv: 5000, amt: 2210 },
@@ -79,7 +84,7 @@ const handleYearSearch = (selectedYear) => {
           <BarChart
             width={500}
             height={300}
-            data={data}
+            data={dashEarning?.data?.attributes?.monthlyIncomeRatio}
             margin={{
               top: 5,
               right: 30,
@@ -88,7 +93,7 @@ const handleYearSearch = (selectedYear) => {
             }}
             barSize={20}
           >
-            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+            <XAxis dataKey="month" scale="point" padding={{ left: 10, right: 10 }} />
             <YAxis 
        
               tickFormatter={formatYAxis} 
@@ -100,7 +105,7 @@ const handleYearSearch = (selectedYear) => {
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="pv" fill="#193664" background={{ fill: '#eee' }} />
+            <Bar dataKey="totalEarnings" fill="#193664" background={{ fill: '#eee' }} />
           </BarChart>
         </ResponsiveContainer>
       </div>

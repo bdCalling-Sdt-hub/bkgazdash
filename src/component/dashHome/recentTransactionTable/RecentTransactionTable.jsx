@@ -1,140 +1,153 @@
-import React, { useEffect, useState } from "react";
-import { Space, Table, Tag, Button } from "antd";
-import { MdOutlineInfo } from "react-icons/md";
-import "./RecentTransactions.css";
-import TransactionModal from "./TransactionTableModal";
-// import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
-import Loading from "../../loading/Loading";
+import React, { useState } from 'react';
+import { Table, Modal } from 'antd';
+import { CloseOutlined } from "@ant-design/icons";
+ 
+import './RecentTransactions.css'
 
-const columns = (onActionClick) => [
+import { BsInfoCircle } from 'react-icons/bs';
+import { useGetDashRecentTransactionApiQuery } from '../../../redux/features/getDashRecentTransactionApi';
+
+const RecentTransactionTable = () => {
+ const {data: recentTransaction, isLoading} = useGetDashRecentTransactionApiQuery()
+//  console.log(recentTransaction?.data?.attributes);
+ 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+ const [transaction, setTransaction] = useState()
+
+const columns = [
   {
-    title: "#Tr.Id",
-    dataIndex: "TrId",
-    key: "TrId",
-    render: (number) => <a>{number}</a>,
+    title: '#Transaction ID',
+    dataIndex: 'applicationId',
+    key: 'applicationId',
+    render: ( _, record) => (
+      <p>{record?.transitionId}</p>
+    )
   },
   {
-    title: "User Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
+    title: 'Customer Name',
+    dataIndex: 'customerName',
+    key: 'customerName',
+    render: (_, record) => (
+      <p>{record?.userId?.fullName}</p>
+ ),
   },
   {
-    title: "Payment Type",
-    dataIndex: "payType",
-    key: "subPackage",
-    render: (text) => <a>{text}</a>,
+    title: 'Payment Type',
+    dataIndex: 'Payment',
+    key: 'Payment',
+    render: (_, record) => (
+       <p>{record?.paymentMethod}</p>
+  ),
   },
   {
-    title: "Amount",
-    dataIndex: "amount",
-    key: "amount",
-    render: (number) => <a>{number}</a>,
+    title: 'Amount',
+    dataIndex: 'Amount',
+    key: 'Amount',
+    render: (_, record) => (
+      <p>{record?.userId?.totalCashBalance}</p>
+ ),
   },
   {
-    title: "Date",
-    dataIndex: "date",
-    key: "date",
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
+    render: (_, record) => (
+      <p>{record?.createdAt?.split("T")[0] ? record?.createdAt?.split("T")[0] : "N/A"}</p>
+
+    )
   },
   {
-    title: "Action",
-    dataIndex: "action",
-    key: "action",
-    render: (text, record) => (
-      <MdOutlineInfo onClick={() => onActionClick(record)} />
+    title: 'Action',
+    key: 'action',
+    render: (_, record) => (
+        <BsInfoCircle  onClick={() => handleView(record)}  size={18} className="text-[red] cursor-pointer" />
     ),
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    TrId: "699999",
-    acNumber: "*** *** *** *545",
-    name: "John Brown",
-    payType: "basic",
-    amount: " $250",
-    date: "03-08-2024",
-    action: <MdOutlineInfo></MdOutlineInfo>,
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    TrId: "699999",
-    name: "Jim Green",
-    payType: "Orrange Money",
-    amount: "$250",
-    date: "03-08-2024",
-    action: <MdOutlineInfo></MdOutlineInfo>,
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    TrId: "699999",
-    name: "Joe Black",
-    amount: "$250",
-    date: "03-08-2024",
-    action: <MdOutlineInfo></MdOutlineInfo>,
-    payType: "basic",
-    tags: ["cool", "teacher"],
-  },
-];
-
-const RecentTransactionsTable = () => {
-  // const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
-  console.log(data?.data?.attributes);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [fomattedData, setFormattedData] = useState([]);
-  console.log("88, recent Transaction",fomattedData);
-
-  useEffect(() => {
-    if(data?.data?.attributes && Array.isArray(data?.data?.attributes)) {
-      const formatted = data?.data?.attributes.map((item) => ({
-        key: item._id,
-        trId: item?.transitionId,
-        name: item?.fullName,
-        payType: item.payType,
-        amount: `$${item.amount}`,
-        date: item.date,
-      }))
-      setFormattedData(formatted)
-    }
-  }, [data])
-
-  const onActionClick = (record) => {
-    setSelectedTransaction(record);
-    setIsModalVisible(true);
+const handleView = (value) => {
+  // setTransaction(value)
+  //   console.log(value)
+    setIsModalOpen(true);
   };
 
-  // if(isLoading) {
-  //   return <Loading />
-  // }
-
-  // if (isError) {
-  //   return <div>Error: {error.message}</div>
-  // }
 
   return (
-    <div className="bg-[#E8EBF0] my-12">
-      <h1 className="p-4">Recent Transactions</h1>
+    <div className="table-container">
+        <h1 className='text-[20px] font-medium my-2'>Recent Transaction</h1>
       <Table
-        className="custom-table"
-        columns={columns(onActionClick)}
-        dataSource={data}
+        dataSource={recentTransaction?.data?.attributes}
+        columns={columns}
         pagination={false}
-        style={{
-          "--antd-table-header-bg": "red", 
-        }}
+        bordered
+        
       />
-      <TransactionModal
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-        setSelectedTransaction={setSelectedTransaction}
-        selectedTransaction={selectedTransaction}
-      />
+        <Modal
+        open={isModalOpen}
+        onOk={() => setIsModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
+        footer={[]}
+        closeIcon={
+          <CloseOutlined
+            style={{
+              color: "white", // Icon color
+              backgroundColor: "#de0a26", // Background color of the close icon
+              borderRadius: "10%", // Rounded background
+              padding: "10px", // Padding inside the background
+            }}
+          />
+        }
+      >
+      
+      <div>
+        <div style={{fontFamily:'Aldrich'}} className="flex justify-center py-4 items-center gap-2 flex-col border-b border-b-gray-300">
+          {/* <img className="w-[140px] h-[140px] rounded-full my-4"   src={users} alt="" /> */}
+          <p className="text-[16px] mb-[16px]">absayed</p>
+        </div>
+        <div style={{fontFamily:'Aldrich'}} className="p-[20px]">
+        <div className="flex justify-between border-b py-[16px]">
+            <p>Full Name:</p>
+            <p>
+              {/* {user?.name ? user?.name : "N/A"} */}
+              absayed
+            </p>
+          </div>
+        
+         
+          <div className="flex justify-between border-b py-[16px] ">
+            <p>Email:</p>
+            <p>
+              {/* {user?.email ? user?.email : "N/A"} */}
+              ab@gmail.com
+            </p>
+          </div>
+          <div className="flex justify-between border-b py-[16px]">
+            <p>Phone:</p>
+            <p>
+              {/* {user?.phone ? user?.phone : "N/A"} */}
+              +45269875
+            </p>
+          </div>
+          <div className="flex justify-between border-b py-[16px]">
+            <p>Date:</p>
+            <p>
+              {/* {user?.createdAt  ? user?.createdAt?.split("T")[0] : "N/A"} */}
+              23-11-24
+            </p>
+          </div>
+          <div className="flex justify-between items-center pt-[16px]">
+            <p>address:</p>
+            <p className="px-[15px] py-[10px] rounded-lg">
+              {/* Regular P550 */}
+              UK
+            </p>
+          </div>
+
+        </div>
+      </div>
+      </Modal>
     </div>
   );
 };
 
-export default RecentTransactionsTable;
+export default RecentTransactionTable;
