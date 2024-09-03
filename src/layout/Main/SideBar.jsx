@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/bkGazLogo.svg";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaUserFriends, FaUsers } from "react-icons/fa";
@@ -55,15 +55,18 @@ const handleBackHome = () => {
       >
         <FiMenu size={15} />
       </button> : ""}
-      <div onClick={handleBackHome} className="text-center py-6">
+      <div onClick={handleBackHome} className="text-center my-6">
         <img
           src={logo}
           alt="B.k logo"
           className={`transition-all duration-300 ${collapsed ? 'w-10 mx-auto' : 'xl:w-20 lg:w-24 mx-auto py-4'}`}
         />
         <h1 className='text-[#1397D5] text-3xl font-bold'>B. K. Shop</h1>
+        <Link to = "/managerlayout">
+        manager dashboard
+        </Link>
       </div>
-      <nav className="flex flex-col overflow-y-auto 2xl:px-8 xl:px-6 lg:px-4 2xl:py-12">
+      <nav className="flex flex-col 2xl:px-8 xl:px-6 lg:px-4">
         <NavLink to="/" 
         className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
@@ -124,6 +127,14 @@ const handleBackHome = () => {
           <FaUsers size={20} />
           {!collapsed && <span className='text-[18px]'>Delivery Employee</span>}
         </NavLink>
+        <NavLink to="/manager" className={({ isActive }) =>
+          `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
+            isActive ? 'bg-white text-[#193664]' : 'text-white '
+          }`
+        }>
+          <FaUsers size={20} />
+          {!collapsed && <span className='text-[18px]'>Manager</span>}
+        </NavLink>
 
         <NavLink to="/settings" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
@@ -137,7 +148,7 @@ const handleBackHome = () => {
       <div className="">
         <button
           onClick={handleLogOut}
-          className="flex items-center gap-3 p-3 mb-2 rounded-lg text-red-500 hover:bg-white hover:text-[#193664] transition-colors duration-300 2xl:px-12 xl:px-8 lg:px-6 2xl:my-36 xl:my-24 lg:my-20"
+          className="flex items-center py-2 gap-3 rounded-lg text-red-500 hover:bg-white hover:text-[#193664] transition-colors duration-300 2xl:px-12 xl:px-8 lg:px-6 2xl:my-16 xl:my-12 lg:my-4"
         >
           <HiLogout size={20} />
           {!collapsed && <span className='text-[18px]'>Log Out</span>}

@@ -1,0 +1,17 @@
+.update-button .ant-btn{
+    background-color: white;
+   
+    color: #193664;
+    font-weight: bold;
+    border-color: #193664;
+    border-width: 2px;
+    width: 860px;
+    height: 56px; /* 14 * 4 = 56px */
+  }
+  
+  .update-button:hover .ant-btn {
+   background-color: #193664 !important;
+    color: white !important;
+    border-color: #193664 !important;
+    border-width: 2px;
+  }

@@ -37,6 +37,12 @@ import Product from "../pages/Main/product/Product";
 import Users from "../pages/Main/users/Users";
 import Promotion from "../pages/Main/promotion/Promotion";
 import SeePost from "../pages/Main/promotion/seePost/SeePost";
+import Manager from "../component/addManager/Manager";
+import AddManager from "../component/addManager/AddManager";
+import ManagerLayout from "../layout/managerLayout/ManagerLayout";
+import Orderdetails from "../layout/managerLayout/order/Orderdetails";
+import Order from "../layout/managerLayout/order/Order";
+import Settings from "../layout/managerLayout/order/Settings";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -161,9 +167,38 @@ import SeePost from "../pages/Main/promotion/seePost/SeePost";
                 path: "/editAboutus",
                element: <EditAboutus />
             },
+            {
+                path: "/manager",
+                element: <Manager />
+            },
+            {
+                path: "/addmanager",
+                element: <AddManager />
+            },
+            
         ]
 
     },
+    {
+        path: "managerlayout",
+        element: <ManagerLayout />,
+        children: [
+            {
+                path: "managerorder",
+                element: <Order />
+            },
+            {
+                path: "orderdetails",
+                element: <Orderdetails />
+            },
+            {
+                path:"setings",
+                element:<Settings />
+            }
+        ]
+    },
+    
+    
     {
         path: '/auth',
         element: <Auth />,

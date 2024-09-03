@@ -16,7 +16,7 @@ const Main = () => {
             {/* <div className="h-4 w-auto border border-red-400"></div> */}
         </div>
         
-        <div className="mt-24">
+        <div className="mt-24 w-full">
             <Outlet />
         </div>
       </div>
