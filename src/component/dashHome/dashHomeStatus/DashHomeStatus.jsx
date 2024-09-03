@@ -3,7 +3,7 @@ import Loading from "../../loading/Loading";
 
 const DashHomeStatus = () => {
   const token = localStorage.getItem("token");
-  console.log("Auth Token page 10", token);
+  // console.log("Auth Token page 10", token);
 
   // Fetch data using the query hook, passing the token as a header or parameter if needed
   const { data, isLoading, isError, error } = useGetDashHomeStatusApiQuery(undefined, {
@@ -11,8 +11,8 @@ const DashHomeStatus = () => {
   });
 
   // Debugging information
-  console.log("Data:", data?.data?.attributes);
-  console.log("Error:", error);
+  // console.log("Data:", data?.data?.attributes);
+  // console.log("Error:", error);
 
   // Handle the loading state
   if (isLoading) {

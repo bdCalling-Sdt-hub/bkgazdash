@@ -1,11 +1,12 @@
 import { baseApi } from "../api/baseApi";
 
-const getDashEarningGraphChartApi = baseApi.injectEndpoints({
+const getDashEarningApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getDashEarningGraphChartApi: builder.query({
-            query: ({year}) => `/admin//earning-chart?year=${year}`,
+        getDashEarningApi: builder.query({
+            query: (year) => `/admin/earning-chart?year=${year}`,
         })
     })
 })
 
-export const {useGetDashEarningGraphChartApiQuery} = getDashEarningGraphChartApi;
+export const {useGetDashEarningApiQuery} =  getDashEarningApi;
+ 

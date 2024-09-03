@@ -1,0 +1,42 @@
+.ant-pagination {
+    display: flex;
+    align-items: center;
+  }
+  
+  .ant-pagination-item {
+    background-color: white;
+    border: 1px solid #D1D5DB;
+    color: #1F2937;
+  }
+  
+  .ant-pagination-item-active {
+    background-color: #1F2937;
+    border-color: #1F2937;
+    color: white;
+  }
+  
+  .ant-pagination-item a {
+    color: #1F2937;
+  }
+  
+  .ant-pagination-item-active a {
+    color: white;
+  }
+  
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    background-color: #1F2937;
+    border: 1px solid #1F2937;
+    color: white;
+  }
+  
+  .ant-pagination-prev a,
+  .ant-pagination-next a {
+    color: white;
+  }
+  
+  .custom-pagination-btn {
+    padding: 0 12px;
+  }
+  
+  
