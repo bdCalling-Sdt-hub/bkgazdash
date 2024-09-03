@@ -63,9 +63,7 @@ const handleBackHome = () => {
           className={`transition-all duration-300 ${collapsed ? 'w-10 mx-auto' : 'xl:w-20 lg:w-24 mx-auto py-4'}`}
         />
         <h1 className='text-[#1397D5] text-3xl font-bold'>B. K. Shop</h1>
-        <Link to = "/managerlayout">
-        manager dashboard
-        </Link>
+        
       </div>
       <nav className="flex flex-col 2xl:px-8 xl:px-6 lg:px-4">
         <NavLink to="/" 
