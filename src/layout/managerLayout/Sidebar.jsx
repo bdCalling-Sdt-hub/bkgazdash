@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "./../../assets/bkGazLogo.svg";
+// import logo from "./../../assets/bkGazLogo.svg";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaUserFriends, FaUsers } from "react-icons/fa";
 import { HiLogout } from "react-icons/hi";
@@ -57,7 +57,7 @@ const handleBackHome = () => {
       </button> : ""}
       <div onClick={handleBackHome} className="text-center py-6">
         <img
-          src={logo}
+          src={`https://i.ibb.co/1Q0796s/image-1-1-removebg-preview-2.png`}
           alt="B.k logo"
           className={`transition-all duration-300 ${collapsed ? 'w-10 mx-auto' : 'xl:w-20 lg:w-24 mx-auto py-4'}`}
         />
