@@ -1,4 +1,4 @@
-import { useGetDashHomeStatusApiQuery } from "../../../redux/features/getDashHomeStatusApi";
+// import { useGetDashHomeStatusApiQuery } from "../../../redux/features/getDashHomeStatusApi";
 import Loading from "../../loading/Loading";
 
 const DashHomeStatus = () => {
@@ -6,28 +6,28 @@ const DashHomeStatus = () => {
   // console.log("Auth Token page 10", token);
 
   // Fetch data using the query hook, passing the token as a header or parameter if needed
-  const { data, isLoading, isError, error } = useGetDashHomeStatusApiQuery(undefined, {
-    skip: !token, // Skip fetching if there's no token
-  });
+  // const { data, isLoading, isError, error } = useGetDashHomeStatusApiQuery(undefined, {
+  //   skip: !token, // Skip fetching if there's no token
+  // });
 
   // Debugging information
   // console.log("Data:", data?.data?.attributes);
   // console.log("Error:", error);
 
   // Handle the loading state
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   // Handle the error state
-  if (isError) {
-    return <div>Error: {error?.data?.message || error.message}</div>;
-  }
+  // if (isError) {
+  //   return <div>Error: {error?.data?.message || error.message}</div>;
+  // }
 
   // Extract the data you need from the response
-  const totalEarnings = data?.data?.attributes?.totalEarnings || 24.88;
-  const totalUsers = data?.data?.attributes?.totalUser || 6500;
-  const totalDelivery = data?.data?.attributes?.totalDelivery || 740;
+  // const totalEarnings = data?.data?.attributes?.totalEarnings || 24.88;
+  // const totalUsers = data?.data?.attributes?.totalUser || 6500;
+  // const totalDelivery = data?.data?.attributes?.totalDelivery || 740;
 
   // Render the UI
   return (
@@ -36,7 +36,8 @@ const DashHomeStatus = () => {
         <div>
           <p className="text-black font-bold">Total Earnings</p>
           <h1 className="text-secondary text-[44px]">
-            ${totalEarnings}
+            {/* ${totalEarnings? totalEarnings: '343'} */}
+            ${'35'}
           </h1>
         </div>
       </div>
@@ -44,7 +45,8 @@ const DashHomeStatus = () => {
         <div>
           <p className="text-black font-bold">Total Users</p>
           <h1 className="text-secondary text-[44px]">
-            {totalUsers}
+            {/* {totalUsers? totalUsers : '32'} */}
+            ${'5'}
           </h1>
         </div>
       </div>
@@ -52,7 +54,8 @@ const DashHomeStatus = () => {
         <div>
           <p className="text-black font-bold">Total Delivery</p>
           <h1 className="text-secondary text-[44px]">
-            {totalDelivery}
+            {/* {totalDelivery? totalDelivery: '35'} */}
+            ${'35'}
           </h1>
         </div>
       </div>

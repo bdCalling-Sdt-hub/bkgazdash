@@ -5,10 +5,38 @@ import { CloseOutlined } from "@ant-design/icons";
 import './RecentTransactions.css'
 
 import { BsInfoCircle } from 'react-icons/bs';
-import { useGetDashRecentTransactionApiQuery } from '../../../redux/features/getDashRecentTransactionApi';
-
+// import { useGetDashRecentTransactionApiQuery } from '../../../redux/features/getDashRecentTransactionApi';
+const dataSource = [
+  {
+    key: '1',
+    
+    customerName: 'Bashar Islam',
+    email: 'abc@email.com',
+    address: 'Dhaka Bangladesh',
+    date: '16 Apr 2024',
+    phone:'4536656'
+  },
+  {
+    key: '2',
+    applicationId: '12345678',
+    customerName: 'Bashar Islam',
+    email: 'abc@email.com',
+    address: 'Dhaka Bangladesh',
+    date: '16 Apr 2024',
+    phone:'4536656'
+  },
+  {
+    key: '3',
+    applicationId: '12345678',
+    customerName: 'Bashar Islam',
+    email: 'abc@email.com',
+    address: 'Dhaka Bangladesh',
+    date: '16 Apr 2024',
+    phone:'4536656'
+  },
+]
 const RecentTransactionTable = () => {
- const {data: recentTransaction, isLoading} = useGetDashRecentTransactionApiQuery()
+//  const {data: recentTransaction, isLoading} = useGetDashRecentTransactionApiQuery()
 //  console.log(recentTransaction?.data?.attributes);
  
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,7 +104,8 @@ const handleView = (value) => {
     <div className="table-container">
         <h1 className='text-[20px] font-medium my-2'>Recent Transaction</h1>
       <Table
-        dataSource={recentTransaction?.data?.attributes}
+        dataSource={dataSource}
+        // dataSource={recentTransaction?.data?.attributes}
         columns={columns}
         pagination={false}
         bordered

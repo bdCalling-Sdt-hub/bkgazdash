@@ -4,7 +4,7 @@ import moment from 'moment';
  
 
 import SearchByYear from './SearchByYear';
-import { useGetDashEarningApiQuery } from '../../../redux/features/getDashEarningGraphChartApi';
+// import { useGetDashEarningApiQuery } from '../../../redux/features/getDashEarningGraphChartApi';
  
 
 const EarningsChart = () => {
@@ -12,7 +12,7 @@ const EarningsChart = () => {
  
 
  
-  const {data: dashEarning, isLoading} = useGetDashEarningApiQuery(year)
+  // const {data: dashEarning, isLoading} = useGetDashEarningApiQuery(year)
 
   // console.log("12 dashEarnChart", data?.data?.attributes?.monthlyIncomeRatio);
 // const dashEarnChart = data?.data?.attributes?.monthlyIncomeRatio || [];
@@ -84,7 +84,8 @@ const handleYearSearch = (selectedYear) => {
           <BarChart
             width={500}
             height={300}
-            data={dashEarning?.data?.attributes?.monthlyIncomeRatio}
+            data={data}
+            // data={dashEarning?.data?.attributes?.monthlyIncomeRatio}
             margin={{
               top: 5,
               right: 30,
@@ -93,7 +94,7 @@ const handleYearSearch = (selectedYear) => {
             }}
             barSize={20}
           >
-            <XAxis dataKey="month" scale="point" padding={{ left: 10, right: 10 }} />
+            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
             <YAxis 
        
               tickFormatter={formatYAxis} 
@@ -105,7 +106,7 @@ const handleYearSearch = (selectedYear) => {
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="totalEarnings" fill="#193664" background={{ fill: '#eee' }} />
+            <Bar dataKey="pv" fill="#193664" background={{ fill: '#eee' }} />
           </BarChart>
         </ResponsiveContainer>
       </div>
