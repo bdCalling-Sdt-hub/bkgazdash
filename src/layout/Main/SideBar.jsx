@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "../../assets/bkGazLogo.svg";
+import logo from "./../../assets/bkGazLogo.svg";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaUserFriends, FaUsers } from "react-icons/fa";
 import { HiLogout } from "react-icons/hi";

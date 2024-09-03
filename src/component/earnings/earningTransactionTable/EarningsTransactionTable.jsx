@@ -42,7 +42,7 @@ const dataSource = [
 const RecentTransactionTable = () => {
  
  const {data: earning, isLoading} = useGetEarningRecentTransactionQuery()
- console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
+//  console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
  
   const [isModalOpen, setIsModalOpen] = useState(false);
  const [transaction, setTransaction] = useState()
