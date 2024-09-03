@@ -4,14 +4,14 @@ import logo from "../../../assets/bkgazLogo.png";
 import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-// import { usePostLoginMutation } from "../../../redux/features/postLoginApi";
+import { usePostLoginMutation } from "../../../redux/features/postLoginApi";
 import { useState } from "react";
 import './Login.css'
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  // const [setData, { isLoading, isError, status, error, data }] = usePostLoginMutation();
+  const [setData, { isLoading, isError, status, error, data }] = usePostLoginMutation();
 
   const navigate = useNavigate();
 
@@ -85,7 +85,7 @@ const Login = () => {
             onFinish={onFinish}
             className="w-[300px] mt-4 mx-auto"
           >
-            {/* <Form.Item
+             <Form.Item
               name="phoneNumber"
               label={
                 <span className="text-secondary text-[12px] font-medium">
@@ -110,50 +110,15 @@ const Login = () => {
                 value={phoneNumber}
                 onChange={setPhoneNumber}
               />
-            </Form.Item> */}
-       <Form.Item
-                name="email"
-              //   label={
-              //     <span className="text-secondary text-[12px] font-medium">
-              //  Email
-              //     </span>
-              //   }
-                rules={[
-                  {
-                    type: 'email',
-                    required: true,
-                    message: "Please write your email",
-                  },
-                ]}
-              >
-                <Input
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Email"
-                  name="current_password"
-                  prefix={
-                    //
-                    ""
-                  }
-                  style={{
-                    border: "2px solid #1397D5",
-                    borderRadius: "16px",
-                    height: "52px",
-                    paddingLeft: "16px",
-                    background: "#ffffff",
-                    outline: "none",
-                    marginBottom: "10px",
-                  }}
-                  bordered={false}
-                />
-              </Form.Item>
+            </Form.Item>
+       
             <Form.Item
               name="password"
-              // label={
-              //   <span className="text-secondary text-[12px] font-medium">
-              //     Password
-              //   </span>
-              // }
+              label={
+                <span className="text-secondary text-[12px] font-medium">
+                  Password
+                </span>
+              }
               rules={[
                 {
                   required: true,

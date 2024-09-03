@@ -6,7 +6,7 @@ export const baseApi = createApi({
     baseUrl: "http://192.168.10.163:8081/api/v1",
     prepareHeaders: (headers, { getState }) => {
       const token = localStorage.getItem("token");
-      console.log("9 baseApi", token);
+      // console.log("9 baseApi", token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

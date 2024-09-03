@@ -1,10 +1,14 @@
-// import { useGetAllStatusApiQuery } from "../redux/Features/getAllStatusApi";
-// 
+import { useEarningStatusQuery } from "../../redux/features/earningStatus";
+
+ 
 
 
 const data = [1, 2, 3]
 const EarningsStatus = () => {
-    // const {data,isSuccess,isError,isLoading} = useGetAllStatusApiQuery();
+  
+    const {data: earnStatus, isLoading} = useEarningStatusQuery()
+    console.log(earnStatus);
+    
     // if(isLoading){
     //     return <Loading/>
     // }
@@ -16,14 +20,14 @@ const EarningsStatus = () => {
              
                 <div className="">
                     <p className="text-black font-bold">Total Earnings</p>
-                    <h1 className="text-secondary text-[44px]">${data?.data?.attributes?.totalEarnings ||0}</h1>
+                    <h1 className="text-secondary text-[44px]">${ earnStatus?.data?.attributes?.totalEarnings ||0}</h1>
                 </div>
             </div>
             <div className="bg-[#E8EBF0] px-[20px] py-[32px] flex justify-between items-center rounded-lg ">
                    
                 <div className="">
                     <p className="text-black font-bold">Total Transactions</p>
-                    <h1 className="text-secondary text-[44px]">${data?.data?.attributes?.allUsers || 0}</h1>
+                    <h1 className="text-secondary text-[44px]">${data?.data?.attributes?.allUsers || 0 }</h1>
                 </div>
             </div>
             <div className="bg-[#E8EBF0] px-[20px] py-[32px] flex justify-between items-center rounded-lg">
