@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-// import logo from "./../../assets/bkGazLogo.svg";
+import logo from "../../../public/bkGazLogo.png";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaUserFriends, FaUsers } from "react-icons/fa";
 import { HiLogout } from "react-icons/hi";
@@ -55,15 +55,16 @@ const handleBackHome = () => {
       >
         <FiMenu size={15} />
       </button> : ""}
-      <div onClick={handleBackHome} className="text-center py-6">
+      <div onClick={handleBackHome} className="text-center py-6 cursor-pointer">
         <img
-          src={`https://i.ibb.co/1Q0796s/image-1-1-removebg-preview-2.png`}
+          // src={`https://i.ibb.co/1Q0796s/image-1-1-removebg-preview-2.png`}
+          src={logo}
           alt="B.k logo"
           className={`transition-all duration-300 ${collapsed ? 'w-10 mx-auto' : 'xl:w-20 lg:w-24 mx-auto py-4'}`}
         />
         <h1 className='text-[#1397D5] text-3xl font-bold'>B. K. Shop</h1>
-        <p className='text-white font-thin'>Manager Dashboard</p>
       </div>
+        <p className='text-white font-thin text-center'>Manager Dashboard</p>
       <nav className="flex flex-col overflow-y-auto 2xl:px-8 xl:px-6 lg:px-4 2xl:py-12">
         
          

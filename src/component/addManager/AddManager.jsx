@@ -107,7 +107,7 @@ const AddManager = () => {
 
    <div className='update-button border-t-2 border-[#193664] py-4'>
    <Button className='w-[860px] h-14 bg-[#193664] text-white font-bold'  htmlType="submit">
-   Add Employee
+   Add Manager
    </Button>
    </div>
  </Form>
