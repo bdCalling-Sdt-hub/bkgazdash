@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Input } from "antd";
 
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/bkgazLogo.png";
+import logo from "./../../../../public/bkGazLogo.png";
 import { GoArrowLeft } from "react-icons/go";
 // import baseURL from "../../config";
 // import Swal from "sweetalert2";
@@ -9,7 +9,7 @@ import { GoArrowLeft } from "react-icons/go";
 // import { usePostLoginMutation } from "../../redux/Features/postLoginApi";
 // import PhoneInput from "react-phone-number-input";
 // import { useState } from "react";
-import "./login.css";
+import "./Login.css";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();

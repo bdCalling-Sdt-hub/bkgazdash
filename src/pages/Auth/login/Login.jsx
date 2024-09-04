@@ -1,6 +1,6 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/bkgazLogo.png";
+import logo from "./../../../../public/bkGazLogo.png"; 
 import Swal from "sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";

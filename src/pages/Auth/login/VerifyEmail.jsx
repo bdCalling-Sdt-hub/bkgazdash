@@ -2,7 +2,7 @@ import { Button, Form, Input } from "antd";
 import { GoArrowLeft } from "react-icons/go";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import logo from "../../../assets/bkgazLogo.png";
+import logo from "./../../../../public/bkGazLogo.png";
 import { useState, } from "react";
 import OTPInput from "react-otp-input";
 import Swal from "sweetalert2";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Space, Table, Tag, Button } from "antd";
 import { MdOutlineInfo } from "react-icons/md";
-import './Manager.css';
+import './manager.css';
 import TransactionModal from "./ManagerModal";
 import { useNavigate } from "react-router-dom";
 import { GoPlus } from "react-icons/go";

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal as AntdModal, Button } from "antd";
-import './Manager.css';
+import './manager.css';
 
 const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedTransaction, selectedTransaction }) => {
     const handleDownload = () => {
