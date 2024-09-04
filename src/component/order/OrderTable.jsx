@@ -8,6 +8,8 @@ import SearchInput_itemName from "./searchInput_itemName/SearchInput_itemName";
 import OrderSearchByDate from "./orderSearchByDate/OrderSearchByDate";
 import OrderStatusSelectItem from "./orderStatusSelectItem/OrderStatusSelectItem";
 import jsPDF from "jspdf";
+import { DatePicker, Space } from 'antd';
+const { RangePicker } = DatePicker;
 
 const columns = (onActionClick) => [
     {
@@ -240,7 +242,7 @@ const OrderTable = () => {
           </div>
           <div className="justify-end space-x-4 p-4 flex">
             {/* <OrderSearchByDate onDateChange={handleDateSearch} /> */}
-            <OrderStatusSelectItem onStatusChange={handleStatusChange} />
+            <RangePicker />
             <p onClick={handleDownload} className="px-2 py-1 bg-blue-400 flex items-center text-center rounded cursor-pointer ">Download</p>
        
           
