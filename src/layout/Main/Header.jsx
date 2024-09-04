@@ -10,11 +10,11 @@ const Header = () => {
   console.log(data);
   const navigation = useNavigate();
   const handleNotificaton = () => {
-    navigation("/notification");
+    navigation("/dashboard/notification");
   };
 
   const handleUserProfile = () => {
-    navigation('/personalInformation')
+    navigation('/dashboard/personalInformation')
   }
   return (
   <div className="fixed w-[79vw] bg-white text-black z-50  h-28 mb-4">

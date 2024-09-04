@@ -39,7 +39,7 @@ const UpdateCoupon = () => {
   };
 
   const handleEmployee = () => {
-    naviate('/discountCoupon')
+    naviate('/dashboard/settings/discountCoupon')
   }
 
 

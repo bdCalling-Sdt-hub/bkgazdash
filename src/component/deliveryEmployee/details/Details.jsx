@@ -43,7 +43,7 @@ const Details = () => {
     navigate('/categories')
   }
   const handleUpdateEmployee = () => {
-    navigate("/updateEmployee");
+    navigate("/dashboard/deliveryEmployee/detialsDeliveryEmployee/updateEmployee");
   };
 
   return (

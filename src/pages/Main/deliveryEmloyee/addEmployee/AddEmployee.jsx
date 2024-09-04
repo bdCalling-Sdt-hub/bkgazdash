@@ -40,7 +40,7 @@ const AddEmployee = () => {
   };
 
   const handleEmployee = () => {
-    naviate('/deliveryEmployee')
+    naviate('/dashboard/deliveryEmployee')
   }
 
 

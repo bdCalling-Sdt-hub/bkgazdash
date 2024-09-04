@@ -14,42 +14,42 @@ const EditPrivacyPolicy = () => {
     const editor = useRef(null);
     
     const [content, setContent] = useState("");
-    useEffect(()=>{
-    setContent(data?.data?.attributes?.content);  
-    },[data])
-    // if(isLoading){
-    //     return <Loading/>
-    // }
-    // console.log("data",data);
-  console.log(content);
-    const handleUpdate = async ()=>{
-        console.log(content);
+  //   useEffect(()=>{
+  //   setContent(data?.data?.attributes?.content);  
+  //   },[data])
+  //   // if(isLoading){
+  //   //     return <Loading/>
+  //   // }
+  //   // console.log("data",data);
+  // console.log(content);
+  //   const handleUpdate = async ()=>{
+  //       console.log(content);
       
-      try {
-        const response = await setData({
-          content: content
-        })
-        if(response?.data?.statusCode === 201){
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: response?.data?.message,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/settings/terms-conditions")
-        }
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Try Again...",
-          text: error?.response?.data?.message,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        })
-      }
-      }
+  //     try {
+  //       const response = await setData({
+  //         content: content
+  //       })
+  //       if(response?.data?.statusCode === 201){
+  //         Swal.fire({
+  //           position: "top-center",
+  //           icon: "success",
+  //           title: response?.data?.message,
+  //           showConfirmButton: false,
+  //           timer: 1500,
+  //         });
+  //         navigate("/settings/terms-conditions")
+  //       }
+  //     } catch (error) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Try Again...",
+  //         text: error?.response?.data?.message,
+  //         footer: '<a href="#">Why do I have this issue?</a>',
+  //       })
+  //     }
+  //     }
       const handleBackPrivacyPolicy = () => {
-        navigate('/privacyPolicy')
+        navigate('/dashboard/settings/privacyPolicy')
       }
     return (
         
@@ -75,7 +75,7 @@ const EditPrivacyPolicy = () => {
         style={{ width: '100%',  height: "" }} 
       />
       <Button
-        onClick={handleUpdate}
+        // onClick={handleUpdate}
         style={{
                 
           backgroundColor: "#193664",

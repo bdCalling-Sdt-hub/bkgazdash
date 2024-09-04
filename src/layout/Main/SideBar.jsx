@@ -39,7 +39,7 @@ const Sidebar = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("user-update");
-        navigate("/auth");
+        navigate("/");
       } else if (result.isDenied) {
         Swal.fire("Ok", "", "info");
       }
@@ -67,7 +67,7 @@ const handleBackHome = () => {
         
       </div>
       <nav className="flex flex-col 2xl:px-8 xl:px-6 lg:px-4">
-        <NavLink to="/" 
+        <NavLink to="/dashboard/home" 
         className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
@@ -77,7 +77,7 @@ const handleBackHome = () => {
           {!collapsed && <span className='text-[18px]'>Dashboard</span>}
         </NavLink>
 
-        <NavLink to="/earnings" className={({ isActive }) =>
+        <NavLink to="/dashboard/earnings" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`
@@ -87,7 +87,7 @@ const handleBackHome = () => {
           {!collapsed && <span className='text-[18px]'>Earnings</span>}
         </NavLink>
 
-        <NavLink to="/promotion" className={({ isActive }) =>
+        <NavLink to="/dashboard/promotion" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`
@@ -95,7 +95,7 @@ const handleBackHome = () => {
           <FaUserFriends size={20} />
           {!collapsed && <span className='text-[18px]'>Promotion</span>}
         </NavLink>
-        <NavLink to="/users" className={({ isActive }) =>
+        <NavLink to="/dashboard/users" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`
@@ -103,7 +103,7 @@ const handleBackHome = () => {
           <FaUserFriends size={20} />
           {!collapsed && <span className='text-[18px]'>Users</span>}
         </NavLink>
-        <NavLink to="/order" className={({ isActive }) =>
+        <NavLink to="/dashboard/order" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white '
           }`
@@ -111,7 +111,7 @@ const handleBackHome = () => {
           <MdOutlineCalendarToday size={20} />
           {!collapsed && <span className='text-[18px]'>Order</span>}
         </NavLink>
-        <NavLink to="/product" className={({ isActive }) =>
+        <NavLink to="/dashboard/product" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white '
           }`
@@ -119,7 +119,7 @@ const handleBackHome = () => {
           <BiSolidCategory size={20} />
           {!collapsed && <span className='text-[18px]'>Product</span>}
         </NavLink>
-        <NavLink to="/deliveryEmployee" className={({ isActive }) =>
+        <NavLink to="/dashboard/deliveryEmployee" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white '
           }`
@@ -127,7 +127,7 @@ const handleBackHome = () => {
           <FaUsers size={20} />
           {!collapsed && <span className='text-[18px]'>Delivery Employee</span>}
         </NavLink>
-        <NavLink to="/manager" className={({ isActive }) =>
+        <NavLink to="/dashboard/manager" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white '
           }`
@@ -136,7 +136,7 @@ const handleBackHome = () => {
           {!collapsed && <span className='text-[18px]'>Manager</span>}
         </NavLink>
 
-        <NavLink to="/settings" className={({ isActive }) =>
+        <NavLink to="/dashboard/settings" className={({ isActive }) =>
           `flex items-center gap-3 p-3 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`

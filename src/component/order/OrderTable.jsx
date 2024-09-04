@@ -7,6 +7,7 @@ import OrderTransactionModal from "./OrderTransactionModal";
 import SearchInput_itemName from "./searchInput_itemName/SearchInput_itemName";
 import OrderSearchByDate from "./orderSearchByDate/OrderSearchByDate";
 import OrderStatusSelectItem from "./orderStatusSelectItem/OrderStatusSelectItem";
+import jsPDF from "jspdf";
 
 const columns = (onActionClick) => [
     {
@@ -129,6 +130,80 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
+const handleDownload = (record) => {
+  const doc = new jsPDF();
+  
+  const padding = 20;  // Define padding value
+
+  // Set up content with styling
+  doc.setFontSize(22);
+  doc.setTextColor(40);
+  doc.text("Order Details", 105, padding, null, null, "center");
+
+  // Add padding for the line below the title
+  doc.setDrawColor(0, 0, 0);
+  doc.line(padding, padding + 5, 210 - padding, padding + 5);
+
+  doc.setFontSize(16);
+  doc.setTextColor(0);
+  doc.text(`Order ID:`, padding, padding + 15);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.orderId}`, padding + 50, padding + 15);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Package Item:`, padding, padding + 25);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.package}`, padding + 50, padding + 25);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Payment Status:`, padding, padding + 35);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.paymentType}`, padding + 50, padding + 35);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Location & Date:`, padding, padding + 45);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.date_time}`, padding + 50, padding + 45);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Order Status:`, padding, padding + 55);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.status}`, padding + 50, padding + 55);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`User Name:`, padding, padding + 65);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.userName}`, padding + 50, padding + 65);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Email:`, padding, padding + 75);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.email}`, padding + 50, padding + 75);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Phone Number:`, padding, padding + 85);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.phoneNumber}`, padding + 50, padding + 85);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Amount:`, padding, padding + 95);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.amount}`, padding + 50, padding + 95);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Address:`, padding, padding + 105);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.address}`, padding + 50, padding + 105);
+
+  // Optional: Add a footer
+  doc.setFontSize(12);
+  doc.text("Thank you for your order!", 105, 280, null, null, "center");
+
+  // Save the PDF with the order ID as the file name
+  doc.save(`${record.orderId}.pdf`);
+};
+
+
 const OrderTable = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -136,7 +211,7 @@ const OrderTable = () => {
     const navigate = useNavigate();
   
     const onActionClick = (record) => {
-      navigate("/orderDetails", { state: { orderDetails: record } });
+      navigate("/dashboard/Order/orderDetails", { state: { orderDetails: record } });
     };
   
     const handleDateSearch = (date) => {
@@ -165,8 +240,9 @@ const OrderTable = () => {
           </div>
           <div className="justify-end space-x-4 p-4 flex">
             {/* <OrderSearchByDate onDateChange={handleDateSearch} /> */}
-    
             <OrderStatusSelectItem onStatusChange={handleStatusChange} />
+            <p onClick={handleDownload} className="px-2 py-1 bg-blue-400 flex items-center text-center rounded cursor-pointer ">Download</p>
+       
           
             <Input 
               placeholder="User Name"

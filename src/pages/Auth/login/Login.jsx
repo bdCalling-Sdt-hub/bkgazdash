@@ -16,60 +16,61 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = async () => {
+    navigate("/dashboard/home")
     // Make sure phoneNumber is valid and not empty before submitting
-    if (!phoneNumber) {
-      Swal.fire({
-        icon: "error",
-        title: "Phone number is required",
-        text: "Please enter your phone number.",
-      });
-      return;
-    }
+    // if (!phoneNumber) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Phone number is required",
+    //     text: "Please enter your phone number.",
+    //   });
+    //   return;
+    // }
 
-    const payload = {phoneNumber, password};
-    console.log(payload);
+    // const payload = {phoneNumber, password};
+    // console.log(payload);
     
-    try {
-      const response = await setData(payload);
-      console.log(response);
-      if (response?.data) {
-        console.log(response?.data?.code == 200);
-        localStorage.setItem("token", response?.data?.data?.attributes?.tokens?.accessToken);
-        localStorage.setItem("refresh_token", response?.data?.data?.attributes?.tokens?.refreshToken);
-        console.log("token", response?.data?.data?.attributes?.tokens?.accessToken);
-        localStorage.setItem(
-          "user-update",
-          JSON.stringify(response?.data?.data?.attributes)
-        );
+    // try {
+    //   const response = await setData(payload);
+    //   console.log(response);
+    //   if (response?.data) {
+    //     console.log(response?.data?.code == 200);
+    //     localStorage.setItem("token", response?.data?.data?.attributes?.tokens?.accessToken);
+    //     localStorage.setItem("refresh_token", response?.data?.data?.attributes?.tokens?.refreshToken);
+    //     console.log("token", response?.data?.data?.attributes?.tokens?.accessToken);
+    //     localStorage.setItem(
+    //       "user-update",
+    //       JSON.stringify(response?.data?.data?.attributes)
+    //     );
 
-        Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: response?.data?.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate("/");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Login Failed, Try Again...",
-          text: response?.error?.data?.message,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Login Failed, Try Again...",
-        text: error?.data?.message,
-      });
-    }
+    //     Swal.fire({
+    //       position: "top-center",
+    //       icon: "success",
+    //       title: response?.data?.message,
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //     });
+    //     navigate("/");
+    //   } else {
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "Login Failed, Try Again...",
+    //       text: response?.error?.data?.message,
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Login Failed, Try Again...",
+    //     text: error?.data?.message,
+    //   });
+    // }
   };
 
   return (
-    <div className="w-full flex justify-center items-center h-[100vh] bg-[#1397D5]">
-      <div className="bg-[#B6DFF2] p-24 rounded-xl">
+    <div className="w-full flex justify-center items-center min-h-[100vh] bg-[#1397D5]">
+      <div className="bg-[#B6DFF2] p-24  h-2/4 rounded-xl">
         <div className="mx-auto">
           <img className="mx-auto w-48" src={logo} alt="Logo" />
 
@@ -154,7 +155,7 @@ const Login = () => {
                   </span>
                 </Checkbox>
               </Form.Item>
-              <Link to="/auth/forgetPassword" className="font-medium">
+              <Link to="/forgetPassword" className="font-medium">
                 Forgot password?
               </Link>
             </div>

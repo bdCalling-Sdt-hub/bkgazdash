@@ -8,7 +8,7 @@ const ShopOperation = () => {
   const navigate = useNavigate();
 
   const handleBackSettings = () => {
-    navigate("/settings");
+    navigate("/dashboard/settings");
   };
 
   return (

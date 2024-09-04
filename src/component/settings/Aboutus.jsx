@@ -6,11 +6,11 @@ const Aboutus = () => {
   const navigate = useNavigate();
 
   const handleBackSettings = () => {
-    navigate("/settings");
+    navigate("/dashboard/settings");
   };
 
   const handleEditAboutus = () => {
-    navigate("/editAboutus");
+    navigate("/dashboard/settings/aboutus/editAboutus");
   };
 
   return (

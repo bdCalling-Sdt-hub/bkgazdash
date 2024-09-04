@@ -40,7 +40,7 @@ const AddProduct = () => {
   };
 
   const handleAddProduct = () => {
-    naviate('/product')
+    naviate('/dashboard/product')
   }
 
 
@@ -70,6 +70,18 @@ const AddProduct = () => {
           <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
           </MyFormItem>
           <MyFormItem name="loyalityPrice" label="Loyality Price">
+          <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
+          </MyFormItem>
+          
+          </div>
+        </MyFormItemGroup>
+
+        <MyFormItemGroup prefix={['name']}>
+          <div className='flex space-x-6'>
+          <MyFormItem name="Delivery Fee" label="Delivery Fee">
+          <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
+          </MyFormItem>
+          <MyFormItem name="Texi fee" label="Texi fee">
           <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
           </MyFormItem>
           

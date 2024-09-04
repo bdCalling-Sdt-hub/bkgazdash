@@ -12,17 +12,14 @@ import { GoPlus } from "react-icons/go";
 
 const EditProfile = () => {
   const navigate = useNavigate();
-  const [phone, setPhone] = useState('');
-
-  const handleBackSettings = () => {
-    navigate('/personalInformation');
-  };
+  const [phone, setPhone] = useState(''); 
+ 
 
   return (
     <div className="2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
       
       <div>
-        <Button onClick={handleBackSettings} className='border-none text-[#193664]'>
+        <Button onClick={()=> navigate('/dashboard/personalInformation')} className='border-none text-[#193664]'>
           <IoIosArrowBack />
           Edit Profile
         </Button>

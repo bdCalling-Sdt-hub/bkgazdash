@@ -40,11 +40,11 @@ const Products = () => {
   ];
 
   const handleAddProduct = () => {
-    navigate('/addproduct');
+    navigate('/dashboard/product/addproduct');
   };
 
   const handleUpdate = (id) => {
-    navigate(`/updateProduct/${id}`);
+    navigate(`/dashboard/product/updateProduct/${id}`);
   };
 
   return (

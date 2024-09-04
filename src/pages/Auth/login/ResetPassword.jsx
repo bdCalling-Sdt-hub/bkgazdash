@@ -57,19 +57,19 @@ const ResetPassword = () => {
   //   }
 
   //   };
-  const onFinish =  () => {
-    // navigate('../resetPassword');
-    console.log("first")
+  const onFinish =  (values) => {
+    console.log("first",values)
+    navigate('/');
   }
 
   return (
-    <div className="w-full flex items-center justify-center h-[100vh] bg-[#1397D5]">
+    <div className="w-full flex items-center justify-center min-h-[100vh] bg-[#1397D5]">
 
         <div className="p-24  bg-[#B6DFF2]  rounded-xl">
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
             <div className="flex items-center justify-center gap-2">
-              <Link to="/auth">
+              <Link to="/verifyEmail">
                 <GoArrowLeft className="text-[32px]" />
               </Link>
 
@@ -81,106 +81,92 @@ const ResetPassword = () => {
               Please enter your email address to reset your password.
             </p>
             <Form
-              name="normal_login"
-              // className="login-form"
-              labelCol={{ span: 22 }}
-              wrapperCol={{ span: 40 }}
-              layout="vertical"
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-              className="w-[300px] mt-4 mx-auto"
-            >
-              <Form.Item
-                name="password"
-                // label={
-                //   <span className="text-secondary text-[12px] font-medium">
-                //     Password
-                //   </span>
-                // }
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your Password!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Set your assword"
-                  name="current_password"
-                  prefix={
-                    //
-                    ""
-                  }
-                  style={{
-                    border: "2px solid #1397D5",
-                    borderRadius: "16px",
-                    height: "52px",
-                    background: "#ffffff",
-                    outline: "none",
-                    marginBottom: "10px",
-                  }}
-                  bordered={false}
-                />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                // label={
-                //   <span className="text-secondary text-[12px] font-medium">
-                //     Password
-                //   </span>
-                // }
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your Password!",
-                  },
-                ]}
-              >
-                <Input.Password
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Re-enter assword"
-                  name="current_password"
-                  prefix={
-                    //
-                    ""
-                  }
-                  style={{
-                    border: "2px solid #1397D5",
-                    borderRadius: "16px",
-                    height: "52px",
-                    background: "#ffffff",
-                    outline: "none",
-                    marginBottom: "10px",
-                  }}
-                  bordered={false}
-                />
-              </Form.Item>
+  name="reset_password"
+  labelCol={{ span: 22 }}
+  wrapperCol={{ span: 40 }}
+  layout="vertical"
+  initialValues={{
+    remember: true,
+  }}
+  onFinish={onFinish}
+  className="w-[300px] mt-4 mx-auto"
+>
+  <Form.Item
+    name="password"
+    rules={[
+      {
+        required: true,
+        message: "Please input your password!",
+      },
+    ]}
+  >
+    <Input.Password
+      size="large"
+      placeholder="Set your password"
+      style={{
+        border: "2px solid #1397D5",
+        borderRadius: "16px",
+        height: "52px",
+        background: "#ffffff",
+        outline: "none",
+        marginBottom: "10px",
+      }}
+      bordered={false}
+    />
+  </Form.Item>
 
-              
+  <Form.Item
+    name="confirm_password"
+    dependencies={['password']}
+    hasFeedback
+    rules={[
+      {
+        required: true,
+        message: "Please confirm your password!",
+      },
+      ({ getFieldValue }) => ({
+        validator(_, value) {
+          if (!value || getFieldValue('password') === value) {
+            return Promise.resolve();
+          }
+          return Promise.reject(new Error('The two passwords do not match!'));
+        },
+      }),
+    ]}
+  >
+    <Input.Password
+      size="large"
+      placeholder="Re-enter password"
+      style={{
+        border: "2px solid #1397D5",
+        borderRadius: "16px",
+        height: "52px",
+        background: "#ffffff",
+        outline: "none",
+        marginBottom: "10px",
+      }}
+      bordered={false}
+    />
+  </Form.Item>
 
-              <Form.Item>
-                <Button
-                  // type="primary"
-                  style={{
-                    backgroundColor: "#1397D5",
-                    borderRadius: "16px",
-                    color: "#fff",
-                    size: "18px",
-                    height: "56px",
-                  }}
-                  htmlType="submit"
-                  className=" w-[300px] 
-                   h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
-                >
-                 Reset Password
-                </Button>
-              </Form.Item>
-            </Form>
+  <Form.Item>
+    <Button
+      style={{
+        backgroundColor: "#1397D5",
+        borderRadius: "16px",
+        color: "#fff",
+        size: "18px",
+        height: "56px",
+      }}
+      htmlType="submit"
+      className=" w-[300px] 
+      h-[56px]  py-4 mt-2 text-white hover:border-none border-none rounded-lg"
+    >
+      Reset Password
+    </Button>
+  </Form.Item>
+</Form>
+
           </div>
         </div>
       </div>

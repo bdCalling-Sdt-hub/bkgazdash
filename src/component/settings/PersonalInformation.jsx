@@ -18,12 +18,10 @@ const PersonalInformation = () => {
   const [phone, setPhone] = useState('');
   const [imageUrl, setImageUrl] = useState(null);
 
-  const handleEditProfile = () => {
-    navigate('/editProfile');
-  };
+ 
 
   const handleBackSettings = () => {
-    navigate('/settings');
+    navigate('/dashboard/settings');
   };
   
   const normFile = (e) => {
@@ -50,14 +48,14 @@ const PersonalInformation = () => {
     <div className="2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
       
       <div>
-        <div onClick={handleBackSettings} className='border-none text-[#193664] flex gap-2 items-center cursor-pointer'>
+        <div onClick={()=> navigate('/dashboard/settings')} className='border-none text-[#193664] flex gap-2 items-center cursor-pointer'>
           <IoIosArrowBack />
           Personal Information
         </div>
       </div>
       <div className="flex justify-end 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw]">
         <Button
-          onClick={handleEditProfile}
+          onClick={() => navigate('/dashboard/editProfile')}
           type="primary"
           className="flex items-center bg-[#193664] w-[206px] h-[56px]"
         >

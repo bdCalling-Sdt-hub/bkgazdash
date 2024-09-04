@@ -7,11 +7,11 @@ const PrivacyPolicy = () => {
     const navigate = useNavigate();
 
     const handleBackSettings = () => {
-        navigate('/settings')
+        navigate('/dashboard/settings')
     }
 
     const handlePrivacyEdit = () => {
-        navigate('/editPrivacyPolicy')
+        navigate('/dashboard/settings/privacyPolicy/editPrivacyPolicy')
 
     }
     

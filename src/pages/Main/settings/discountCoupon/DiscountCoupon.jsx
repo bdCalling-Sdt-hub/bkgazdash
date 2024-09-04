@@ -12,47 +12,28 @@ const DiscountCoupon = () => {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handlePersonalInformation = () => {
-        navigate('/personalInformation');
-    };
-    const handleShopOperation = () => {
-        navigate('/shopOperation');
-    };
-
-    const handleChangePassword = () => {
-        setIsModalVisible(true);
-    };
+   
 
     const handleModalClose = () => {
         setIsModalVisible(false);
     };
 
-    const handleTermAndConditions = () => {
-        navigate('/termsAndConditons')
-    }
-
-    const handlePrivacyPolicy = () => {
-        navigate('/privacyPolicy')
-    }
-
-    const handleAboutus = () => {
-        navigate('/aboutus')
-    }
+ 
     const handleBackSettings = () => {
         navigate('/settings')
     }
 
     const handleAddCoupon = () => {
     
-        navigate('/addCoupon')
+        navigate('/dashboard/settings/discountCoupon/addCoupon')
     }
 const handleUpdateCoupon = () => {
-    navigate('/updateCoupon')
+    navigate('/dashboard/settings/discountCoupon/updateCoupon')
 }
     return (
        <div>
   <div>
-        <div onClick={handleBackSettings} className='flex gap-2 items-center cursor-pointer border-none text-[#193664]'>
+        <div onClick={() => navigate('/dashboard/settings')} className='flex gap-2 items-center cursor-pointer border-none text-[#193664]'>
           <IoIosArrowBack />
        Discount Coupon
         </div>
@@ -89,40 +70,13 @@ const handleUpdateCoupon = () => {
             <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
         </div>
 
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-            Coupon 4
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-         </div>
-
+         
          <ChangePersonalModal
            isVisible={isModalVisible}
            onClose={handleModalClose}
          />
 
-         {/* Other items */}
-         
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-            Coupon 5
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-        </div>
-
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-            Coupon 6
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-        </div>
-
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-            Coupon 7
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-        </div>
+          
        </div>
     );
 }

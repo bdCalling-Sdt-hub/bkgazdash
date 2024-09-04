@@ -73,16 +73,18 @@ const VerifyEmail = () => {
  
 
   const handleMatchOtp = () => {
-    navigate('../resetPassword');
+    console.log(otp);
+    
+    navigate('../resetPassword',);
   }
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center bg-[#1397D5]">
+    <div className="w-full min-h-[100vh] flex justify-center items-center bg-[#1397D5]">
 
         <div className="p-24  bg-[#B6DFF2]  rounded-xl">
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
             <div className="flex items-center justify-center gap-2">
-              <Link to="/auth">
+              <Link to="/forgetPassword">
                 <GoArrowLeft className="text-[32px]" />
               </Link>
 

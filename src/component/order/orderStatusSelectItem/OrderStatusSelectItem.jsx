@@ -21,9 +21,9 @@ import './OrderStatusSelectItem.css'
 
 const treeData = [
   {title: 'All', value: 'all'},
-  {title: 'Newest', value: 'new'},
-  {title: 'On Shipment', value: 'onShipment'},
-  {title: 'Delivered', value: 'delivered'},
+  {title: 'August', value: 'new'},
+  {title: 'Sep', value: 'onShipment'},
+  {title: 'Dec', value: 'delivered'},
 ]
 const PaymentStatusSelectItem = ({onStatusChange}) => {
     

@@ -42,7 +42,7 @@ const AddManager = () => {
  
     return (
         <div>
-            <h1 onClick={() => navigate('/manager')} className='border-none text-[#193664] text-2xl flex items-center cursor-pointer'>
+            <h1 onClick={() => navigate('/dashboard/manager')} className='border-none text-[#193664] text-2xl flex items-center cursor-pointer'>
     <IoIosArrowBack />
         Add Manager
           </h1>

@@ -81,7 +81,7 @@ const DeliveryEmployeeTable = () => {
   const [filteredData, setFilteredData] = useState(originalData);
   const onActionClick = (record) => {
     setSelectedTransaction(record);
-    navigate("/detialsDeliveryEmployee", { state: { transaction: record } });
+    navigate("/dashboard/deliveryEmployee/detialsDeliveryEmployee", { state: { transaction: record } });
   };
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -111,7 +111,7 @@ const DeliveryEmployeeTable = () => {
   };
 
   const handleAddEmployee = () => {
-    navigate("/addEmployee");
+    navigate("/dashboard/deliveryEmployee/addEmployee");
   };
 
   return (

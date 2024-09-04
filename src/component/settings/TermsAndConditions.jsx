@@ -7,11 +7,11 @@ const TermsAndConditions = () => {
     const navigate = useNavigate();
 
     const handleBackSettings = () => {
-        navigate('/settings')
+        navigate('/dashboard/settings')
     }
 
     const handleEdit = () => {
-        navigate('/edittermsAndConditions')
+        navigate('/dashboard/settings/termsAndConditons/edittermsAndConditions')
 
     }
     

@@ -120,7 +120,7 @@ const navigate = useNavigate()
   return (
     <div className="w-[1500px]">
    <Button
-          onClick={()=> navigate('/addmanager')}
+          onClick={()=> navigate('/dashboard/manager/addmanager')}
           type="primary"
           className="flex items-center bg-[#193664] w-[206px] h-[56px] rounded-md"
         >

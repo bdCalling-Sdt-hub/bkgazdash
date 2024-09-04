@@ -3,7 +3,7 @@ import { Button, Form, Input, Upload } from 'antd';
 import { FaCamera } from "react-icons/fa";
 import './AddProduct.css'
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 const MyFormItemContext = React.createContext([]);
 function toArr(str) {
@@ -43,7 +43,7 @@ const UpdateProcuct = () => {
   };
 
   const handleAddProduct = () => {
-    naviate('/product')
+    naviate('/dashboard/product')
   }
 
 
@@ -51,7 +51,7 @@ const UpdateProcuct = () => {
   <div>
     <div onClick={handleAddProduct} className='flex gap-2 cursor-pointer items-center  border-none text-[#193664]'>
       <IoIosArrowBack />
-      Add Product
+      Update Product
     </div>
       <div className='xl:w-[1440px] items-center justify-center py-24 flex'>
       

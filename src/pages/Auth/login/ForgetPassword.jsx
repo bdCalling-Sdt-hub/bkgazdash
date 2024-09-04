@@ -10,6 +10,7 @@ import { GoArrowLeft } from "react-icons/go";
 // import PhoneInput from "react-phone-number-input";
 // import { useState } from "react";
 import "./Login.css";
+import { VscLaw } from "react-icons/vsc";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -57,19 +58,19 @@ const ForgetPassword = () => {
   //   }
 
   //   };
-  const onFinish =  () => {
-    navigate('../verifyEmail');
-    console.log("first")
+  const onFinish =  (values) => {
+    navigate('/verifyEmail');
+    console.log("first", values)
   }
 
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center bg-[#1397D5]">
+    <div className="w-full min-h-[100vh] flex items-center justify-center bg-[#1397D5]">
  
         <div className="p-24 bg-[#B6DFF2]  rounded-xl">
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
             <div className="flex items-center justify-center gap-2">
-              <Link to="/auth">
+              <Link to="/">
                 <GoArrowLeft className="text-[32px]" />
               </Link>
 
