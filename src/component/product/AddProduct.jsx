@@ -4,6 +4,7 @@ import { FaCamera } from "react-icons/fa";
 import './AddProduct.css'
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { useAllCategoryQuery } from '../../redux/features/category/getAllCategory';
 const MyFormItemContext = React.createContext([]);
 function toArr(str) {
   return Array.isArray(str) ? str : [str];
@@ -30,7 +31,9 @@ const AddProduct = () => {
     console.log(value);
   };
 
-
+ const {data:allCategory} = useAllCategoryQuery()
+ console.log(allCategory);
+ 
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;

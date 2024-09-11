@@ -1,15 +1,4 @@
-.custom-table .ant-table-thead > tr > th {
-  background-color: #193664 !important;
-  color: white !important; /* Optional: Change text color for better contrast */
-}
-
-.custom-table .ant-table-row {
-  background-color: #E8EBF0 !important;
-  color: black !important; /* Optional: Change text color for better contrast */
-}
-
-
-/* OrderTable.module.css */
+ 
 .paginationCenter {
   display: flex !important;
   justify-content: center !important;

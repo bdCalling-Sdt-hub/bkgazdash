@@ -5,7 +5,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import './RecentTransactions.css'
 
 import { BsInfoCircle } from 'react-icons/bs';
-// import { useGetDashRecentTransactionApiQuery } from '../../../redux/features/getDashRecentTransactionApi';
+import { useGetDashRecentTransactionApiQuery } from '../../../redux/features/getDashRecentTransactionApi';
 const dataSource = [
   {
     key: '1',
@@ -36,8 +36,8 @@ const dataSource = [
   },
 ]
 const RecentTransactionTable = () => {
-//  const {data: recentTransaction, isLoading} = useGetDashRecentTransactionApiQuery()
-//  console.log(recentTransaction?.data?.attributes);
+ const {data: recentTransaction, isLoading} = useGetDashRecentTransactionApiQuery()
+ console.log(recentTransaction );
  
   const [isModalOpen, setIsModalOpen] = useState(false);
  const [transaction, setTransaction] = useState()
@@ -104,8 +104,8 @@ const handleView = (value) => {
     <div className="table-container">
         <h1 className='text-[20px] font-medium my-2'>Recent Transaction</h1>
       <Table
-        dataSource={dataSource}
-        // dataSource={recentTransaction?.data?.attributes}
+        // dataSource={dataSource}
+        dataSource={recentTransaction?.data?.attributes}
         columns={columns}
         pagination={false}
         bordered

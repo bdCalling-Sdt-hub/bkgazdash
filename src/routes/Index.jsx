@@ -271,6 +271,7 @@ import ManagerLayout from "../layout/managerLayout/ManagerLayout";
 import Orderdetails from "../layout/managerLayout/order/Orderdetails";
 import Order from "../layout/managerLayout/order/Order";
 import Settings from "../layout/managerLayout/order/Settings";
+import AddPromotion from "../pages/Main/promotion/AddPromotion";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -319,6 +320,10 @@ import Settings from "../layout/managerLayout/order/Settings";
                 element: <Promotion />
             },
             {
+                path: "promotion/addpromotion",
+                element: <AddPromotion />
+            },
+            {
                 path: "seePost",
                 element: <SeePost />
             },
@@ -331,7 +336,7 @@ import Settings from "../layout/managerLayout/order/Settings";
                 element: <OrderTable />
             },
             {
-                path: "Order/orderDetails",
+                path: "Order/orderDetails/:id",
                 element: <OrderDetails />
             },
             {

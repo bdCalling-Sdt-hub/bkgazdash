@@ -7,7 +7,7 @@ const data = [1, 2, 3]
 const EarningsStatus = () => {
   
     const {data: earnStatus, isLoading} = useEarningStatusQuery()
-    console.log(earnStatus);
+    // console.log("saaaaaaaaaaaaaat",earnStatus);
     
     // if(isLoading){
     //     return <Loading/>

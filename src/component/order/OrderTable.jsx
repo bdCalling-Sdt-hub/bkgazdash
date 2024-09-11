@@ -9,6 +9,7 @@ import OrderSearchByDate from "./orderSearchByDate/OrderSearchByDate";
 import OrderStatusSelectItem from "./orderStatusSelectItem/OrderStatusSelectItem";
 import jsPDF from "jspdf";
 import { DatePicker, Space } from 'antd';
+import { useGetAllOrderQuery } from "../../redux/features/order/getAllorder";
 const { RangePicker } = DatePicker;
 
 const columns = (onActionClick) => [
@@ -23,14 +24,10 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
-      render: (text, record) => (
+      render: (_, record) => (
         <div className={styles.packageItemContainer}>
-          {record.status === 'new' && (
-            <span className={styles.newLabel}>
-              * New
-            </span>
-          )}
-          {text}
+           
+          {record?.productId?.name}
         </div>
       )
     },
@@ -45,6 +42,9 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.transitionId}</p>
+      )
     },
     {
       title: "Payment Status",
@@ -57,9 +57,12 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.paymentMethod}</p>
+      )
     },
     {
-      title: "Location & Date",
+      title: " Date",
       dataIndex: "date_time",
       onHeaderCell: () => ({
         style: {
@@ -69,6 +72,9 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.createdAt ? record?.createdAt.split("T")[0]: "n/a"}</p>
+      )
     },
     {
       title: "Status",
@@ -81,6 +87,9 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.paymentStatus}</p>
+      )
     },
     {
       title: "Details",
@@ -211,9 +220,16 @@ const OrderTable = () => {
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [filteredData, setFilteredData] = useState(originalData);
     const navigate = useNavigate();
+
+    const {data: allOrder, isLoading} = useGetAllOrderQuery()
+    console.log(allOrder?.data?.attributes?.results);
+    
   
     const onActionClick = (record) => {
-      navigate("/dashboard/Order/orderDetails", { state: { orderDetails: record } });
+      // console.log("reccccc>>>>>>>>>>>>>",record);
+      
+      navigate(`/dashboard/Order/orderDetails/${record?._id}`, { state: { orderDetails: record } });
+      // navigate(`/dashboard/Order/orderDetails`, { state: { orderDetails: record } });
     };
   
     const handleDateSearch = (date) => {
@@ -257,7 +273,7 @@ const OrderTable = () => {
         <Table
           className={`${styles.tableContainer}`}
           columns={columns(onActionClick)}
-          dataSource={filteredData}
+          dataSource={allOrder?.data?.attributes?.results}
           rowKey="key"
           rowClassName={(record) => {
             if (record.status === 'new') {
@@ -270,9 +286,9 @@ const OrderTable = () => {
             return '';
           }}
           pagination={{
-            total: filteredData.length,
+            total: allOrder?.data?.attributes?.results.length,
             showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-            defaultPageSize: 10,
+            defaultPageSize: 3,
             showSizeChanger: false,
             itemRender: (current, type, originalElement) => {
               if (type === 'prev') {

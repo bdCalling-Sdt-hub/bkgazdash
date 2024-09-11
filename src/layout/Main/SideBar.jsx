@@ -11,6 +11,8 @@ import { MdOutlineCalendarToday } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { BiSolidCategory } from "react-icons/bi";
 import Swal from "sweetalert2";
+import { GrAnnounce } from 'react-icons/gr';
+import { FcManager } from 'react-icons/fc';
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(window.innerWidth < 768);
@@ -92,7 +94,7 @@ const handleBackHome = () => {
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`
         }>
-          <FaUserFriends size={20} />
+          <GrAnnounce size={20} />
           {!collapsed && <span className='text-[18px]'>Promotion</span>}
         </NavLink>
         <NavLink to="/dashboard/users" className={({ isActive }) =>
@@ -132,7 +134,7 @@ const handleBackHome = () => {
             isActive ? 'bg-white text-[#193664]' : 'text-white '
           }`
         }>
-          <FaUsers size={20} />
+          <FcManager size={20} />
           {!collapsed && <span className='text-[18px]'>Manager</span>}
         </NavLink>
 

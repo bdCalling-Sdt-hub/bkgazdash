@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Modal } from 'antd';
+import { Table, Modal, Button } from 'antd';
 import { CloseOutlined } from "@ant-design/icons";
-import './earning.css'
+// import './earning.css'
+import styles from './../../../style.module.css'
 
 
 import { BsInfoCircle } from 'react-icons/bs';
@@ -42,7 +43,7 @@ const dataSource = [
 const RecentTransactionTable = () => {
  
  const {data: earning, isLoading} = useGetEarningRecentTransactionQuery()
-//  console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
+ console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
  
   const [isModalOpen, setIsModalOpen] = useState(false);
  const [transaction, setTransaction] = useState()
@@ -123,25 +124,23 @@ const handleView = (value) => {
       <Table
         dataSource={earning?.data?.attributes?.results}
         columns={columns}
-
         pagination={{
-          
-          total: earning?.data?.attributes?.totalResults, // This should represent the total number of items
+          total: dataSource.length,
           showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-          pageSize: earning?.data?.attributes?.limit || 10, // This is the number of items per page
-          current: earning?.data?.attributes?.page || 1, // This is the current page number
+          defaultPageSize: 2,
           showSizeChanger: false,
-          onChange:{handlePageChange},
           itemRender: (current, type, originalElement) => {
             if (type === 'prev') {
-              return <a>Back</a>;
+              return <Button className={styles.paginationButton}>Back</Button>;
             }
             if (type === 'next') {
-              return <a>Next</a>;
+              return <Button className={styles.paginationButton}>Next</Button>;
             }
             return originalElement;
           },
+          className: styles.paginationCenter,
         }}
+      
 
       />
         <Modal

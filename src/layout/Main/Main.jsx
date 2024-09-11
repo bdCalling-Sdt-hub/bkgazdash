@@ -11,12 +11,12 @@ const Main = () => {
         <Sidebar />
       </div>
       <div className="">
-        <div className="mx-auto py-4 rounded-lg bg-white ">
+        <div className="mx-auto py-4 w-full rounded-lg bg-white ">
             <Header />
             {/* <div className="h-4 w-auto border border-red-400"></div> */}
         </div>
         
-        <div className="mt-24 w-full">
+        <div className="mt-24  pr-4">
             <Outlet />
         </div>
       </div>

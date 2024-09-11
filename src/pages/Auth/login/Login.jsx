@@ -16,56 +16,51 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = async () => {
-    navigate("/dashboard/home")
+  
     // Make sure phoneNumber is valid and not empty before submitting
-    // if (!phoneNumber) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Phone number is required",
-    //     text: "Please enter your phone number.",
-    //   });
-    //   return;
-    // }
+    if (!phoneNumber) {
+      Swal.fire({
+        icon: "error",
+        title: "Phone number is required",
+        text: "Please enter your phone number.",
+      });
+      return;
+    }
 
-    // const payload = {phoneNumber, password};
+    const payload = {phoneNumber, password};
     // console.log(payload);
     
-    // try {
-    //   const response = await setData(payload);
-    //   console.log(response);
-    //   if (response?.data) {
-    //     console.log(response?.data?.code == 200);
-    //     localStorage.setItem("token", response?.data?.data?.attributes?.tokens?.accessToken);
-    //     localStorage.setItem("refresh_token", response?.data?.data?.attributes?.tokens?.refreshToken);
-    //     console.log("token", response?.data?.data?.attributes?.tokens?.accessToken);
-    //     localStorage.setItem(
-    //       "user-update",
-    //       JSON.stringify(response?.data?.data?.attributes)
-    //     );
+    try {
+      const response = await setData(payload).unwrap();
+      // console.log("loging ressssssssssssssssssss",response);
+      if (response?.code == 200) {
+        
+        localStorage.setItem("token", response?.data?.attributes?.tokens?.accessToken);
+        localStorage.setItem("refresh_token", response?.data?.attributes?.tokens?.refreshToken);
+        console.log("token", response?.data?.attributes?.tokens?.accessToken);
+        localStorage.setItem(
+          "user-update",
+          JSON.stringify(response?.data?.attributes)
+        );
 
-    //     Swal.fire({
-    //       position: "top-center",
-    //       icon: "success",
-    //       title: response?.data?.message,
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     navigate("/");
-    //   } else {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Login Failed, Try Again...",
-    //       text: response?.error?.data?.message,
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Login Failed, Try Again...",
-    //     text: error?.data?.message,
-    //   });
-    // }
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: response?.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/dashboard/home")
+      } 
+      
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed, Try Again...",
+        text: error?.data?.message,
+      });
+    }
   };
 
   return (
@@ -161,7 +156,7 @@ const Login = () => {
             </div>
 
             <Form.Item>
-              <Button
+              <Button loading = {isLoading}
                 style={{
                   backgroundColor: "#1397D5",
                   color: "#fff",

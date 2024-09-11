@@ -6,27 +6,44 @@ import EarningTransactionModal from './UsersTransactionModal';
 import moment from 'moment';
 import UserSearchInput from './searchInput/UserSearchInput';
 import UserSearchByDate from './userSearchByDate/UserSearchByDate';
+import { useGetAllUsersQuery } from '../../redux/features/users/getAllUsers';
 
 const columns = (onActionClick) => [
   {
     title: 'Address',
     dataIndex: 'address',
+    render: (_, record) => (
+      <p>{record?.address ?  record?.address  : "N/A"}</p>
+    )
   },
   {
     title: 'User name',
-    dataIndex: 'userName',
+    dataIndex: 'fullName',
+    render: (_, record) => (
+      <p>{record?.fullName ?  record?.fullName  : "N/A"}</p>
+    )
   },
   {
     title: 'Email',
     dataIndex: 'email',
+    render: (_, record) => (
+      <p>{record?.email ?  record?.email  : "N/A"}</p>
+    )
   },
   {
     title: 'Phone Number',
     dataIndex: 'phoneNumber',
+    render: (_, record) => (
+      <p>{record?.phoneNumber ?  record?.phoneNumber  : "N/A"}</p>
+    )
   },
   {
     title: 'Join Date',
     dataIndex: 'joindate',
+    key: "date",
+    render: (_, record) => (
+      <p>{record?.createdAt?.split("T")[0] ? record?.createdAt?.split("T")[0] : "N/A"}</p>
+    )
   },
   {
     title: 'Action',
@@ -56,7 +73,9 @@ const UsersTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filteredData, setFilteredData] = useState(originalData);
-
+ const {data: allUsers} = useGetAllUsersQuery()
+//  console.log(allUsers?.data?.attributes?.results);
+ 
   const onActionClick = (record) => {
     setSelectedTransaction(record);
     setIsModalVisible(true);
@@ -95,11 +114,11 @@ const UsersTable = () => {
       <Table
         className='custom-table'
         columns={columns(onActionClick)}
-        dataSource={filteredData}
+        dataSource={allUsers?.data?.attributes?.results}
         pagination={{
-          total: filteredData.length,
+          total: allUsers?.data?.attributes?.results.length,
           showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-          defaultPageSize: 10,
+          defaultPageSize: 4,
           showSizeChanger: false,
           itemRender: (current, type, originalElement) => {
             if (type === 'prev') {

@@ -2,7 +2,7 @@ import  { useState } from 'react';
 import { Flex, Rate } from 'antd';
 const desc = [""];
 const ReviewRating = () => {
-  const [value, setValue] = useState(3);
+  const [value, setValue] = useState(4);
   return (
     <Flex gap="middle" vertical>
       <Rate className='text-[#1397D5]' tooltips={desc} onChange={setValue} value={value} />

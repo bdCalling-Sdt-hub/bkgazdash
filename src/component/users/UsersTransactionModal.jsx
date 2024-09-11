@@ -60,7 +60,7 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
       {selectedTransaction && (
         <div id="print-section">
           <p className="transaction-detail">
-            <strong>User Name:</strong> {selectedTransaction.userName}
+            <strong>User Name:</strong> {selectedTransaction.fullName}
           </p>
           <p className="transaction-detail">
             <strong>Email:</strong> {selectedTransaction.email}
@@ -72,7 +72,7 @@ const UsersTransactionModal = ({ isModalVisible, setIsModalVisible, setSelectedT
             <strong>Address:</strong> {selectedTransaction.address}
           </p>
           <p className="transaction-detail">
-            <strong>Joining Date:</strong> {selectedTransaction.joindate}
+            <strong>Joining Date:</strong>  <p>{selectedTransaction?.createdAt?.split("T")[0] ? selectedTransaction?.createdAt?.split("T")[0] : "N/A"}</p>
           </p>
         </div>
       )}
