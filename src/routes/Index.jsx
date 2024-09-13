@@ -272,6 +272,7 @@ import Orderdetails from "../layout/managerLayout/order/Orderdetails";
 import Order from "../layout/managerLayout/order/Order";
 import Settings from "../layout/managerLayout/order/Settings";
 import AddPromotion from "../pages/Main/promotion/AddPromotion";
+import Details from "../component/deliveryEmployee/details/Details";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -364,8 +365,8 @@ import AddPromotion from "../pages/Main/promotion/AddPromotion";
                 element: <UpdateEmployee />
             },
             {
-                path: "deliveryEmployee/detialsDeliveryEmployee",
-                element: <DetailsDeliveryEmployee />
+                path: "deliveryEmployee/detialsDeliveryEmployee/:id",
+                element: <Details/>
             },
             {
                 path: "settings",

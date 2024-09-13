@@ -8,27 +8,43 @@ import moment from "moment";
 import DeliveryEmployeeTableModal from "./DeliveryEmployeeModal";
 import { GoPlus } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import { useGetEmployeeQuery } from "../../redux/features/deliveryEmploye/getAllEmploy";
 
 const columns = (onActionClick) => [
   {
     title: "Address",
-    dataIndex: "id",
+    dataIndex: "address",
+    render: ( _, record) => (
+      <p>{record?.address}</p>
+    )
   },
   {
     title: "User name",
     dataIndex: "userName",
+    render: ( _, record) => (
+      <p>{record?.fullName}</p>
+    )
   },
   {
     title: "Email",
     dataIndex: "payType",
+    render: ( _, record) => (
+      <p>{record?.email}</p>
+    )
   },
   {
     title: "Phone number",
     dataIndex: "amount",
+    render: ( _, record) => (
+      <p>{record?.phoneNumber}</p>
+    )
   },
   {
-    title: "Password",
+    title: "Date",
     dataIndex: "date",
+    render: ( _, record) => (
+      <p>{record?.createdAt?.split("T")[0] ? record?.createdAt?.split("T")[0] : "N/A"}</p>
+    ),
   },
   {
     title: "Details",
@@ -74,15 +90,22 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
-const DeliveryEmployeeTable = () => {
+const DeliveryEmployeeTable = () => { 
+
   const navigate = useNavigate();
+  const {data: allEmployee, isLoading} = useGetEmployeeQuery()
+  console.log(allEmployee?.data?.attributes?.results);
+  
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filteredData, setFilteredData] = useState(originalData);
   const onActionClick = (record) => {
     setSelectedTransaction(record);
-    navigate("/dashboard/deliveryEmployee/detialsDeliveryEmployee", { state: { transaction: record } });
+    navigate(`/dashboard/deliveryEmployee/detialsDeliveryEmployee/${record._id}`, { state: { employeeDetails: record } });
   };
+
+
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const onSelectChange = (newSelectedRowKeys) => {
@@ -142,7 +165,7 @@ const DeliveryEmployeeTable = () => {
           className="custom-table"
           // rowSelection={rowSelection}
           columns={columns(onActionClick)}
-          dataSource={filteredData}
+          dataSource={allEmployee?.data?.attributes?.results}
         />
         <DeliveryEmployeeTableModal
           isModalVisible={isModalVisible}

@@ -4,7 +4,7 @@ import moment from 'moment';
  
 
 import SearchByYear from './SearchByYear';
-// import { useGetDashEarningApiQuery } from '../../../redux/features/getDashEarningGraphChartApi';
+import { useGetDashEarningApiQuery } from '../../../redux/features/getDashEarningGraphChartApi';
  
 
 const EarningsChart = () => {
@@ -12,9 +12,9 @@ const EarningsChart = () => {
  
 
  
-  // const {data: dashEarning, isLoading} = useGetDashEarningApiQuery(year)
+  const {data: dashEarning, isLoading} = useGetDashEarningApiQuery(year)
 
-  // console.log("12 dashEarnChart", data?.data?.attributes?.monthlyIncomeRatio);
+  // console.log("12 dashEarnChart", dashEarning?.data?.attributes?.monthlyIncomeRatio);
 // const dashEarnChart = data?.data?.attributes?.monthlyIncomeRatio || [];
 // console.log(dashEarning?.data?.attributes?.monthlyIncomeRatio);
 
@@ -84,8 +84,8 @@ const handleYearSearch = (selectedYear) => {
           <BarChart
             width={500}
             height={300}
-            data={data}
             // data={dashEarning?.data?.attributes?.monthlyIncomeRatio}
+            data={data}
             margin={{
               top: 5,
               right: 30,

@@ -9,6 +9,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { useGetEarningRecentTransactionQuery } from '../../../redux/features/getEarningsRecentTransactionApi';
 import EarningSearchByDate from '../earningSearchByDate/EarningSearchByDate';
 import SearchInput from '../../comnon/searchInput/SearchInput';
+import jsPDF from 'jspdf';
   
 const dataSource = [
   {
@@ -43,10 +44,32 @@ const dataSource = [
 const RecentTransactionTable = () => {
  
  const {data: earning, isLoading} = useGetEarningRecentTransactionQuery()
- console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
+//  console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
  
   const [isModalOpen, setIsModalOpen] = useState(false);
  const [transaction, setTransaction] = useState()
+//  console.log(transaction);
+ 
+  // console.log(transaction?.createdAt);
+  
+ let date = transaction?.createdAt?.split("T")[0] ? transaction?.createdAt?.split("T")[0] : "N/A"
+//  console.log(date);
+ 
+ const handleDownload = () => {
+  const doc = new jsPDF();
+  // Adding content to PDF
+  doc.text("Full Name: " + transaction?.userId?.fullName, 10, 10);
+  doc.text("Email: " + transaction?.userId?.email, 10, 20);
+  doc.text("Transaction ID: " +  transaction?.transactionID, 10, 30);
+  doc.text("Phone: " + transaction?.userId?.phoneNumber, 10, 40);
+  doc.text("Date: " + date, 10, 50);
+  doc.text("Address: " + transaction?.userId?.address, 10, 60);
+  
+  // Save the PDF
+  doc.save(`Earning_details.pdf`);
+};
+
+
 
 const columns = [
   {
@@ -100,8 +123,8 @@ const columns = [
 ];
 
 const handleView = (value) => {
-  // setTransaction(value)
-  //   console.log(value)
+  setTransaction(value)
+    // console.log(value?.userId.fullName)
     setIsModalOpen(true);
   };
   const handlePageChange = (page) => {
@@ -125,7 +148,7 @@ const handleView = (value) => {
         dataSource={earning?.data?.attributes?.results}
         columns={columns}
         pagination={{
-          total: dataSource.length,
+          total: earning?.data?.attributes?.results.length,
           showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
           defaultPageSize: 2,
           showSizeChanger: false,
@@ -169,43 +192,57 @@ const handleView = (value) => {
         <div className="flex justify-between border-b py-[16px]">
             <p>Full Name:</p>
             <p>
-              {/* {user?.name ? user?.name : "N/A"} */}
-              absayed
+              {transaction?.userId?.fullName ? transaction?.userId?.fullName : "abSayed"}
+              {/* {value?.userId?.fullName ? value?.userId?.fullName : "N/A"} */}
+              {/* absayed */}
             </p>
-          </div>
-        
+          </div> 
          
           <div className="flex justify-between border-b py-[16px] ">
             <p>Email:</p>
             <p>
-              {/* {user?.email ? user?.email : "N/A"} */}
-              ab@gmail.com
+            {transaction?.userId?.email ? transaction?.userId?.email : "n/a"}
+              {/* ab@gmail.com */}
             </p>
           </div>
+
+          <div className="flex justify-between border-b py-[16px]">
+            <p>TransactionID:</p>
+            <p>
+              {transaction?.transitionId ? transaction?.transitionId : "#3958F56"}
+              {/* {value?.userId?.fullName ? value?.userId?.fullName : "N/A"} */}
+              {/* absayed */}
+            </p>
+          </div>
+
           <div className="flex justify-between border-b py-[16px]">
             <p>Phone:</p>
             <p>
-              {/* {user?.phone ? user?.phone : "N/A"} */}
-              +45269875
+            {transaction?.userId?.phoneNumber ? transaction?.userId?.phoneNumber : "+35435"}
+              {/* +45269875 */}
             </p>
           </div>
           <div className="flex justify-between border-b py-[16px]">
             <p>Date:</p>
             <p>
-              {/* {user?.createdAt  ? user?.createdAt?.split("T")[0] : "N/A"} */}
-              23-11-24
+            <p>{transaction?.createdAt?.split("T")[0] ? transaction?.createdAt?.split("T")[0] : "N/A"}</p>
+         
             </p>
           </div>
           <div className="flex justify-between items-center pt-[16px]">
             <p>address:</p>
             <p className="px-[15px] py-[10px] rounded-lg">
-              {/* Regular P550 */}
-              UK
+            {transaction?.userId?.address ? transaction?.userId?.address : " UK"}
+             
             </p>
           </div>
 
         </div>
+         
+         <div className='flex flex-col justify-center pb-5'>  
+             <button onClick={handleDownload} className='bg-sky-600 text-white px-2 w-52 mx-auto py-1 rounded-lg'>Download</button> 
       </div>
+         </div>
       </Modal>
     </div>
   );

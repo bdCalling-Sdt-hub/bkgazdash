@@ -135,6 +135,7 @@ const Products = () => {
   const navigate = useNavigate();
   const { data: allProduct, isLoading } = useGetAllProductQuery();
   const [deleteProduct, {}] = useDeleteProductMutation()
+// console.log("all product listt>>>>>>>>>>>>>>: ",allProduct);/
 
 const  productDelete = async (id) => {
    try{

@@ -49,7 +49,7 @@ const columns = (onActionClick) => [
     title: 'Action',
     key: 'action',
     render: (text, record) => (
-      <MdOutlineInfo onClick={() => onActionClick(record)} />
+      <MdOutlineInfo size={20} onClick={() => onActionClick(record)} />
     ),
   },
 ];

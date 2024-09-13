@@ -5,7 +5,8 @@ import './manager.css';
 import TransactionModal from "./ManagerModal";
 import { useNavigate } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
-// import { useGetDashRecentTransactionApiQuery } from "../../../redux/features/getDashRecentTransactionApi";
+import { useAllManagerQuery } from "../../redux/features/manager/getAllManager";
+  
  
 
 const columns = (onActionClick) => [
@@ -84,25 +85,15 @@ const data = [
 
 const Manager = () => {
   // const {data, isLoading, isError, error} = useGetDashRecentTransactionApiQuery();
-  console.log(data?.data?.attributes);
+ 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [fomattedData, setFormattedData] = useState([]);
   console.log("88, recent Transaction",fomattedData);
 
-  useEffect(() => {
-    if(data?.data?.attributes && Array.isArray(data?.data?.attributes)) {
-      const formatted = data?.data?.attributes.map((item) => ({
-        key: item._id,
-        trId: item?.transitionId,
-        name: item?.fullName,
-        payType: item.payType,
-        amount: `$${item.amount}`,
-        date: item.date,
-      }))
-      setFormattedData(formatted)
-    }
-  }, [data])
+ const {data: allManager, isLoading} = useAllManagerQuery()
+ console.log(allManager?.data?.attributes?.results);
+ 
 
   const onActionClick = (record) => {
     setSelectedTransaction(record);

@@ -29,7 +29,7 @@ const AddPromotion = () => {
     }
      try{
       const res = await addpromotion(formData).unwrap()
-      console.log("ress>>>>>>>>>>>>>>>>>>>>d",res);
+      // console.log("ress>>>>>>>>>>>>>>>>>>>>d",res);
       
       if(res?.code == 201){
         toast.success(res?.message)
