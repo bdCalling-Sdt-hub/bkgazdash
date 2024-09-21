@@ -1,119 +1,229 @@
-import React from 'react';
-import { Button, Form, Input, Upload } from 'antd';
+import React from "react";
+import { Button, Form, Input, Upload } from "antd";
 import { FaCamera } from "react-icons/fa";
-import './addManager.css'
+import "./addManager.css";
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
-const MyFormItemContext = React.createContext([]);
-function toArr(str) {
-  return Array.isArray(str) ? str : [str];
-}
-const MyFormItemGroup = ({ prefix, children }) => {
-  const prefixPath = React.useContext(MyFormItemContext);
-  const concatPath = React.useMemo(() => [...prefixPath, ...toArr(prefix)], [prefixPath, prefix]);
-  return <MyFormItemContext.Provider value={concatPath}>{children}</MyFormItemContext.Provider>;
-};
-
-
-
-const MyFormItem = ({ name, ...props }) => {
-  const prefixPath = React.useContext(MyFormItemContext);
-  const concatName = name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
-  return <Form.Item name={concatName} {...props} />;
-};
-
-
+import { useActionData, useNavigate } from "react-router-dom";
+ import toast, { Toaster } from "react-hot-toast";
+import { useAddEmployeeMutation } from "../../redux/features/deliveryEmploye/AddEmployee";
 
 const AddManager = () => {
-  const navigate = useNavigate()
-  const onFinish = (value) => {
-    console.log(value);
-  };
+  const [form] = Form.useForm();
+  const naviate = useNavigate();
 
+  const [addManager, {isLoading}] = useAddEmployeeMutation()
+ 
+  const onFinish = async(values) => {
+
+    console.log("Form values:", values);
+    const formData = new FormData()
+    console.log(formData);
+    
+    formData.append('fullName', values?.fullName)
+    formData.append('password', values?.Password)
+    formData.append('address', values?.address)
+    formData.append('phoneNumber', values?.phoneNumber)
+    formData.append('role', values?.role) 
+    // Accessing the uploaded image file
+    const imageFile = values.file?.[0]?.originFileObj;
+    if (imageFile) {
+      formData.append('file', imageFile)
+      console.log("Uploaded Image File:", imageFile);
+    } 
+    else {
+      console.log("No image file uploaded.");
+    }
+   try{
+    const res = await addManager(formData).unwrap();
+    console.log(res);
+    if(res?.code ==201){
+      toast.success(res?.message)
+    }
+    setTimeout(() => {
+      
+      naviate('/dashboard/manager')
+    }, 1000);
+    
+   }catch(error){
+    toast.error(error?.data?.message)
+   }
+
+
+
+  };
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
     }
     return e?.fileList;
-    
   };
 
- 
-    return (
-        <div>
-            <h1 onClick={() => navigate('/dashboard/manager')} className='border-none text-[#193664] text-2xl flex items-center cursor-pointer'>
+   
+
+  return (
+    <div>
+      <Toaster reverseOrder = {false} />
+      <h1 onClick={() => naviate('/dashboard/manager')} className='border-none text-[#193664] text-2xl flex items-center cursor-pointer'>
     <IoIosArrowBack />
         Add Manager
           </h1>
-           
+      <div>
+        <div className="xl:w-[1440px] items-center justify-center py-24 flex">
+          <Form
+            className="mx-auto"
+            name="form_item_path"
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+            // initialValues={{  role : 'employee' }}
+          >
+            <div className="flex space-x-4">
+              <Form.Item
+                name="fullName"
+                label="User Name"
+                rules={[
+                  { required: true, message: "Please input your username!" },
+                ]}
+              >
+                <Input
+                  placeholder="Enter user name"
+                  style={{
+                    width: "500px",
+                    height: "56px",
+                    borderRadius: "8px",
+                    paddingLeft: "10px",
+                    borderColor: "#193664",
+                  }}
+                />
+              </Form.Item>
 
-          <div className='xl:w-[1440px] items-center justify-center py-24 flex'>
-   
-   <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
- 
-     <MyFormItemGroup prefix={['name']}>
-       <div className='flex space-x-4'>
-       <MyFormItem name="userName" label="User Name">
-       <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
-       </MyFormItem>
-       <MyFormItem name="password" label="Password">
-       <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
-       </MyFormItem>
-       </div>
-     </MyFormItemGroup>
-     <MyFormItemGroup prefix={['name']}>
-       <div className='flex space-x-14'>
-       <MyFormItem name="phoneNumber" label="Phone Number">
-       <Input size='large' style={{ width: '500px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
-       </MyFormItem>
-     
-       </div>
-     </MyFormItemGroup>
+              <Form.Item
+                name="password"
+                label="Password"
+                rules={[
+                  { required: true, message: "Please input your password!" },
+                ]}
+              >
+                <Input.Password
+                  placeholder="Enter password"
+                  style={{
+                    width: "500px",
+                    height: "56px",
+                    borderRadius: "8px",
+                    paddingLeft: "10px",
+                    borderColor: "#193664",
+                  }}
+                />
+              </Form.Item>
+            </div>
+            <div className="flex space-x-4">
+              <Form.Item
+                name="phoneNumber"
+                label="Phone Number"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your phone number!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Enter phone number"
+                  style={{
+                    width: "500px",
+                    height: "56px",
+                    borderRadius: "8px",
+                    paddingLeft: "10px",
+                    borderColor: "#193664",
+                  }}
+                />
+              </Form.Item>
 
-  <MyFormItemGroup>
-   
-  <MyFormItem name="address" label="Address">
-     <Input size='large' style={{ width: '1026px', height: '56px', borderRadius: "8px", paddingLeft: "10px", borderColor: "#193664" }}/>
-     </MyFormItem>
-  
-  </MyFormItemGroup>
+              <Form.Item
+                name="address"
+                label="Address"
+                rules={[
+                  { required: true, message: "Please input your address!" },
+                ]}
+              >
+                <Input
+                  placeholder="Enter address"
+                  style={{
+                    width: "500px",
+                    height: "56px",
+                    borderRadius: "8px",
+                    paddingLeft: "10px",
+                    borderColor: "#193664",
+                  }}
+                />
+              </Form.Item>
+            </div>
 
-{/* Upload */}
-<Form.Item label="" valuePropName="fileList" getValueFromEvent={normFile}>
-       <Upload action="/upload.do" listType="picture-card">
-         <button
-           style={{
-             border: 0,
-             background: 'none',
-           
-           }}
-           type="button"
-         >
-          <FaCamera className='text-6xl text-[#193664]' />
-           <div
-             style={{
-               marginTop: 8,
-             }}
-           >
-             {/* Upload */}
-           </div>
-         </button>
-       </Upload>
-     </Form.Item>
+            <Form.Item
+              name="role"
+              label="Role"
+              initialValue="manager"
+              rules={[{ required: true }]}
+            >
+              <Input
+                value="manager"
+                disabled
+                style={{
+                  width: "1000px",
+                  height: "56px",
+                  borderRadius: "8px",
+                  paddingLeft: "10px",
+                  borderColor: "#193664",
+                }}
+              />
+            </Form.Item>
 
+            <Form.Item
+              name="file"
+              label="Upload Photo"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              rules={[{ required: true, message: "Please upload a photo!" }]}
+            >
+              <Upload
+                name="file"
+                listType="picture-card"
+                beforeUpload={() => false} // Prevent upload immediately to server
+              >
+                <button
+                  style={{
+                    border: 0,
+                    background: "none",
+                  }}
+                  type="button"
+                >
+                  <FaCamera className="text-6xl text-[#193664]" />
+                  <div
+                    style={{
+                      marginTop: 8,
+                    }}
+                  >
+                    Upload
+                  </div>
+                </button>
+              </Upload>
+            </Form.Item>
 
-
-
-   <div className='update-button border-t-2 border-[#193664] py-4'>
-   <Button className='w-[860px] h-14 bg-[#193664] text-white font-bold'  htmlType="submit">
-   Add Manager
-   </Button>
-   </div>
- </Form>
- </div>
+            <div className="update-button border-t-2 border-[#193664] py-4">
+              <Button
+              loading = {isLoading}
+                className="w-[860px] h-14 !bg-[#193664] !text-white font-bold"
+                htmlType="submit"
+              >
+                Add Manager
+              </Button>
+            </div>
+          </Form>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default AddManager;

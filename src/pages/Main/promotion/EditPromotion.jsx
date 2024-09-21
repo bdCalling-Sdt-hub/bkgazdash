@@ -1,47 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Upload } from "antd";
 import { TbCameraPlus } from "react-icons/tb";
 import './Promotion.css';
 import TextArea from "antd/es/input/TextArea";
-import { useNavigate } from "react-router-dom";
-import { useAddPromotionMutation } from '../../../redux/features/promotion/createPromotion';
-import toast from 'react-hot-toast';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+// import { useGetPromotionByIdQuery, useUpdatePromotionMutation } from '../../../redux/features/promotion/updatePromotion';
+import toast, { Toaster } from 'react-hot-toast';
+import { useEditPromotionMutation } from '../../../redux/features/promotion/editPromotion';
+import baseUrl from '../../../redux/api/baseUrl';
 
-const AddPromotion = () => {
+const EditPromotion = () => {
+//   const { id } = useParams(); // Get the promotion ID from the URL
   const [imageUrl, setImageUrl] = useState(null);
-  const [imageFile, setImageFile] = useState(null); // Add this state for the image file
+  const [imageFile, setImageFile] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation()
+ const {promotion} = location.state || {}
+ console.log(promotion);
+ const id = promotion?._id;
+    
 
-  const [addpromotion, {isLoading}] = useAddPromotionMutation()
+  const [updatePromotion, {isLoading}] = useEditPromotionMutation()
+
+  useEffect(() => {
+    if (promotion) {
+      setImageUrl(baseUrl + promotion.image); // Preload the image URL
+    }
+  }, [promotion]);
 
   const onFinish = async (value) => {
-
-    // console.log("Description:", value.description);
-    // console.log("Image URL:", imageUrl);
-    // console.log("file:", imageFile);
-
+    console.log(value.description, imageFile);
+      
     const formData = new FormData();
-    
-    // Append the description and image file to the FormData object
     formData.append('description', value.description);
     if (imageFile) {
-      formData.append('file', imageFile); 
+      formData.append('file', imageFile);
     }
-     try{
-      const res = await addpromotion(formData).unwrap()
-      // console.log("ress>>>>>>>>>>>>>>>>>>>>d",res);
+  
+    try {
+      const res = await updatePromotion({ id, data: formData }).unwrap(); // Note the "data" key here
+    //   console.log(res);
       
-      if(res?.code == 201){
-        toast.success(res?.message)
-      }
-      navigate('/dashboard/promotion')
-     }catch(error) {
-      console.log(error?.data?.message);
-      
-     } 
-
-      
+      if (res?.code === 200) {
+        toast.success(res?.message);
+    }
+    setTimeout(() => {
+        
+        navigate('/dashboard/promotion');
+    }, 1000);
+    } catch (error) {
+      console.error(error?.data?.message);
+      toast.error("Failed to update promotion.");
+    }
   };
+  
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -52,29 +64,34 @@ const AddPromotion = () => {
 
   const handleChange = (info) => {
     let fileList = [...info.fileList];
-
-    // We only keep the latest file in the list to replace the previous image
-    fileList = fileList.slice(-1);
-
+    fileList = fileList.slice(-1); // Only keep the latest file
     if (fileList[0] && fileList[0].originFileObj) {
       const imagePreviewUrl = URL.createObjectURL(fileList[0].originFileObj);
       setImageUrl(imagePreviewUrl);
-      setImageFile(fileList[0].originFileObj);  
+      setImageFile(fileList[0].originFileObj);
     } else {
       setImageUrl(null);
-      setImageFile(null);  
+      setImageFile(null);
     }
   };
- 
+
+//   if (isFetching) {
+//     return <div>Loading...</div>;
+//   }
+
   return (
     <div className="w-[79vw]">
-      <h1 className="text-xl font-bold py-8">Create Promotion</h1>
+        <Toaster />
+      <h1 className="text-xl font-bold py-8">Edit Promotion</h1>
       <div className='py-4'>
         <Form
           className='ant-upload'
           name="form_item_path"
           layout="vertical"
           onFinish={onFinish}
+          initialValues={{
+            description: promotion?.description || '', // Preload the description
+          }}
         >
           {/* Upload */}
           <Form.Item
@@ -82,19 +99,19 @@ const AddPromotion = () => {
             valuePropName="fileList"
             getValueFromEvent={normFile}
           >
-            <Upload 
+            <Upload
               listType="picture-card"
-              showUploadList={false} // Hide the default upload list
+              showUploadList={false}
               onChange={handleChange}
               beforeUpload={() => false} // Prevent automatic upload
               className="ant-upload-select"
             >
               {imageUrl ? (
                 <div className='relative overflow-hidden max-h-72'>
-                  <img 
-                    src={imageUrl} 
-                    alt="Uploaded" 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px', overflow: "hidden" }} 
+                  <img
+                    src={imageUrl}
+                    alt="Uploaded"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px', overflow: "hidden" }}
                   />
                   <TbCameraPlus className="text-6xl absolute top-[40%] left-[40%] opacity-60 text-white" />
                 </div>
@@ -118,13 +135,13 @@ const AddPromotion = () => {
 
           {/* TextArea */}
           <Form.Item name="description">
-            <TextArea 
+            <TextArea
               placeholder='Description'
-              rows={2} 
-              style={{ width: "1000px", maxWidth: "1000px", padding: "20px" }} // Adjust the width and height
+              rows={2}
+              style={{ width: "1000px", maxWidth: "1000px", padding: "20px" }}
             />
           </Form.Item>
-        
+
           <Form.Item>
             <Button
               style={{
@@ -134,8 +151,9 @@ const AddPromotion = () => {
               }}
               htmlType="submit"
               className="w-[353px] h-[57px] py-4 mt-2 text-white hover:border-none border-none rounded-2xl"
+            //   loading={isLoading}
             >
-              Create post
+              Update Promotion
             </Button>
           </Form.Item>
         </Form>
@@ -144,4 +162,4 @@ const AddPromotion = () => {
   );
 };
 
-export default AddPromotion;
+export default EditPromotion;

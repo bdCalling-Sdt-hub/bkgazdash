@@ -93,16 +93,16 @@ for (let i = 0; i < 46; i++) {
 const DeliveryEmployeeTable = () => { 
 
   const navigate = useNavigate();
-  const {data: allEmployee, isLoading} = useGetEmployeeQuery()
-  console.log(allEmployee?.data?.attributes?.results);
+  const {data: allEmployee, isLoading,} = useGetEmployeeQuery()
+  // console.log(allEmployee?.data?.attributes?.results);
   
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filteredData, setFilteredData] = useState(originalData);
   const onActionClick = (record) => {
-    setSelectedTransaction(record);
-    navigate(`/dashboard/deliveryEmployee/detialsDeliveryEmployee/${record._id}`, { state: { employeeDetails: record } });
+    // setSelectedTransaction(record);
+    navigate(`/dashboard/deliveryEmployee/detialsDeliveryEmployee`, { state: { employeeDetails: record } });
   };
 
 
@@ -166,12 +166,27 @@ const DeliveryEmployeeTable = () => {
           // rowSelection={rowSelection}
           columns={columns(onActionClick)}
           dataSource={allEmployee?.data?.attributes?.results}
+          pagination={{
+            total: allEmployee?.data?.attributes?.results.length,
+            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            defaultPageSize: 10,
+            showSizeChanger: false,
+            itemRender: (current, type, originalElement) => {
+              if (type === 'prev') {
+                return <a>Back</a>;
+              }
+              if (type === 'next') {
+                return <a>Next</a>;
+              }
+              return originalElement;
+            },
+          }}
         />
         <DeliveryEmployeeTableModal
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
           setSelectedTransaction={setSelectedTransaction}
-          selectedTransaction={selectedTransaction}
+          selectedTransaction ={selectedTransaction}
         />
       </div>
     </div>

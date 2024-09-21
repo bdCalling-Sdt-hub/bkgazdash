@@ -6,12 +6,12 @@ import { baseApi } from "../../api/baseApi";
     endpoints: (builder) => ({
         getEmployee: builder.query({
             query: () => ({
-                url: `users?role=employee`, 
-                providesTags: ["employee"],
+                url: `users?role=employee&limit=100`, 
             }),
+            providesTags: [{ type: "Users" }],
         }),
     }),
-    overrideExisting: false,
+  
  })
  
  export const {useGetEmployeeQuery} = getEmployee;

@@ -39,7 +39,10 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
     if(res?.code ==201){
       toast.success(res?.message)
     }
-    naviate("/dashboard/deliveryEmployee");
+    setTimeout(() => {
+      
+      naviate("/dashboard/deliveryEmployee");
+    }, 1000);
     
    }catch(error){
     toast.error(error?.data?.message)
@@ -214,7 +217,7 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
 
             <div className="update-button border-t-2 border-[#193664] py-4">
               <Button
-                className="w-[860px] h-14 bg-[#193664] text-white font-bold"
+                className="w-[860px] h-14 !bg-[#193664] !text-white font-bold"
                 htmlType="submit"
               >
                 Add Employee

@@ -7,7 +7,8 @@ import { baseApi } from "../../api/baseApi";
             query: () => ({
                 url: `/users?role=manager`,
                 
-            })
+            }),
+            providesTags: [{ type: "Users" }],
         })
     })
 })

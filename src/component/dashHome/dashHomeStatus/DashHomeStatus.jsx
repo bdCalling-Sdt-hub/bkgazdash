@@ -25,9 +25,9 @@ const DashHomeStatus = () => {
   // }
 
   // Extract the data you need from the response
-  const totalEarnings = data?.data?.attributes?.totalEarnings || 24.88;
-  const totalUsers = data?.data?.attributes?.totalUser || 6500;
-  const totalDelivery = data?.data?.attributes?.totalDelivery || 740;
+  const totalEarnings = data?.data?.attributes?.totalEarnings;
+  const totalUsers = data?.data?.attributes?.totalUser  ;
+  const totalDelivery = data?.data?.attributes?.totalDelivery ;
 
   // Render the UI
   return (

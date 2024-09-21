@@ -8,6 +8,8 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  margin:0 !important;
+  width: 100% !important;
 }
 
 

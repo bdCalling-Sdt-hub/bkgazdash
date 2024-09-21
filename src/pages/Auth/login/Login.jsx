@@ -32,7 +32,7 @@ const Login = () => {
     
     try {
       const response = await setData(payload).unwrap();
-      // console.log("loging ressssssssssssssssssss",response);
+      console.log("loging ressssssssssssssssssss",response);
       if (response?.code == 200) {
         
         localStorage.setItem("token", response?.data?.attributes?.tokens?.accessToken);

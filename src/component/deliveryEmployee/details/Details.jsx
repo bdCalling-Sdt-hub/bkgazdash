@@ -32,7 +32,7 @@ const Details = () => {
 
   const location = useLocation();
   const { employeeDetails } = location.state || {};
-  // console.log(employeeDetails);
+  console.log(employeeDetails);
   
   const onFinish = (value) => {
     console.log(value);
@@ -50,9 +50,9 @@ const Details = () => {
   const handleAddProduct = () => {
     navigate('/categories')
   }
-  const handleUpdateEmployee = () => {
-    navigate("/dashboard/deliveryEmployee/detialsDeliveryEmployee/updateEmployee");
-  };
+  // const handleUpdateEmployee = (employeeDetails) => {
+  //   navigate(`/dashboard/deliveryEmployee/detialsDeliveryEmployee/updateEmployee/${employeeDetails?._id}`);
+  // };
 
   return (
     <div>
@@ -66,7 +66,7 @@ const Details = () => {
           {/* Employee Img */}
           <div className="bg-[#E7F5FB] p-8">
             <div className=" rounded-full h-48 w-48 overflow-hidden">
-              <Image src={baseUrl + employeeDetails?.image} width={200} height={250} />
+              <img src={baseUrl + employeeDetails?.image} width={200} height={250} />
             </div>
             <h1 className="py-4 text-center">{employeeDetails?.fullName}</h1>
             <h1 className=" text-center">{employeeDetails?.role}</h1>
@@ -111,11 +111,11 @@ const Details = () => {
     </Form>
 
     <div className="flex gap-6 ">
-          <Button className="w-48 h-12 rounded-xl custom-delete-button ">
+          {/* <Button className="w-48 h-12 rounded-xl custom-delete-button ">
             Delete
-          </Button>
+          </Button> */}
           <Button
-            onClick={handleUpdateEmployee}
+            onClick={() => navigate(`updateEmployee/${employeeDetails?._id}`)}
             className="w-48 h-12 rounded-xl custom-Edit-button"
           >
             Edit

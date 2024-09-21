@@ -8,7 +8,7 @@ const deleteProduct = baseApi.injectEndpoints({
                 url: `/product/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["product"],
+            invalidatesTags: [{type: "product"}],
         }),
 
     }),

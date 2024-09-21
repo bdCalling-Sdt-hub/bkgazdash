@@ -18,7 +18,7 @@ const Promotion = () => {
 const handleDelete = async(id) => {
     try{
       const res = await deletePromotion(id).unwrap();
-      console.log(res);
+      // console.log(res);
       
       if(res?.code ==200){
         toast.success(res?.message)
@@ -28,7 +28,9 @@ const handleDelete = async(id) => {
     }
 }
 
-
+const handleEdit = () => {
+  navigate('/promotion')
+}
 
     return (
         <div className=''>
@@ -49,8 +51,8 @@ const handleDelete = async(id) => {
            </div>
            <div className=' justify-around flex py-8'>
            <Button
-            //   onClick={handleEdit}
-                // type="primary"
+              onClick={() => navigate(`editpromotion`, {state : { promotion }})}   
+                type="primary"
                 style={{
                   backgroundColor: "#193664",
                   color: "#fff",

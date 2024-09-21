@@ -9,11 +9,11 @@ const addEmployee = baseApi.injectEndpoints({
                 method: "POST",
                 body: formData,
             }),
-            invalidatesTags: ["employee"]
+            invalidatesTags: [{ type: "Users" }],
         }),
     
     }),
-    overrideExisting: false, 
+     
 })
 
 export const {useAddEmployeeMutation} = addEmployee;

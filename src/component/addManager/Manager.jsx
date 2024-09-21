@@ -11,40 +11,66 @@ import { useAllManagerQuery } from "../../redux/features/manager/getAllManager";
 
 const columns = (onActionClick) => [
   {
-    title: "#Tr.Id",
-    dataIndex: "TrId",
-    key: "TrId",
-    render: (number) => <a>{number}</a>,
+    title: "Address",
+    dataIndex: "address",
+    render: ( _, record) => (
+      <p>{ record?.address  || 'n/a'}</p>
+    )
   },
   {
-    title: "User Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
+    title: "User name",
+    dataIndex: "userName",
+    render: ( _, record) => (
+      <p>{record?.fullName || "n/a"}</p>
+    )
   },
   {
-    title: "Payment Type",
+    title: "Email",
     dataIndex: "payType",
-    key: "subPackage",
-    render: (text) => <a>{text}</a>,
+    render: ( _, record) => (
+      <p>{record?.email}</p>
+    )
   },
   {
-    title: "Amount",
+    title: "Phone number",
     dataIndex: "amount",
-    key: "amount",
-    render: (number) => <a>{number}</a>,
+    render: ( _, record) => (
+      <p>{record?.phoneNumber}</p>
+    )
   },
   {
     title: "Date",
     dataIndex: "date",
-    key: "date",
+    render: ( _, record) => (
+      <p>{record?.createdAt?.split("T")[0] ? record?.createdAt?.split("T")[0] : "N/A"}</p>
+    ),
   },
   {
-    title: "Action",
-    dataIndex: "action",
+    title: "Details",
     key: "action",
+    onHeaderCell: () => ({
+      style: {
+        backgroundColor: '#193664',
+        color: 'white',
+        fontWeight: 'bold',
+        border: 'none'
+      },
+    }),
     render: (text, record) => (
-      <MdOutlineInfo onClick={() => onActionClick(record)} />
+      <Button
+        style={{
+          backgroundColor: "#0B5B80",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          padding: "8px 16px",
+          fontWeight: "bold",
+          fontSize: "14px",
+        }}
+        onClick={() => onActionClick(record)}
+      >
+        Details
+      </Button>
     ),
   },
 ];
@@ -113,7 +139,7 @@ const navigate = useNavigate()
    <Button
           onClick={()=> navigate('/dashboard/manager/addmanager')}
           type="primary"
-          className="flex items-center bg-[#193664] w-[206px] h-[56px] rounded-md"
+          className="flex items-center !bg-[#193664] w-[206px] h-[56px] rounded-md"
         >
           <GoPlus className="mr-2" />
           Add Manager
@@ -124,7 +150,7 @@ const navigate = useNavigate()
       <Table
         className="custom-table"
         columns={columns(onActionClick)}
-        dataSource={data}
+        dataSource={allManager?.data?.attributes?.results}
         pagination={false}
         style={{
           "--antd-table-header-bg": "red", 

@@ -273,6 +273,7 @@ import Order from "../layout/managerLayout/order/Order";
 import Settings from "../layout/managerLayout/order/Settings";
 import AddPromotion from "../pages/Main/promotion/AddPromotion";
 import Details from "../component/deliveryEmployee/details/Details";
+import EditPromotion from "../pages/Main/promotion/EditPromotion";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -325,8 +326,8 @@ import Details from "../component/deliveryEmployee/details/Details";
                 element: <AddPromotion />
             },
             {
-                path: "seePost",
-                element: <SeePost />
+                path: "promotion/editpromotion",
+                element: <EditPromotion />
             },
             {
                 path: "users",
@@ -361,11 +362,11 @@ import Details from "../component/deliveryEmployee/details/Details";
                 element: <AddEmployee />
             },
             {
-                path: "deliveryEmployee/detialsDeliveryEmployee/updateEmployee",
+                path: "deliveryEmployee/detialsDeliveryEmployee/updateEmployee/:id",
                 element: <UpdateEmployee />
             },
             {
-                path: "deliveryEmployee/detialsDeliveryEmployee/:id",
+                path: "deliveryEmployee/detialsDeliveryEmployee",
                 element: <Details/>
             },
             {

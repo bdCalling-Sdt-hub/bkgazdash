@@ -6,12 +6,15 @@ import ChangePersonalModal from './../../../../component/settings/ChangePassword
 import { Button } from "antd";
 import { IoIosArrowBack } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
+import { useGetAllCouponQuery } from "../../../../redux/features/coupon/getallCoupon";
 
 
 const DiscountCoupon = () => {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+   const {data: allcoupon, } = useGetAllCouponQuery()
+   console.log(allcoupon?.data?.attributes?.results);
    
 
     const handleModalClose = () => {
@@ -48,28 +51,42 @@ const handleUpdateCoupon = () => {
       Add Coupon
         </Button>
       </div>
+<div className="grid grid-cols-6 gap-3">
+
+      {
+        allcoupon?.data?.attributes?.results.map(coupon => 
 
 
+      <div key={coupon._id} className=" bg-white shadow-lg rounded-lg overflow-hidden my-4">
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{ coupon?.couponName}</div>
+        <p className="text-gray-700 text-base">
+          Discount: <span className="font-semibold">{coupon?.discount}%</span>
+        </p>
+        <p className="text-gray-700 text-base">
+          Start Date: <span className="font-semibold">{coupon?.startingDate}</span>
+        </p>
+        <p className="text-gray-700 text-base">
+          End Date: <span className="font-semibold">{coupon?.endDate
+          }</span>
+        </p>
+        <p className="text-gray-700 text-base">
+          Use Time: <span className="font-semibold">{ useTime}</span>
+        </p>
+      </div>
+      <div className="px-6 py-4 flex justify-between">
+        <Button type="primary" onClick={  "n/a"}>
+          Edit
+        </Button>
+        <Button type="danger" onClick={  "n/a"}>
+          Delete
+        </Button>
+      </div>
+    </div>
 
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-              Coupon 1
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-        </div>
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-            Coupon 2
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-        </div>
-         <div onClick={handleUpdateCoupon} className='bg-[#E8EBF0] w-[79vw] h-16 flex items-center justify-between my-6 rounded-lg'>
-            <p className='text-[#333333] font-bold px-6'>
-            Coupon 3
-            </p>
-            <MdOutlineKeyboardArrowRight className="text-2xl mr-6" />
-        </div>
-
+        )
+      }
+</div>
          
          <ChangePersonalModal
            isVisible={isModalVisible}
