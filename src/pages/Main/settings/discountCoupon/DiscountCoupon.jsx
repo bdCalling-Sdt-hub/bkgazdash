@@ -7,6 +7,8 @@ import { Button } from "antd";
 import { IoIosArrowBack } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 import { useGetAllCouponQuery } from "../../../../redux/features/coupon/getallCoupon";
+import { useDeleteCouponMutation } from "../../../../redux/features/coupon/deleteCoupon";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const DiscountCoupon = () => {
@@ -14,8 +16,21 @@ const DiscountCoupon = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
    const {data: allcoupon, } = useGetAllCouponQuery()
-   console.log(allcoupon?.data?.attributes?.results);
+  //  console.log(allcoupon?.data?.attributes?.results);
    
+  const [deletCoupon, {isLoading}] = useDeleteCouponMutation()
+
+  const handleDelete = async(id) => {
+    try{
+      const res = await deletCoupon(id).unwrap()
+      if(res?.code == 200){
+        toast.success(res?.message)
+      }
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
 
     const handleModalClose = () => {
         setIsModalVisible(false);
@@ -26,15 +41,15 @@ const DiscountCoupon = () => {
         navigate('/settings')
     }
 
-    const handleAddCoupon = () => {
-    
+    const handleAddCoupon = () => { 
         navigate('/dashboard/settings/discountCoupon/addCoupon')
     }
-const handleUpdateCoupon = () => {
-    navigate('/dashboard/settings/discountCoupon/updateCoupon')
-}
+// const handleUpdateCoupon = () => {
+//     navigate('/dashboard/settings/discountCoupon/updateCoupon')
+// }
     return (
        <div>
+        <Toaster />
   <div>
         <div onClick={() => navigate('/dashboard/settings')} className='flex gap-2 items-center cursor-pointer border-none text-[#193664]'>
           <IoIosArrowBack />
@@ -64,21 +79,21 @@ const handleUpdateCoupon = () => {
           Discount: <span className="font-semibold">{coupon?.discount}%</span>
         </p>
         <p className="text-gray-700 text-base">
-          Start Date: <span className="font-semibold">{coupon?.startingDate}</span>
+          Start Date: <span className="font-semibold">{coupon?.startingDate?.split("T")[0]}</span>
         </p>
         <p className="text-gray-700 text-base">
-          End Date: <span className="font-semibold">{coupon?.endDate
-          }</span>
+          End Date: <span className="font-semibold">{coupon?.endDate?.split("T")[0]}
+          </span>
         </p>
         <p className="text-gray-700 text-base">
-          Use Time: <span className="font-semibold">{ useTime}</span>
+          Use Time: <span className="font-semibold">{ coupon?.useTime}</span>
         </p>
       </div>
       <div className="px-6 py-4 flex justify-between">
-        <Button type="primary" onClick={  "n/a"}>
+        <Button onClick={() => navigate(`updateCoupon`, {state: {coupon: coupon}})} type="primary" >
           Edit
         </Button>
-        <Button type="danger" onClick={  "n/a"}>
+        <Button type="danger" className="bg-red-400 text-white py-1 px-2 rounded-md" onClick={() => handleDelete(coupon?._id)} >
           Delete
         </Button>
       </div>

@@ -1,11 +1,17 @@
-import { Button, Form, Image, Input } from "antd";
+import { Button, Form, Image, Input, TimePicker } from "antd";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ShopOperationSelectItem from "../../../component/settings/shopOperation/selectItem/ShopOperationSeletItem";
 import shopOPerationLogo from '../../../assets/Images/shopOperationLogo/shopOperationLogo.png'
+import { useGetTimeQuery } from "../../../redux/features/shopOparetion/getTime";
+import { ClockCircleOutlined } from "@ant-design/icons";
 
 const ShopOperation = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
+  const {data: timeShop} = useGetTimeQuery()
+  console.log(timeShop?.message);
+  
 
   const handleBackSettings = () => {
     navigate("/dashboard/settings");
@@ -31,113 +37,39 @@ const ShopOperation = () => {
         <div>
             <Image preview={false} src={shopOPerationLogo} />
         </div>
+
         <div>
-        <Form
-            name="shopOperation"
+        <div className="flex flex-col items-center justify-center p-8 bg-gray-100">
+          
+      <h1 className="text-3xl font-semibold text-gray-800 mb-8">
+        Shop Timings
+      </h1>
 
-            labelCol={{ span: 25 }}
-            wrapperCol={{ span: 60 }}
-            layout="vertical"
-            initialValues={{
-              remember: true,
-            }}
-            // onFinish={onFinish}
-            className="w-[300px]"
-          >
-            <Form.Item
-              name="startingTime"
-              label={
-                <span className="text-secondary text-[12px] font-medium">
-                  Starting Time
-                </span>
-              }
-              rules={[
-                {
-                  required: false,
-                  type: 'text',
-                  message: "Please write your name",
-                },
-              ]}
-            >
-              
-              <Input
-                size="large"
-                placeholder="Name"
-                name="email"
-                // prefix={
-                //   <HiOutlineMailOpen
-                //     className="mr-2 bg-secondary rounded-full p-[6px]"
-                //     size={28}
-                //     color="white"
-                //   />
-                // }
-                style={{
-                  border: "2px solid #193664",
-                  height: "52px",
-                  width: "720px",
-                  paddingLeft: "16px",
-                  background: "#ffffff",
-                  outline: "none",
-                  marginBottom: "10px",
-                }}
-                required
-                bordered={false}
-              />
-            </Form.Item>
+      <div className="bg-white rounded-lg shadow-lg p-6 w-96">
+        {/* Start Time */}
+        <div className="flex items-center justify-between mb-6">
+          <span className="text-xl text-gray-600">Opening Time</span>
+          <div className="flex items-center">
+            <ClockCircleOutlined className="text-blue-600 mr-2" />
+            <span className="text-2xl font-semibold text-blue-600">
+              {timeShop?.data?.attributes?.startTime}
+            </span>
+          </div>
+        </div>
 
-            <Form.Item
-              name="closingTime"
-              label={
-                <span className="text-secondary text-[12px] font-medium">
-            Closing Time
-                </span>
-              }
-              rules={[
-                {
-                  type: "email",
-                  required: false,
-                  message: "Please write your email",
-                },
-              ]}
-            >
-              <Input
-                size="large"
-                // onChange={handleChange}
-                placeholder="Email"
-                name="current_password"
-                prefix={
-                  //
-                  ""
-                }
-                style={{
-                  border: "2px solid #193664",
-                  height: "52px",
-                  background: "#ffffff",
-                  paddingLeft: "16px",
-                  outline: "none",
-                  marginBottom: "10px",
-                  width: "720px"
-                }}
-                bordered={false}
-              />
-            </Form.Item>
+        {/* Close Time */}
+        <div className="flex items-center justify-between">
+          <span className="text-xl text-gray-600">Closing Time</span>
+          <div className="flex items-center">
+            <ClockCircleOutlined className="text-red-600 mr-2" />
+            <span className="text-2xl font-semibold text-red-600">
+              {timeShop?.data?.attributes?.endTime}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div className="">
-              <div className="flex justify-between text-[#1397D5]">
-
-                {/* <div>
-                    <Link
-                      to="/auth/forgot-password"
-                      className="text-secondary font-medium hover:text-secondary"
-                    >
-                     Remember me
-                    </Link>
-                  </div> */}
-
-              </div>
-            </div>
-
-          </Form>
         </div>
       </div>
     </div>

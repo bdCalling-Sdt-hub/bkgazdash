@@ -5,6 +5,9 @@ import JoditEditor from "jodit-react";
 import { useEffect, useRef, useState } from "react";
 
 import Swal from "sweetalert2";
+import { useGetTermsQuery } from "../../redux/features/setting/termsCondition";
+import { useEditTermsMutation } from "../../redux/features/setting/editTerms";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const data = [1, 2, 3, 4]
@@ -13,48 +16,61 @@ const data = [1, 2, 3, 4]
 const EditTermsAndCondition = () => {
     const navigate = useNavigate();
     const editor = useRef(null);
+
+    const {data: terms} = useGetTermsQuery()
+    console.log(terms);
+    const id = terms?.data?.attributes[0]?._id;
+    console.log(id);
+    const [editTerms, {isLoading}] = useEditTermsMutation()
+   
+    const decodeHtml = (html) => {
+     const parser = new DOMParser();
+     const decodedString = parser.parseFromString(html, 'text/html').body.textContent;
+     return decodedString;
+    };
     
-    const [content, setContent] = useState("");
-    useEffect(()=>{
-    setContent(data?.data?.attributes?.content);  
-    },[data])
-    // if(isLoading){
-    //     return <Loading/>
-    // }
-    // console.log("data",data);
-  // console.log(content);
-  //   const handleUpdate = async ()=>{
-  //       console.log(content);
+    const decodedContent = decodeHtml (terms?.data?.attributes[0]?.content);
+    console.log(decodedContent); 
+   
+   const [contentt, setContent] = useState(decodedContent);
+   
+   const updateTerms = async () => {
+    // navigate("/dashboard/settings/privacypolicy")
+    // console.log(content);
+    
+    try{
+     
+      const res = await editTerms({id: id , content: contentt}).unwrap();
+      console.log(res);
       
-  //     try {
-  //       const response = await setData({
-  //         content: content
-  //       })
-  //       if(response?.data?.statusCode === 201){
-  //         Swal.fire({
-  //           position: "top-center",
-  //           icon: "success",
-  //           title: response?.data?.message,
-  //           showConfirmButton: false,
-  //           timer: 1500,
-  //         });
-  //         navigate("/settings/terms-conditions")
-  //       }
-  //     } catch (error) {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Try Again...",
-  //         text: error?.response?.data?.message,
-  //         footer: '<a href="#">Why do I have this issue?</a>',
-  //       })
-  //     }
-  //     }
+       if(res?.code ==200){ 
+        toast.success(res?.message)  
+       }
+       setTimeout(() => { 
+         navigate("/dashboard/settings/termsAndConditons")
+       },1000);
+    }catch(error){
+      console.log(error);
+      
+    } 
+  }
+   
+    
+   
+    
+   useEffect(() => {
+     if (terms) { 
+       setContent(decodedContent);
+     }
+   }, [terms]); 
       const handleBackTermsAndCondition = () => {
 navigate('/dashboard/settings/termsAndConditons')
       }
+
     return (
         
         <div className="relative ml-[24px]">
+          <Toaster />
         <div onClick={handleBackTermsAndCondition} className=" mt-[44px] cursor-pointer flex items-center pb-3 gap-2">
           <MdOutlineKeyboardArrowLeft
             className=""
@@ -68,7 +84,7 @@ navigate('/dashboard/settings/termsAndConditons')
         <div className="text-justify  mt-[24px] relative ">
           <JoditEditor
         ref={editor}
-        value={content}
+        value={contentt}
         onChange={(newContent) => {
           setContent(newContent);
         }}
@@ -76,7 +92,7 @@ navigate('/dashboard/settings/termsAndConditons')
         style={{ width: '100%',  height: "" }} 
       />
       <Button
-        // onClick={handleUpdate}
+        onClick={updateTerms}
         style={{
                 
           backgroundColor: "#193664",
