@@ -222,7 +222,7 @@ const OrderTable = () => {
     const navigate = useNavigate();
 
     const {data: allOrder, isLoading} = useGetAllOrderQuery()
-    console.log(allOrder?.data?.attributes?.results);
+    // console.log(allOrder?.data?.attributes?.results);
     
   
     const onActionClick = (record) => {

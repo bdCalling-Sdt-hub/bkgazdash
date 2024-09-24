@@ -135,7 +135,7 @@ const Products = () => {
   const navigate = useNavigate();
   const { data: allProduct, isLoading } = useGetAllProductQuery();
   const [deleteProduct, {}] = useDeleteProductMutation()
-// console.log("all product listt>>>>>>>>>>>>>>: ",allProduct);/
+console.log("all product listt>>>>>>>>>>>>>>: ",allProduct);
 
 const  productDelete = async (id) => {
    try{
@@ -179,7 +179,7 @@ const  productDelete = async (id) => {
     <div>
       <Toaster reverseOrder = {false} />
       <div className="flex justify-between 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw] py-6">
-        <OpenCloseSlectItem />
+         <h1 className="text-2xl">Products</h1>
         <Button onClick={handleAddProduct} type="primary" className="flex items-center w-[206px] h-[56px] rounded-md  bg-[#193664]">
           <GoPlus className="mr-2" />
           Add Product

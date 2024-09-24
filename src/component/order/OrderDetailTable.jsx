@@ -7,87 +7,124 @@ import AssignSelectItem from '../comnon/selectIem/assignSelectItem/AssignSelectI
 import { jsPDF } from "jspdf";
 import { FaBackward } from 'react-icons/fa';
 import { MdArrowBack } from 'react-icons/md';
+import { useAssignEmployeeMutation } from '../../redux/features/order/assignedEmployee';
+import toast, { Toaster } from 'react-hot-toast';
+import { useGetProductReviewQuery } from '../../redux/features/order/getReview';
+import Review from './Review';
 
-const columns = (onPaymentTypeChange, handleDownload) => [
-    {
-        title: 'Package Item',
-        dataIndex: 'package',
-        render: (text, record) => (
-            <span>
-                {record?.productId?.name}
-            </span>
-        ),
-    },
-    {
-        title: 'Order id',
-        dataIndex: 'orderId',
-        render: (text, record) => (
-            <span>
-               <p>{record?.transitionId}</p>
-            </span>
-        ),
-    },
-    {
-        title: 'Payment Status',
-        dataIndex: 'paymentType',
-        render: (text, record) => (
-            <PaymentStatusSelectItem
-                defaultValue={record?.paymentType}
-                onChange={(value) => onPaymentTypeChange(record.key, value)}
-            />
-        ),
-    },
-    {
-        title: 'Location & Date',
-        dataIndex: 'date_time',
-        render: (text, record) => (
-            <span>
-                <p>{record?.createdAt ? record?.createdAt.split("T")[0]: "n/a"}</p>
-            </span>
-        ),
-    },
-    {
-        title: 'Order Status',
-        dataIndex: 'status',
-        render: (text, record) => (
-            <span className={record?.status === 'complete' ? styles.completeStatus : ''}>
-                {record?.status}
-            </span>
-        ),
-    },
-    {
-        title: 'Assign',
-        key: 'assign',
-        render: (text, record) => (
-           <AssignSelectItem 
-            className="bordered-select"
-           defaultValue={record?.paymentType}
-           onChange={(value) => onPaymentTypeChange(record.key, value)}
-            />
-        ),
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (text, record) => (
-            <div className="flex space-x-2">
-                <Button
-                    className={styles.customBtn} 
-                    type="default"
-                    onClick={() => handleDownload(record)}
-                >
-                    Download
-                </Button>
-            </div>
-        ),
-    },
-];
+
 
 const OrderDetailTable = () => {
     const [filteredData, setFilteredData] = useState([]);
     const location = useLocation();
+    
     const { orderDetails } = location.state || {};
     console.log(orderDetails);
+    const id = orderDetails?._id
+    const {data: review} = useGetProductReviewQuery(id)
+    console.log(review);
+
+    const [ assignedEmployee] = useAssignEmployeeMutation()
+
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+
+    // This function will handle the onChange event from AssignSelectItem
+    const handleEmployeeChange = async (newValue) => {
+    //   console.log(newValue);
+      const data = {
+        employeeId : newValue,
+        orderId : orderDetails?._id
+      }
+      try{
+        const res = await assignedEmployee(data).unwrap();
+        if(res?.code == 200){
+            toast.success(res?.message)
+        }
+      }catch(error){
+        console.log(error);
+        toast.error(error?.data?.message)
+        
+      }
+      
+     
+    };
+    
+    const columns = (handleDownload) => [
+        {
+            title: 'Package Item',
+            dataIndex: 'package',
+            render: (text, record) => (
+                <span>
+                    {record?.productId?.name}
+                </span>
+            ),
+        },
+        {
+            title: 'Order id',
+            dataIndex: 'orderId',
+            render: (text, record) => (
+                <span>
+                   <p>{record?.transitionId}</p>
+                </span>
+            ),
+        },
+        {
+            title: 'Payment Status',
+            dataIndex: 'paymentType',
+            render: (text, record) => (
+                <p>{record?.paymentStatus}</p>
+            ),
+        },
+        {
+            title: 'Location & Date',
+            dataIndex: 'date_time',
+            render: (text, record) => (
+                <span>
+                    <p>{record?.createdAt ? record?.createdAt.split("T")[0]: "n/a"}</p>
+                </span>
+            ),
+        },
+        {
+            title: 'Order Status',
+            dataIndex: 'status',
+            render: (text, record) => (
+                <span className={record?.status === 'complete' ? styles.completeStatus : ''}>
+                    {record?.status}
+                </span>
+            ),
+        },
+        {
+            title: 'Assign',
+            key: 'assign',
+            render: (text, record) => (
+                record?.assignedEmployee ? (
+                    <span>{record?.assignedEmployee?.fullName}</span>
+                ) : (
+                    <AssignSelectItem 
+                        className="bordered-select"
+                        defaultValue="Unassigned" // Default to "Unassigned" if no assigned employee
+                        onChange={handleEmployeeChange}
+                    />
+                )
+            ),
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (text, record) => (
+                <div className="flex space-x-2">
+                    <Button
+                        className={styles.customBtn} 
+                        type="default"
+                        onClick={() => handleDownload(record)}
+                    >
+                        Download
+                    </Button>
+                </div>
+            ),
+        },
+    ];
+
     
     useEffect(() => {
         if (orderDetails) {
@@ -99,13 +136,13 @@ const OrderDetailTable = () => {
         }
     }, [orderDetails]);
 
-    const onPaymentTypeChange = (key, value) => {
-        setFilteredData((prevData) =>
-            prevData.map((item) =>
-                item.key === key ? { ...item, paymentType: value } : item
-            )
-        );
-    };
+    // const onPaymentTypeChange = (key, value) => {
+    //     setFilteredData((prevData) =>
+    //         prevData.map((item) =>
+    //             item.key === key ? { ...item, paymentType: value } : item
+    //         )
+    //     );
+    // };
 
     const handleDownload = (record) => {
         const doc = new jsPDF();
@@ -175,7 +212,10 @@ const OrderDetailTable = () => {
     };
 const navigate = useNavigate()
     return (
+        <div>
+
         <div className='bg-[#E8EBF0] my-12 w-[79vw]'>
+            <Toaster />
             <div className='grid grid-cols-3 gap-2'>
                 <div className='flex items-center p-4'> 
                     <p onClick={() => navigate('/dashboard/order')} > <MdArrowBack /> </p>
@@ -187,10 +227,13 @@ const navigate = useNavigate()
             </div>
             <Table
                 className='custom-table'
-                columns={columns(onPaymentTypeChange, handleDownload)}  
+                columns={columns(handleDownload)}  
                 dataSource={filteredData}
                 pagination={false}
             />
+           
+        </div>
+        <Review productId = {orderDetails?._id} review = {review}/>
         </div>
     );
 };

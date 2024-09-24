@@ -274,6 +274,7 @@ import Settings from "../layout/managerLayout/order/Settings";
 import AddPromotion from "../pages/Main/promotion/AddPromotion";
 import Details from "../component/deliveryEmployee/details/Details";
 import EditPromotion from "../pages/Main/promotion/EditPromotion";
+import EditTime from "../pages/Main/settings/EditTime";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -384,6 +385,10 @@ import EditPromotion from "../pages/Main/promotion/EditPromotion";
             {
                 path: "settings/shopOperation",
                 element: <ShopOperation />
+            },
+            {
+                path: 'settings/shopOperation/editshoptime',
+                element: <EditTime />
             },
             
             {

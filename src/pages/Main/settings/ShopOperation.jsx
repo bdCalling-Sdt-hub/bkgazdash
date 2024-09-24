@@ -5,12 +5,13 @@ import ShopOperationSelectItem from "../../../component/settings/shopOperation/s
 import shopOPerationLogo from '../../../assets/Images/shopOperationLogo/shopOperationLogo.png'
 import { useGetTimeQuery } from "../../../redux/features/shopOparetion/getTime";
 import { ClockCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, PoweroffOutlined } from "@ant-design/icons";
 
 const ShopOperation = () => {
   const navigate = useNavigate()
 
   const {data: timeShop} = useGetTimeQuery()
-  console.log(timeShop?.message);
+  // console.log(timeShop?.data?.attributes?.isOpen);
   
 
   const handleBackSettings = () => {
@@ -39,11 +40,29 @@ const ShopOperation = () => {
         </div>
 
         <div>
-        <div className="flex flex-col items-center justify-center p-8 bg-gray-100">
+        <div className="flex flex-col xl:ml-44 items-center justify-center p-8 bg-gray-100">
           
-      <h1 className="text-3xl font-semibold text-gray-800 mb-8">
+      <h1 className="text-3xl font-semibold text-gray-800 ">
         Shop Timings
       </h1>
+
+      <div className="flex items-center mb-6 justify-center bg-gray-100">
+      <h1
+        className={` font-bold flex items-center gap-4 ${
+          timeShop?.data?.attributes?.isOpen === true ? "text-green-600" : "text-red-600"
+        }`}
+      >
+        {/* Icon based on shop status */}
+        {timeShop?.data?.attributes?.isOpen === true ? (
+          <CheckCircleOutlined className="text-green-600" />
+        ) : (
+          <PoweroffOutlined className="text-red-600" />
+        )}
+        
+        {/* Text based on shop status */}
+        {timeShop?.data?.attributes?.isOpen === true ? "The shop is now OPEN" : "The shop is now CLOSED"}
+      </h1>
+    </div>
 
       <div className="bg-white rounded-lg shadow-lg p-6 w-96">
         {/* Start Time */}
@@ -67,7 +86,12 @@ const ShopOperation = () => {
             </span>
           </div>
         </div>
+        
       </div>
+      <button onClick={() => navigate('editshoptime')} class="bg-[#193664] text-white font-bold py-2 px-5 rounded-lg shadow-lg transition duration-300 ease-in-out">
+  Update Time
+</button>
+
     </div>
 
         </div>

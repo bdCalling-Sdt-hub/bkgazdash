@@ -1,11 +1,20 @@
-import { Image } from "antd";
+import { Flex, Image, Rate } from "antd";
 import logo from "../../assets/Images/detailsDeliveryEmployProfile.jpg"; // Import the image
 import ReviewRating from "./ReviewRating";
+import { useState } from "react";
 
-const Review = () => {
+const Review = ({review, productId}) => {
+  // console.log(review, productId);
+  
+
+
+
   return (
     <div>
       <h1 className="text-2xl font-bold">Review</h1>
+        {
+          review?.data?.results?.map(rev =>  
+
       <div className="py-6">
         <div className="flex justify-between">
           <div className="flex gap-4">
@@ -14,9 +23,12 @@ const Review = () => {
               {/* Use the imported image */}
             </div>
             <div>
-              <h1>Julian Frederick</h1>
+              <h1>  {rev?.userId?.fullName || "Julian Frederick"}</h1>
               <div>
-                <ReviewRating/>
+              <Flex gap="middle" vertical>
+            <Rate className="text-[#1397D5]" value={rev?.rating} />
+            {rev?.rating ? <span>{rev.rating}</span> : null}
+        </Flex>
               </div>
             </div>
           </div>
@@ -25,10 +37,11 @@ const Review = () => {
           </div>
         </div>
         <div>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet
-          possimus dicta inventore architecto neque at praesentium ipsa!
+         {rev?.comment || "consectetur adipisicing"}
         </div>
       </div>
+          )
+        }
     </div>
   );
 };

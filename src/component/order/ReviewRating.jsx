@@ -1,7 +1,9 @@
 import  { useState } from 'react';
 import { Flex, Rate } from 'antd';
 const desc = [""];
-const ReviewRating = () => {
+const ReviewRating = ({review}) => {
+  console.log(review);
+  
   const [value, setValue] = useState(4);
   return (
     <Flex gap="middle" vertical>

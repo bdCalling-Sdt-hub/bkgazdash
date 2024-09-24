@@ -6,7 +6,7 @@ const OrderDetails = () => {
     return (
         <div>
         <OrderDetailTable />
-        <Review />
+        
         </div>
     );
 };
