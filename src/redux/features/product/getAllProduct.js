@@ -6,8 +6,9 @@ const getAllProduct = baseApi.injectEndpoints({
         getAllProduct: builder.query({
             query: () => ({
                 url: "/product?limit=20",
-                providesTags: [{type: "Product"}],
-            })
+                 
+            }),
+            providesTags: [{ type: "Product" }],
         }),
       
     })

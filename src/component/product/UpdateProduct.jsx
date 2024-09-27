@@ -1,148 +1,21 @@
-// import React from 'react';
-// import { Button, Form, Input, Upload } from 'antd';
-// import { FaCamera } from "react-icons/fa";
-// import './AddProduct.css'
-// import { IoIosArrowBack } from "react-icons/io";
-// import { Navigate, useNavigate } from 'react-router-dom';
-// // import { useSelector } from 'react-redux';
-// const MyFormItemContext = React.createContext([]);
-// function toArr(str) {
-//   return Array.isArray(str) ? str : [str];
-// }
-// const MyFormItemGroup = ({ prefix, children }) => {
-//   const prefixPath = React.useContext(MyFormItemContext);
-//   const concatPath = React.useMemo(() => [...prefixPath, ...toArr(prefix)], [prefixPath, prefix]);
-//   return <MyFormItemContext.Provider value={concatPath}>{children}</MyFormItemContext.Provider>;
-// };
-
-
-
-// const MyFormItem = ({ name, ...props }) => {
-//   const prefixPath = React.useContext(MyFormItemContext);
-//   const concatName = name !== undefined ? [...prefixPath, ...toArr(name)] : undefined;
-//   return <Form.Item name={concatName} {...props} />;
-// };
-
-
-
-// const UpdateProcuct = () => {
-//   const naviate = useNavigate();
-//   const [form] = Form.useForm();
-//   // const selectedProduct = useSelector((state) => state.product.selectedProduct);
-//   const onFinish = (value) => {
-//     console.log(value);
-//   };
-
-
-//   const normFile = (e) => {
-//     if (Array.isArray(e)) {
-//       return e;
-//     }
-//     return e?.fileList;
-    
-//   };
-
-//   const handleAddProduct = () => {
-//     naviate('/dashboard/product')
-//   }
-
-
-//   return (
-//   <div>
-//     <div onClick={handleAddProduct} className='flex gap-2 cursor-pointer items-center  border-none text-[#193664]'>
-//       <IoIosArrowBack />
-//       Update Product
-//     </div>
-//       <div className='xl:w-[1440px] items-center justify-center py-24 flex'>
-      
-//       <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
-    
-//         <MyFormItemGroup prefix={['name']}>
-//           <div className='flex space-x-4'>
-//           <MyFormItem name="productName" label="Product Name">
-//           <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }}/>
-//           </MyFormItem>
-//           <MyFormItem name="price" label="Price">
-//           <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }}/>
-//           </MyFormItem>
-//           </div>
-//         </MyFormItemGroup>
-//         <MyFormItemGroup prefix={['name']}>
-//           <div className='flex space-x-4'>
-//           <MyFormItem name="categoryName" label="Category Name">
-//           <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }}/>
-//           </MyFormItem>
-//           <MyFormItem name="loyalityPrice" label="Loyality Price">
-//           <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }}/>
-//           </MyFormItem>
-          
-//           </div>
-//         </MyFormItemGroup>
-
-//      <MyFormItemGroup>
-      
-//      <MyFormItem name="description" label="Description">
-//         <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }}/>
-//         </MyFormItem>
-//      <MyFormItem name="loyalityGift" label="Loyality Gift">
-//         <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }}/>
-//         </MyFormItem>
-//      </MyFormItemGroup>
-
-// {/* Upload */}
-// <Form.Item label="" valuePropName="fileList" getValueFromEvent={normFile}>
-//           <Upload action="/upload.do" listType="picture-card">
-//             <button
-//               style={{
-//                 border: 0,
-//                 background: 'none',
-              
-//               }}
-//               type="button"
-//             >
-//              <FaCamera className='text-6xl text-[#193664]' />
-//               <div
-//                 style={{
-//                   marginTop: 8,
-//                 }}
-//               >
-//                 {/* Upload */}
-//               </div>
-//             </button>
-//           </Upload>
-//         </Form.Item>
-
-
-
-
-//       <div className='update-button border-t-2 border-[#193664] py-4'>
-//       <Button className='w-[860px] h-14 bg-[#193664] text-white font-bold'  htmlType="submit">
-//      Update Product
-//       </Button>
-//       </div>
-//     </Form>
-//     </div>
-//   </div>
-//   );
-
-// }
-
-
-// export default UpdateProcuct;
-
-import React from 'react';
-import { Button, Form, Input, Upload, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Select, Upload } from 'antd';
 import { FaCamera } from "react-icons/fa";
-import './AddProduct.css';
+// import './EditProduct.css';
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
- 
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAllCategoryQuery } from '../../redux/features/category/getAllCategory';
+ import toast, { Toaster } from 'react-hot-toast';
+import { useSingleProductQuery } from '../../redux/features/product/singleProduct';
+import { useUpdateProductMutation } from '../../redux/features/product/updateProduct';
+import baseUrl from '../../redux/api/baseUrl';
 
 const MyFormItemContext = React.createContext([]);
+
 function toArr(str) {
   return Array.isArray(str) ? str : [str];
 }
+
 const MyFormItemGroup = ({ prefix, children }) => {
   const prefixPath = React.useContext(MyFormItemContext);
   const concatPath = React.useMemo(() => [...prefixPath, ...toArr(prefix)], [prefixPath, prefix]);
@@ -155,45 +28,50 @@ const MyFormItem = ({ name, ...props }) => {
   return <Form.Item name={concatName} {...props} />;
 };
 
-const UpdateProcuct = () => {
+const UpdateProduct = () => {
+  const { id } = useParams(); 
+  console.log(id);
+  
   const navigate = useNavigate();
-  const [form] = Form.useForm();
-  // const selectedProduct = useSelector((state) => state.product.selectedProduct);
-  const onFinish = (values) => {
-    // Create FormData object
-    console.log(values);
-    console.log(values.image[0].originFileObj);
-    
-    
-    const formData = new FormData();
-    
-    // Append other form values
-    Object.keys(values).forEach((key) => {
-      if (key !== 'image') {  // We will handle the image separately
-        formData.append(key, values[key]);
+
+  const { data: allCategory } = useAllCategoryQuery();
+  const { data: productData, isLoading: isLoadingProduct } = useSingleProductQuery(id);
+  console.log(productData);
+  
+  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+  const [fileList, setFileList] = useState([]);
+
+  // Set form with fetched product data
+  useEffect(() => {
+    if (productData) {
+      form.setFieldsValue({
+        name: productData?.data?.attributes?.name,
+        price: productData?.data?.attributes?.price,
+        categoryId: productData?.data?.attributes?.categoryId?._id, // Set categoryId to the actual ID
+        loyaltyPrice: productData?.data?.attributes?.loyaltyPrice,
+        deliveryFee: productData?.data?.attributes?.deliveryFee,
+        taxFee: productData?.data?.attributes?.taxFee,
+        description: productData?.data?.attributes?.description,
+        loyaltyGift: productData?.data?.attributes?.loyaltyGift,
+      });
+  
+      // Set the image file list from the product data if available
+      if (productData?.data?.attributes?.image) {
+        setFileList([
+          {
+            uid: '-1',
+            name: 'image.png', // You can replace this with the actual image name
+            status: 'done',
+            url: baseUrl + productData?.data?.attributes?.image, // Assuming the image URL is available here
+          },
+        ]);
       }
-    });
-
-    // Append image files (if uploaded)
-    if (values.image && values.image.length > 0) {
-      formData.append('image', values.image[0].originFileObj);
     }
-
-    // Send the formData to the backend via axios (or fetch)
-    // axios.post('/api/product/update', formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // })
-    // .then((response) => {
-    //   message.success('Product updated successfully!');
-    //   navigate('/dashboard/product'); // Navigate to another page after successful update
-    // })
-    // .catch((error) => {
-    //   console.error('Error updating product:', error);
-    //   message.error('Failed to update product');
-    // });
-  };
+  }, [productData]);
+  
+  
+  // Ant Design form instance
+  const [form] = Form.useForm();
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -202,52 +80,144 @@ const UpdateProcuct = () => {
     return e?.fileList;
   };
 
-  const handleAddProduct = () => {
+  const handleFileChange = ({ fileList }) => {
+    setFileList(fileList);
+  };
+
+  const onFinish = async (values) => {
+    console.log('Form Values:', values);
+
+    // Prepare FormData for updating the product
+    const formData = new FormData();
+    formData.append('name', values.name);
+formData.append('price', values.price);
+formData.append('categoryId', values.categoryId);
+formData.append('loyaltyPrice', values.loyaltyPrice);
+formData.append('deliveryFee', values.deliveryFee);
+formData.append('taxFee', values.taxFee);
+formData.append('description', values.description);
+formData.append('loyaltyGift', values.loyaltyGift);
+
+
+if (fileList && fileList.length > 0) {
+  formData.append('file', fileList[0].originFileObj);
+}
+
+
+try {
+  const res = await updateProduct({ id, formData }).unwrap();
+  console.log('Update Response:', res);
+
+  if (res?.code === 200) {
+    toast.success(res?.message);
+    // Optionally, refetch or reload the updated product data
     navigate('/dashboard/product');
+  } else {
+    toast.error('Something went wrong!');
+  }
+} catch (error) {
+  console.error('Submission Error:', error);
+  toast.error(error?.data?.message || 'Failed to update product');
+}
   };
 
   return (
     <div>
-      <div onClick={handleAddProduct} className='flex gap-2 cursor-pointer items-center  border-none text-[#193664]'>
+      <Toaster />
+      <div className="border-none text-[#193664] flex gap-2 items-center cursor-pointer">
         <IoIosArrowBack />
-        Update Product
+        Edit Product
       </div>
-      <div className='xl:w-[1440px] items-center justify-center py-24 flex'>
-        <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
-          <MyFormItemGroup prefix={['name']}>
-            <div className='flex space-x-4'>
-              <MyFormItem name="productName" label="Product Name">
-                <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }} />
-              </MyFormItem>
-              <MyFormItem name="price" label="Price">
-                <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }} />
-              </MyFormItem>
-            </div>
-          </MyFormItemGroup>
-           
-          <MyFormItemGroup prefix={['name']}>
-            <div className='flex space-x-4'>
-              <MyFormItem name="categoryName" label="Category Name">
-                <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }} />
-              </MyFormItem>
-              <MyFormItem name="loyalityPrice" label="Loyality Price">
-                <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }} />
-              </MyFormItem>
-            </div>
-          </MyFormItemGroup>
+      <div className="xl:w-[1440px] items-center justify-center py-24 flex">
+        <Form
+          className="mx-auto"
+          name="form_item_path"
+          layout="vertical"
+          onFinish={onFinish}
+          form={form}
+          initialValues={productData}
+        >
+          <div className="flex space-x-6">
+            <MyFormItem name="name" label="Product Name">
+              <Input
+                size="large"
+                required
+                style={{ width: '500px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+              />
+            </MyFormItem>
+            <MyFormItem name="price" label="Price">
+              <Input
+                size="large"
+                required
+                style={{ width: '500px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+              />
+            </MyFormItem>
+          </div>
 
-          <MyFormItemGroup>
-            <MyFormItem name="description" label="Description">
-              <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }} />
+          <div className="flex space-x-6">
+            <MyFormItem name="categoryId" label="Category Name">
+              <Select
+                size="large"
+                required
+                style={{ width: '500px', height: '56px', borderRadius: '8px', paddingLeft: '1px' }}
+                placeholder="Select Category"
+              >
+                {allCategory?.data?.attributes?.results?.map(category => (
+                  <Select.Option key={category?._id} value={category?._id}>
+                    {category?.name}
+                  </Select.Option>
+                ))}
+              </Select>
             </MyFormItem>
-            <MyFormItem name="loyalityGift" label="Loyality Gift">
-              <Input size='large' style={{ width: '500px', height: "56px", borderColor: "#193664" }} />
+
+            <MyFormItem name="loyaltyPrice" label="Loyalty Price">
+              <Input
+                size="large"
+                required
+                style={{ width: '500px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+              />
             </MyFormItem>
-          </MyFormItemGroup>
+          </div>
+
+          <div className="flex space-x-6">
+            <MyFormItem name="deliveryFee" label="Delivery Fee">
+              <Input
+                size="large"
+                required
+                style={{ width: '500px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+              />
+            </MyFormItem>
+            <MyFormItem name="taxFee" label="Tax Fee">
+              <Input
+                size="large"
+                required
+                style={{ width: '500px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+              />
+            </MyFormItem>
+          </div>
+
+          <MyFormItem name="description" label="Description">
+            <Input
+              size="large"
+              required
+              style={{ width: '1026px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+            />
+          </MyFormItem>
+          <MyFormItem name="loyaltyGift" label="Loyalty Gift">
+            <Input
+              size="large"
+              required
+              style={{ width: '1026px', height: '56px', borderRadius: '8px', paddingLeft: '10px', borderColor: '#193664' }}
+            />
+          </MyFormItem>
 
           {/* Upload */}
-          <Form.Item label="product image" name="image" valuePropName="fileList" getValueFromEvent={normFile}>
-            <Upload action="/upload.do" listType="picture-card">
+          <Form.Item label="" valuePropName="fileList" getValueFromEvent={normFile}>
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={handleFileChange}
+            >
               <button
                 style={{
                   border: 0,
@@ -255,13 +225,13 @@ const UpdateProcuct = () => {
                 }}
                 type="button"
               >
-                <FaCamera className='text-6xl text-[#193664]' />
+                <FaCamera className="text-6xl text-[#193664]" />
               </button>
             </Upload>
           </Form.Item>
 
-          <div className='update-button border-t-2 border-[#193664] py-4'>
-            <Button className='w-[860px] h-14 bg-[#193664] text-white font-bold' htmlType="submit">
+          <div className="update-button border-t-2 border-[#193664] py-4">
+            <Button className="w-[860px] h-14 !bg-[#193664] !text-white font-bold" htmlType="submit" loading={isLoading}>
               Update Product
             </Button>
           </div>
@@ -271,4 +241,4 @@ const UpdateProcuct = () => {
   );
 };
 
-export default UpdateProcuct;
+export default UpdateProduct;

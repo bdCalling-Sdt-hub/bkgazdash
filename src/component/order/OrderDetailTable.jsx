@@ -20,7 +20,7 @@ const OrderDetailTable = () => {
     
     const { orderDetails } = location.state || {};
     console.log(orderDetails);
-    const id = orderDetails?._id
+    const id = orderDetails?.productId?._id
     const {data: review} = useGetProductReviewQuery(id)
     console.log(review);
 
@@ -233,7 +233,7 @@ const navigate = useNavigate()
             />
            
         </div>
-        <Review productId = {orderDetails?._id} review = {review}/>
+        <Review review = {review}/>
         </div>
     );
 };
