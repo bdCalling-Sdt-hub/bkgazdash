@@ -1,85 +1,64 @@
 import { Button, Form, Input } from "antd";
 import { GoArrowLeft } from "react-icons/go";
 import { HiOutlineMailOpen } from "react-icons/hi";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import logo from "./../../../../public/bkGazLogo.png";
 import { useState, } from "react";
 import OTPInput from "react-otp-input";
 import Swal from "sweetalert2";
+import { useVerifyOtpMutation } from "../../../redux/features/auth/verifyOtp";
+import toast, { Toaster } from "react-hot-toast";
 // import { usePostOtpMutation } from "../../redux/Features/postOtpApi";
 
 const VerifyEmail = () => {
   const [otp, setOtp] = useState("");
   const { phone } = useParams();
   const navigate = useNavigate();
-  // const [setOtpVerify, { isLoading: otpLoading }] = usePostOtpMutation();
-  // console.log(phone);
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const phoneNumber = queryParams.get('phoneNumber')
+  // console.log('+'+phoneNumber); 
+  const [error, setError] = useState('');
 
-  // const handleMatchOtp = async () => {
-  //   console.log(otp);
+const [verifyOtp, {isLoading}] = useVerifyOtpMutation()
 
-  //   // try {
-  //   //   const responser = await baseURL.post(
-  //   //     `/user/verify-code`,{
-  //   //       email : email,
-  //   //       code : otp
-  //   //     }
-  //   //   )
-  //   //   console.log(responser?.data);
-  //   //   if(responser?.data?.statusCode == 200){
-  //   //     Swal.fire({
-  //   //       position: "top-center",
-  //   //       icon: "success",
-  //   //       title: responser?.data?.message,
-  //   //       showConfirmButton: false,
-  //   //       timer: 1500,
-  //   //     });
-  //   //     navigate(`/auth/update-password/${email}`);
-  //   //   }
-  //   // } catch (error) {
-  //   //   Swal.fire({
-  //   //     icon: "error",
-  //   //     title: "Try Again...",
-  //   //     text: error?.response?.data?.message,
-  //   //     footer: '<a href="#">Why do I have this issue?</a>',
-  //   //   })
-  //   // }
-  //   try {
-  //     const response = await setOtpVerify({ phone: phone, code: otp });
-  //     if (response.data.statusCode == 200) {
-  //       const token = response?.data?.data?.token;
-  //       localStorage.setItem("token", token);
-  //       // localStorage.setItem("user", response?.data?.data?.attributes?.user);
-  //       Swal.fire({
-  //         position: "top-center",
-  //         icon: "success",
-  //         title: response.data.message,
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       navigate(`/auth/update-password/${phone}`);
-  //       // setModelTitle("Reset Password");
-  //     }
-  //   } catch (error) {
-  //     console.log("Registration Fail", error);
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error...",
-  //       text: error?.response?.data?.message,
-  //       footer: '<a href="#">Why do I have this issue?</a>',
-  //     });
-  //   }
-  // };
- 
-
-  const handleMatchOtp = () => {
-    console.log(otp);
+  const handleMatchOtp = async() => {
+     
+    if (otp.length < 6) {
+      setError('Please enter a valid OTP');  
+    } else {
+      setError('');  
+      
+    } 
+    const verify = {
+      otp,
+      phoneNumber : "+"+phoneNumber.trim()
+    }
+   try{
+    const res = await verifyOtp(verify).unwrap();
+    console.log(res);
+    if(res?.code == 200){
+      toast.success(res?.message)
+    }
+    setTimeout(() => {
+      navigate(`../resetPassword?phoneNumber=${phoneNumber}`);
+    }, 1000);
     
-    navigate('../resetPassword',);
+   }catch(error){
+    console.log(error?.data);
+    setError(error?.data?.message)
+    
+   }
+
+
+
+   
+
+    // navigate('../resetPassword',);
   }
   return (
     <div className="w-full min-h-[100vh] flex justify-center items-center bg-[#1397D5]">
-
+      <Toaster />
         <div className="p-24  bg-[#B6DFF2]  rounded-xl">
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
@@ -89,11 +68,11 @@ const VerifyEmail = () => {
               </Link>
 
               <h1 className="text-[24px] font-medium my-[24px]">
-               Verify Email
+               Verify PhoneNumber
               </h1>
             </div>
             <p className="text-center mx-auto w-[80%] font-medium mb-[24px] text-[#5C5C5C] text-[16px]">
-            Please enter the otp we have sent you in your email.
+            Please enter the otp we have sent you in your Phone.
             </p>
             <div className="mx-auto space-y-7 fit-content object-contain">
             
@@ -119,7 +98,9 @@ const VerifyEmail = () => {
                 />
                  
               </div>
+              <p className="text-red-500">{error}</p>
               <Button
+              loading = {isLoading}
               style={{
                 backgroundColor: 'transparent',
                 border: 'none',
@@ -143,6 +124,7 @@ const VerifyEmail = () => {
             
             </div>
                 <Button
+                 loading = {isLoading}
                 onClick={handleMatchOtp}
                   type="primary"
                   style={{
@@ -155,7 +137,7 @@ const VerifyEmail = () => {
                   htmlType="submit"
                   className="block mx-auto w-[400px] hover:bg-secondary h-[56px] py-4 my-8 text-white bg-secondary rounded-3xl "
                 >
-                 Verify Email
+                 Verify PhoneNumber
                 </Button>
         
           </div>

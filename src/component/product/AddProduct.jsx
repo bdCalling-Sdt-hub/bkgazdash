@@ -411,7 +411,9 @@ const AddProduct = () => {
           </Form.Item>
 
           <div className="update-button border-t-2 border-[#193664] py-4">
-            <Button className="w-[860px] h-14 !bg-[#193664] !text-white font-bold" htmlType="submit">
+            <Button 
+            loading = {isLoading}
+            className="w-[860px] h-14 !bg-[#193664] !text-white font-bold" htmlType="submit">
               Add Product
             </Button>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, Upload } from "antd";
 import { FaCamera } from "react-icons/fa";
 import "./addManager.css";
@@ -6,11 +6,12 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useActionData, useNavigate } from "react-router-dom";
  import toast, { Toaster } from "react-hot-toast";
 import { useAddEmployeeMutation } from "../../redux/features/deliveryEmploye/AddEmployee";
+import PhoneInput from "react-phone-input-2";
 
 const AddManager = () => {
   const [form] = Form.useForm();
   const naviate = useNavigate();
-
+  // const [phoneNumber, setPhoneNumber] = useState("");
   const [addManager, {isLoading}] = useAddEmployeeMutation()
  
   const onFinish = async(values) => {
@@ -19,10 +20,12 @@ const AddManager = () => {
     const formData = new FormData()
     console.log(formData);
     
+    
+    
     formData.append('fullName', values?.fullName)
-    formData.append('password', values?.Password)
+    formData.append('password', values?.password)
     formData.append('address', values?.address)
-    formData.append('phoneNumber', values?.phoneNumber)
+    formData.append('phoneNumber', "+"+values?.phoneNumber)
     formData.append('role', values?.role) 
     // Accessing the uploaded image file
     const imageFile = values.file?.[0]?.originFileObj;
@@ -118,27 +121,37 @@ const AddManager = () => {
               </Form.Item>
             </div>
             <div className="flex space-x-4">
-              <Form.Item
-                name="phoneNumber"
-                label="Phone Number"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your phone number!",
-                  },
-                ]}
-              >
-                <Input
-                  placeholder="Enter phone number"
-                  style={{
-                    width: "500px",
-                    height: "56px",
-                    borderRadius: "8px",
-                    paddingLeft: "10px",
-                    borderColor: "#193664",
-                  }}
-                />
-              </Form.Item>
+
+                <Form.Item
+              name="phoneNumber"
+              label={
+                <span className="text-secondary text-[12px] font-medium">
+                  Phone Number
+                </span>
+              }
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your phone number!",
+                },
+              ]}
+            >
+              <PhoneInput
+                placeholder="Enter phone number"
+                international
+                countryCallingCodeEditable={false}
+                style={{
+                  marginTop: "12px",
+                  width: "500px",
+                  height: "56px",
+                  borderRadius: "8px",
+                  paddingLeft: "10px",
+                  borderColor: "#193664",
+                }}
+                defaultCountry="US" 
+                
+              />
+            </Form.Item>
 
               <Form.Item
                 name="address"

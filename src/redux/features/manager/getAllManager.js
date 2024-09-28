@@ -5,7 +5,7 @@ import { baseApi } from "../../api/baseApi";
     endpoints: (builder) => ({
         allManager: builder.query({
             query: () => ({
-                url: `/users?role=manager`,
+                url: `/users?role=manager&limit=20`,
                 
             }),
             providesTags: [{ type: "Users" }],

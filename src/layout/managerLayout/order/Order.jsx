@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Button, Input, Table } from "antd";
 import moment from "moment";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from './Order.module.css';  // Single import for all styles
-
+ 
+ 
+ 
+import jsPDF from "jspdf";
+import { DatePicker, Space } from 'antd';
+import { useGetAllOrderQuery } from "../../../redux/features/order/getAllorder";
 import SearchInput_itemName from "../../../component/order/searchInput_itemName/SearchInput_itemName";
-import OrderSearchByDate from "../../../component/order/orderSearchByDate/OrderSearchByDate";
-import OrderStatusSelectItem from "../../../component/order/orderStatusSelectItem/OrderStatusSelectItem";
+ 
+const { RangePicker } = DatePicker;
 
 const columns = (onActionClick) => [
     {
@@ -20,14 +25,10 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
-      render: (text, record) => (
+      render: (_, record) => (
         <div className={styles.packageItemContainer}>
-          {record.status === 'new' && (
-            <span className={styles.newLabel}>
-              * New
-            </span>
-          )}
-          {text}
+           
+          {record?.productId?.name}
         </div>
       )
     },
@@ -42,6 +43,9 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.transitionId}</p>
+      )
     },
     {
       title: "Payment Status",
@@ -54,9 +58,12 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.paymentMethod}</p>
+      )
     },
     {
-      title: "Location & Date",
+      title: " Date",
       dataIndex: "date_time",
       onHeaderCell: () => ({
         style: {
@@ -66,6 +73,9 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.createdAt ? record?.createdAt.split("T")[0]: "n/a"}</p>
+      )
     },
     {
       title: "Status",
@@ -78,6 +88,9 @@ const columns = (onActionClick) => [
           border: 'none'
         },
       }),
+      render: (_, record) => (
+        <p>{record?.paymentStatus}</p>
+      )
     },
     {
       title: "Details",
@@ -129,14 +142,95 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
+const handleDownload = (record) => {
+  const doc = new jsPDF();
+  
+  const padding = 20;  // Define padding value
+
+  // Set up content with styling
+  doc.setFontSize(22);
+  doc.setTextColor(40);
+  doc.text("Order Details", 105, padding, null, null, "center");
+
+  // Add padding for the line below the title
+  doc.setDrawColor(0, 0, 0);
+  doc.line(padding, padding + 5, 210 - padding, padding + 5);
+
+  doc.setFontSize(16);
+  doc.setTextColor(0);
+  doc.text(`Order ID:`, padding, padding + 15);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.orderId}`, padding + 50, padding + 15);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Package Item:`, padding, padding + 25);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.package}`, padding + 50, padding + 25);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Payment Status:`, padding, padding + 35);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.paymentType}`, padding + 50, padding + 35);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Location & Date:`, padding, padding + 45);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.date_time}`, padding + 50, padding + 45);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Order Status:`, padding, padding + 55);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.status}`, padding + 50, padding + 55);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`User Name:`, padding, padding + 65);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.userName}`, padding + 50, padding + 65);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Email:`, padding, padding + 75);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.email}`, padding + 50, padding + 75);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Phone Number:`, padding, padding + 85);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.phoneNumber}`, padding + 50, padding + 85);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Amount:`, padding, padding + 95);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.amount}`, padding + 50, padding + 95);
+
+  doc.setFont("helvetica", "normal");
+  doc.text(`Address:`, padding, padding + 105);
+  doc.setFont("helvetica", "bold");
+  doc.text(`${record.address}`, padding + 50, padding + 105);
+
+  // Optional: Add a footer
+  doc.setFontSize(12);
+  doc.text("Thank you for your order!", 105, 280, null, null, "center");
+
+  // Save the PDF with the order ID as the file name
+  doc.save(`${record.orderId}.pdf`);
+};
+
+
 const Order = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [filteredData, setFilteredData] = useState(originalData);
     const navigate = useNavigate();
+
+    const {data: allOrder, isLoading} = useGetAllOrderQuery()
+    // console.log(allOrder?.data?.attributes?.results);
+    
   
     const onActionClick = (record) => {
-      navigate("/orderDetails", { state: { orderDetails: record } });
+      // console.log("reccccc>>>>>>>>>>>>>",record);
+      
+      navigate(`/managerlayout/managerorder/orderdetails/${record?._id}`, { state: { orderDetails: record } });
+      // navigate(`/dashboard/Order/orderDetails`, { state: { orderDetails: record } });
     };
   
     const handleDateSearch = (date) => {
@@ -157,110 +251,6 @@ const Order = () => {
         setFilteredData(filtered);
       }
     };
-
-    const columns = (onActionClick) => [
-        {
-          title: "Package Item",
-          dataIndex: "package",
-          onHeaderCell: () => ({
-            style: {
-              backgroundColor: '#193664',
-              color: 'white',
-              fontWeight: 'bold',
-              border: 'none'
-            },
-          }),
-          render: (text, record) => (
-            <div className={styles.packageItemContainer}>
-              {record.status === 'new' && (
-                <span className={styles.newLabel}>
-                  * New
-                </span>
-              )}
-              {text}
-            </div>
-          )
-        },
-        {
-          title: "Order id",
-          dataIndex: "orderId",
-          onHeaderCell: () => ({
-            style: {
-              backgroundColor: '#193664',
-              color: 'white',
-              fontWeight: 'bold',
-              border: 'none'
-            },
-          }),
-        },
-        {
-          title: "Payment Status",
-          dataIndex: "paymentType",
-          onHeaderCell: () => ({
-            style: {
-              backgroundColor: '#193664',
-              color: 'white',
-              fontWeight: 'bold',
-              border: 'none'
-            },
-          }),
-        },
-        {
-          title: "Location & Date",
-          dataIndex: "date_time",
-          onHeaderCell: () => ({
-            style: {
-              backgroundColor: '#193664',
-              color: 'white',
-              fontWeight: 'bold',
-              border: 'none'
-            },
-          }),
-        },
-        {
-          title: "Status",
-          dataIndex: "status",
-          onHeaderCell: () => ({
-            style: {
-              backgroundColor: '#193664',
-              color: 'white',
-              fontWeight: 'bold',
-              border: 'none'
-            },
-          }),
-        },
-        {
-          title: "Details",
-          key: "action",
-          onHeaderCell: () => ({
-            style: {
-              backgroundColor: '#193664',
-              color: 'white',
-              fontWeight: 'bold',
-              border: 'none'
-            },
-          }),
-          render: (text, record) => (
-            <Link to="../orderdetails">
-            
-            <Button
-              style={{
-                backgroundColor: "#0B5B80",
-                color: "#fff",
-                border: "none",
-                borderRadius: "8px",
-                padding: "8px 16px",
-                fontWeight: "bold",
-                fontSize: "14px",
-              }} 
-            >
-              Details
-            </Button>
-            </Link>
-          ),
-        },
-    ];
-
     return (
       <div className={`bg-[#E8EBF0] w-[79vw] ${styles.tableContainer}`}>
         <div className="grid grid-cols-2">
@@ -269,8 +259,9 @@ const Order = () => {
           </div>
           <div className="justify-end space-x-4 p-4 flex">
             {/* <OrderSearchByDate onDateChange={handleDateSearch} /> */}
-    
-            <OrderStatusSelectItem onStatusChange={handleStatusChange} />
+            <RangePicker />
+            <p onClick={handleDownload} className="px-2 py-1 bg-blue-400 flex items-center text-center rounded cursor-pointer ">Download</p>
+       
           
             <Input 
               placeholder="User Name"
@@ -283,7 +274,7 @@ const Order = () => {
         <Table
           className={`${styles.tableContainer}`}
           columns={columns(onActionClick)}
-          dataSource={filteredData}
+          dataSource={allOrder?.data?.attributes?.results}
           rowKey="key"
           rowClassName={(record) => {
             if (record.status === 'new') {
@@ -296,9 +287,9 @@ const Order = () => {
             return '';
           }}
           pagination={{
-            total: filteredData.length,
+            total: allOrder?.data?.attributes?.results.length,
             showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-            defaultPageSize: 10,
+            defaultPageSize: 3,
             showSizeChanger: false,
             itemRender: (current, type, originalElement) => {
               if (type === 'prev') {
@@ -312,12 +303,7 @@ const Order = () => {
             className: styles.paginationCenter,
           }}
         />
-        {/* <OrderTransactionModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          setSelectedTransaction={setSelectedTransaction}
-          selectedTransaction={selectedTransaction}
-        /> */}
+         
       </div>
     );
   };

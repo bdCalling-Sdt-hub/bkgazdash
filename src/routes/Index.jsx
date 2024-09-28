@@ -275,6 +275,7 @@ import AddPromotion from "../pages/Main/promotion/AddPromotion";
 import Details from "../component/deliveryEmployee/details/Details";
 import EditPromotion from "../pages/Main/promotion/EditPromotion";
 import EditTime from "../pages/Main/settings/EditTime";
+import AdminRoutes from "./AdminRoutes";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -303,12 +304,12 @@ import EditTime from "../pages/Main/settings/EditTime";
   
     {
         path: "dashboard",
-        // element: <AdminRoutes> <Main /></AdminRoutes>,
-        element: <Main />,
+        element: <AdminRoutes> <Main /></AdminRoutes>,
+        // element: <Main />,
         children: [
             {
                 path: "home",
-                element: <DashboardHome />
+                element: <AdminRoutes> <DashboardHome /> </AdminRoutes> 
             },
             {
                 path: "notification",
@@ -442,20 +443,25 @@ import EditTime from "../pages/Main/settings/EditTime";
     },
     {
         path: "managerlayout",
-        element: <ManagerLayout />,
+        element: <AdminRoutes>  <ManagerLayout /> </AdminRoutes>,
         children: [
             {
                 path: "managerorder",
-                element: <Order />
+                element: <AdminRoutes>  <Order/>  </AdminRoutes>,
             },
             {
-                path: "orderdetails",
+                path: "managerorder/orderdetails/:id",
                 element: <Orderdetails />
             },
+          
             {
-                path:"setings",
-                element:<Settings />
-            }
+                path: "personalInformation",
+                element: <PersonalInformation/>
+            },
+            {
+                path: "editprofile",
+                element:<EditProfile />
+            },
         ]
     },
     

@@ -1,70 +1,51 @@
 import { Button, Checkbox, Form, Input } from "antd";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "./../../../../public/bkGazLogo.png";
 import { GoArrowLeft } from "react-icons/go";
-// import baseURL from "../../config";
-// import Swal from "sweetalert2";
-// import { IconLock } from "@tabler/icons-react";
-// import { usePostLoginMutation } from "../../redux/Features/postLoginApi";
-// import PhoneInput from "react-phone-number-input";
-// import { useState } from "react";
+ 
+import { useState } from "react";
 import "./Login.css";
+import { useResetPasswordMutation } from "../../../redux/features/auth/resetPassword";
+import toast, { Toaster } from "react-hot-toast";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  // const [phoneNumber, setPhoneNumber] = useState();
-  //   const [setData, { isLoading,isError,status,error,data }] = usePostLoginMutation();
-  // console.log(phoneNumber);
-  //    const onFinish = async (value) => {
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const phoneNumber = queryParams.get('phoneNumber')
+  console.log(phoneNumber);
+  
 
-  //    console.log(value);
-  //    console.log(isLoading,isError,status,error,data );
-  //   try {
-  //     const response = await setData(value);
-  //     console.log(response?.error?.data?.message);
-  //     if(response?.data?.statusCode == 200){
-  //       console.log(data);
-  //       localStorage.setItem("token", response?.data?.data?.token);
-  //       localStorage.setItem(
-  //         "user-update",
-  //         JSON.stringify(response?.data?.data?.attributes)
-  //       );
+const [resetPassword, {isLoading}] = useResetPasswordMutation()
 
-  //       Swal.fire({
-  //         position: "top-center",
-  //         icon: "success",
-  //         title: response?.data?.message,
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       navigate("/");
-  //     }else{
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Login Failed , Try Again...",
-  //         text: response?.error?.data?.message,
-  //       })
-  //     }
 
-  //   } catch (error) {
-  //     console.log(error);
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Login Failed , Try Again...",
-  //       text: error?.data?.message,
-  //     })
-  //   }
 
-  //   };
-  const onFinish =  (values) => {
-    console.log("first",values)
-    navigate('/');
+  const onFinish =  async(values) => {
+ 
+    const data = {
+      phoneNumber : "+"+phoneNumber.trim(),
+      password : values?.password
+    }
+    try{
+      const res = await resetPassword(data).unwrap();
+      if(res?.code == 200){
+        toast.success(res?.message)
+      }
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    }catch(error){
+      console.log(error?.data);
+      
+    }
+   
+    // navigate('/');
   }
 
   return (
     <div className="w-full flex items-center justify-center min-h-[100vh] bg-[#1397D5]">
-
+     <Toaster />
         <div className="p-24  bg-[#B6DFF2]  rounded-xl">
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
@@ -151,6 +132,7 @@ const ResetPassword = () => {
 
   <Form.Item>
     <Button
+    loading = {isLoading}
       style={{
         backgroundColor: "#1397D5",
         borderRadius: "16px",

@@ -1,14 +1,29 @@
 import { Modal, Button, Form, Input } from 'antd';
+import { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom';
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined } from "@ant-design/icons";
 
 const ChangePersonalModal = ({ isVisible, onClose }) => {
 const navigate = useNavigate();
-
+const [error, setError] = useState('')
     const handleBackSettings = () => {
         navigate('/settings');
         onClose()
       };
+
+    const changePassword = (values) => {
+      const { confirmPassword, ...ChangePassword } = values;
+      console.log(ChangePassword);
+      
+    }
+
+    const [menuVisible, setMenuVisible] = useState(false);
+
+    const handleMenuVisibility = (visible) => {
+      setMenuVisible(visible);
+    };
+
 
     return (
         <Modal
@@ -24,151 +39,110 @@ const navigate = useNavigate();
                 // </Button>,
             ]}
         >
-            <div className='text-center py-6'>
-                <p>Your password must be 8-10 character long.</p>
-            </div>
-            <div>
-        <Button onClick={handleBackSettings} className='border-none text-[#193664]'>
+            <div className='mt-6 text-2xl text-center'>
+        <Button className='mt-6 text-2xl text-center' onClick={handleBackSettings}  >
           <IoIosArrowBack />
       Change Password
         </Button>
       </div>
+            <div className='text-center'>
+                <p>Your password must be 8-10 character long.</p>
+            </div>
             {/* Form input field */}
             <Form
-              name="normal_login"
-              // className="login-form"
-              labelCol={{ span: 22 }}
-              wrapperCol={{ span: 40 }}
+              name="changePassword"
               layout="vertical"
-              initialValues={{
-                remember: true,
-              }}
-            //   onFinish={onFinish}
-              className="w-[300px] mt-4 mx-auto"
+              onFinish={changePassword}
+              className='px-16 py-10'
+             
             >
               <Form.Item
                 name="oldPassword"
-                // label={
-                //   <span className="text-secondary text-[12px] font-medium">
-                //     Password
-                //   </span>
-                // }
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your Password!",
-                  },
-                ]}
+                label="Old Password"
+                rules={[{ required: true, message: "Please enter your old password!" }]}
               >
                 <Input.Password
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Set your assword"
-                  name="current_password"
-                  prefix={
-                    //
-                    ""
+                 style={{
+                  height: "40px",
+                  background: "#E6F9EF",
+                  outline: "none",
+                 
+                  border: '1px solid green'
+                }}
+                  placeholder="Old Password"
+                  prefix={<LockOutlined />}
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                   }
-                  style={{
-                    border: "2px solid #193664",
-                    height: "52px",
-                    background: "#ffffff",
-                    outline: "none",
-                    marginBottom: "10px",
-                  }}
-                  bordered={false}
                 />
               </Form.Item>
+
               <Form.Item
                 name="newPassword"
-                // label={
-                //   <span className="text-secondary text-[12px] font-medium">
-                //     Password
-                //   </span>
-                // }
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Input Your Password!",
-                  },
-                ]}
+                label="New Password"
+                rules={[{ required: true, message: "Please enter your new password!" }]}
               >
                 <Input.Password
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Re-enter assword"
-                  name="current_password"
-                  prefix={
-                    //
-                    ""
-                  }
-                  style={{
-                    border: "2px solid #193664",
-                    height: "52px",
-                    background: "#ffffff",
+                   style={{
+                    height: "40px",
+                    background: "#E6F9EF",
                     outline: "none",
-                    marginBottom: "10px",
+                   
+                    border: '1px solid green'
                   }}
-                  bordered={false}
+                  placeholder="New Password"
+                  prefix={<LockOutlined />}
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
                 />
               </Form.Item>
+
               <Form.Item
-                name="reEnterPassword"
-                // label={
-                //   <span className="text-secondary text-[12px] font-medium">
-                //     Password
-                //   </span>
-                // }
+                name="confirmPassword"
+                label="Confirm Password"
+                dependencies={["newPassword"]}
+                hasFeedback
                 rules={[
                   {
                     required: true,
-                    message: "Please Input Your Password!",
+                    message: "Please confirm your new password!",
                   },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("newPassword") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error("The two passwords that you entered do not match!")
+                      );
+                    },
+                  }),
                 ]}
               >
                 <Input.Password
-                  size="large"
-                  // onChange={handleChange}
-                  placeholder="Re-enter assword"
-                  name="current_password"
-                  prefix={
-                    //
-                    ""
-                  }
                   style={{
-                    border: "2px solid #193664",
-                    height: "52px",
-                    background: "#ffffff",
+                    height: "40px",
+                    background: "#E6F9EF",
                     outline: "none",
-                    marginBottom: "10px",
+                   
+                    border: '1px solid green'
                   }}
-                  bordered={false}
+                  placeholder="Confirm Password"
+                  prefix={<LockOutlined />}
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
                 />
               </Form.Item>
-
-              <div>
-                    <Link
-                      to="/auth/forgetPassword"
-                      className=" font-medium"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-
+              <p className="text-red-500 font-medium">{error}</p>
               <Form.Item>
                 <Button
-                  // type="primary"
-                  style={{
-                    backgroundColor: "#193664",
-                    color: "#fff",
-                    size: "18px",
-                    height: "56px",
-                  }}
+                  type="primary"
                   htmlType="submit"
-                  className=" w-[300px] 
-                   h-[56px] my-8 text-white hover:border-none border-none rounded-lg"
+                  className="w-full h-10 py-3 !bg-[#69C0BE] !text-black text-[16px] rounded-md"
                 >
-                Update Password
+                  Change Password
                 </Button>
               </Form.Item>
             </Form>

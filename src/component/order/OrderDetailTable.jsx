@@ -132,7 +132,7 @@ const OrderDetailTable = () => {
             setFilteredData([orderDetails]);
         } else {
             // Default to originalData if no orderDetails is provided
-            setFilteredData(originalData);
+            // setFilteredData(originalData);
         }
     }, [orderDetails]);
 

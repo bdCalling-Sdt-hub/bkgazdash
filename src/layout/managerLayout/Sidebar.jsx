@@ -38,7 +38,7 @@ const Sidebar = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("user-update");
-        navigate("/auth");
+        navigate("/");
       } else if (result.isDenied) {
         Swal.fire("Ok", "", "info");
       }
@@ -87,14 +87,14 @@ const handleBackHome = () => {
           {!collapsed && <span className='text-[18px]'>Delivery Employee</span>}
         </NavLink>  */}
 
-        <NavLink to="setings" className={({ isActive }) =>
+        {/* <NavLink to="setings" className={({ isActive }) =>
           `flex items-center gap-3 p-3 mt-4 rounded-lg transition-colors duration-300 ${
             isActive ? 'bg-white text-[#193664]' : 'text-white'
           }`
         }>
           <IoMdSettings size={20} />
           {!collapsed && <span className='text-[18px]'>Settings</span>}
-        </NavLink>
+        </NavLink> */}
       </nav>
       <div className="">
         <button
