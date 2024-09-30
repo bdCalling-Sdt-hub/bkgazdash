@@ -4,14 +4,16 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useState, useEffect } from "react";
 import PhoneInput from 'react-phone-input-2';
 import { TbCameraPlus } from "react-icons/tb";
-import { useGetProfileQuery } from "../../redux/features/profile/getProfile";
-import './PhoneInput.css';
-import './PersonalInformation.css';
-import baseUrl from "../../redux/api/baseUrl";
-import { useEditProfileMutation } from "../../redux/features/profile/editProfile";
+ 
+ 
+ 
+import baseUrl from "../../../redux/api/baseUrl";
+ 
 import toast, { Toaster } from "react-hot-toast";
+import { useEditProfileMutation } from "../../../redux/features/profile/editProfile";
+import { useGetProfileQuery } from "../../../redux/features/profile/getProfile";
 
-const EditProfile = () => {
+const EditManagerProfile = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
   const location = useLocation();
@@ -21,7 +23,7 @@ const EditProfile = () => {
   const [uploadedFile, setUploadedFile] = useState(null); 
 
   const { data: profile } = useGetProfileQuery(id);
-  console.log(profile);
+  // console.log(profile);
   const [editProfile, {isLoading}] = useEditProfileMutation()
   // Set initial values for the form
   const initialValues = {
@@ -42,7 +44,7 @@ const EditProfile = () => {
   }, [profile]);
 
   const handleBackSettings = () => {
-    navigate('/dashboard/personalInformation');
+    navigate('/managerlayout/managerpersonalInformation');
   };
 
   const normFile = (e) => {
@@ -72,11 +74,7 @@ const EditProfile = () => {
   };
 
   const onFinish = async(values) => {
-    const profileData = {
-      ...values,
-      phone: phone, // Ensure phone value is included
-      image: imageUrl,
-    };
+ 
     console.log(uploadedFile);
     const formData = new FormData();
 
@@ -88,12 +86,12 @@ const EditProfile = () => {
 
    try{
     const res = await editProfile({formData, id}).unwrap();
-    console.log(res);
+    // console.log(res);
     if(res?.code == 200){
       toast.success(res?.message)
     }
     setTimeout(() => {
-      navigate('/dashboard/personalInformation')
+      navigate('/managerlayout/managerpersonalInformation')
     }, 1000);
 
     
@@ -102,7 +100,7 @@ const EditProfile = () => {
     
    }
     
-    console.log("Profile Data: ", profileData); // Log all profile data
+    // console.log("Profile Data: ", profileData); // Log all profile data
   };
 
   return (
@@ -262,4 +260,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditManagerProfile;

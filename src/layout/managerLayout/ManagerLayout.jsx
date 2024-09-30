@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from '../Main/Header';
+import React from 'react'; 
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import Header from './order/Header';
  
 
 const ManagerLayout = () => {

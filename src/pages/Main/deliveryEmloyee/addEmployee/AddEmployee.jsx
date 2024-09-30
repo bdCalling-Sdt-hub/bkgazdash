@@ -1,55 +1,54 @@
+ 
+
+
 import React from "react";
 import { Button, Form, Input, Upload } from "antd";
 import { FaCamera } from "react-icons/fa";
 import "./addEmployee.css";
 import { IoIosArrowBack } from "react-icons/io";
-import { useActionData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAddEmployeeMutation } from "../../../../redux/features/deliveryEmploye/AddEmployee";
 import toast, { Toaster } from "react-hot-toast";
 
 const AddEmployee = () => {
   const [form] = Form.useForm();
-  const naviate = useNavigate();
+  const navigate = useNavigate();
 
-const [addEmployee, {isLoading}] = useAddEmployeeMutation()
+  const [addEmployee, { isLoading }] = useAddEmployeeMutation();
 
-  const onFinish = async(values) => {
+  const onFinish = async (values) => {
+    // console.log("Form values:", values);
+    const formData = new FormData();
 
-    console.log("Form values:", values);
-    const formData = new FormData()
-    console.log(formData);
-    
-    formData.append('fullName', values?.fullName)
-    formData.append('password', values?.Password)
-    formData.append('address', values?.address)
-    formData.append('phoneNumber', values?.phoneNumber)
-    formData.append('role', values?.role) 
-    // Accessing the uploaded image file
+    // Append the required fields to the formData
+    formData.append('fullName', values?.fullName);  // Correct field name
+    formData.append('password', values?.password);  // Ensure lowercase 'password'
+    formData.append('address', values?.address);    // Ensure 'address' is included
+    formData.append('phoneNumber', values?.phoneNumber);
+    formData.append('role', values?.role); // Employee role
+
+    // Access the uploaded image file
     const imageFile = values.file?.[0]?.originFileObj;
     if (imageFile) {
-      formData.append('file', imageFile)
-      console.log("Uploaded Image File:", imageFile);
-    } 
-    else {
+      formData.append('file', imageFile);
+      // console.log("Uploaded Image File:", imageFile);
+    } else {
       console.log("No image file uploaded.");
     }
-   try{
-    const res = await addEmployee(formData).unwrap();
-    console.log(res);
-    if(res?.code ==201){
-      toast.success(res?.message)
+
+    try {
+      const res = await addEmployee(formData).unwrap();
+      // console.log(res);
+      if (res?.code === 201) {
+        toast.success(res?.message);
+        setTimeout(() => {
+          navigate("/dashboard/deliveryEmployee");
+        }, 1000);
+      }
+    } catch (error) {
+      toast.error(error?.data?.message);
+      console.log(error?.data);
     }
-    setTimeout(() => {
-      
-      naviate("/dashboard/deliveryEmployee");
-    }, 1000);
-    
-   }catch(error){
-    toast.error(error?.data?.message)
-   }
-
-
-
   };
 
   const normFile = (e) => {
@@ -60,12 +59,12 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
   };
 
   const handleEmployee = () => {
-    naviate("/dashboard/deliveryEmployee");
+    navigate("/dashboard/deliveryEmployee");
   };
 
   return (
     <div>
-      <Toaster reverseOrder = {false} />
+      <Toaster reverseOrder={false} />
       <div
         onClick={handleEmployee}
         className="border-none text-[#193664] flex items-center cursor-pointer"
@@ -81,15 +80,12 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
             form={form}
             layout="vertical"
             onFinish={onFinish}
-            // initialValues={{  role : 'employee' }}
           >
             <div className="flex space-x-4">
               <Form.Item
                 name="fullName"
                 label="User Name"
-                rules={[
-                  { required: true, message: "Please input your username!" },
-                ]}
+                rules={[{ required: true, message: "Please input your username!" }]}
               >
                 <Input
                   placeholder="Enter user name"
@@ -106,9 +102,7 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
               <Form.Item
                 name="password"
                 label="Password"
-                rules={[
-                  { required: true, message: "Please input your password!" },
-                ]}
+                rules={[{ required: true, message: "Please input your password!" }]}
               >
                 <Input.Password
                   placeholder="Enter password"
@@ -122,16 +116,12 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
                 />
               </Form.Item>
             </div>
+
             <div className="flex space-x-4">
               <Form.Item
                 name="phoneNumber"
                 label="Phone Number"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your phone number!",
-                  },
-                ]}
+                rules={[{ required: true, message: "Please input your phone number!" }]}
               >
                 <Input
                   placeholder="Enter phone number"
@@ -148,9 +138,7 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
               <Form.Item
                 name="address"
                 label="Address"
-                rules={[
-                  { required: true, message: "Please input your address!" },
-                ]}
+                rules={[{ required: true, message: "Please input your address!" }]}
               >
                 <Input
                   placeholder="Enter address"
@@ -197,20 +185,11 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
                 beforeUpload={() => false} // Prevent upload immediately to server
               >
                 <button
-                  style={{
-                    border: 0,
-                    background: "none",
-                  }}
+                  style={{ border: 0, background: "none" }}
                   type="button"
                 >
                   <FaCamera className="text-6xl text-[#193664]" />
-                  <div
-                    style={{
-                      marginTop: 8,
-                    }}
-                  >
-                    Upload
-                  </div>
+                  <div style={{ marginTop: 8 }}>Upload</div>
                 </button>
               </Upload>
             </Form.Item>
@@ -231,3 +210,4 @@ const [addEmployee, {isLoading}] = useAddEmployeeMutation()
 };
 
 export default AddEmployee;
+

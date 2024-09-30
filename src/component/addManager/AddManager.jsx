@@ -122,36 +122,37 @@ const AddManager = () => {
             </div>
             <div className="flex space-x-4">
 
-                <Form.Item
-              name="phoneNumber"
-              label={
-                <span className="text-secondary text-[12px] font-medium">
-                  Phone Number
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your phone number!",
-                },
-              ]}
-            >
-              <PhoneInput
-                placeholder="Enter phone number"
-                international
-                countryCallingCodeEditable={false}
-                style={{
-                  marginTop: "12px",
-                  width: "500px",
-                  height: "56px",
-                  borderRadius: "8px",
-                  paddingLeft: "10px",
-                  borderColor: "#193664",
-                }}
-                defaultCountry="US" 
-                
-              />
-            </Form.Item>
+            <Form.Item
+  name="phoneNumber"
+  label={
+    <span className="text-secondary text-[12px] font-medium">
+      Phone Number
+    </span>
+  }
+  rules={[
+    {
+      required: true,
+      message: "Please enter your phone number!",
+    },
+  ]}
+>
+  <PhoneInput
+    placeholder="Enter phone number"
+    international
+    countryCallingCodeEditable={false}
+    style={{
+      // marginTop: "12px",
+      width: "500px",
+      height: "56px",
+      borderRadius: "8px",
+      paddingLeft: "10px",
+      border: "1px solid #193664", 
+      outline: "none",  
+    }}
+    defaultCountry="BD" 
+  />
+</Form.Item>
+
 
               <Form.Item
                 name="address"

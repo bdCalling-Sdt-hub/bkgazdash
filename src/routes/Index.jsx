@@ -276,6 +276,8 @@ import Details from "../component/deliveryEmployee/details/Details";
 import EditPromotion from "../pages/Main/promotion/EditPromotion";
 import EditTime from "../pages/Main/settings/EditTime";
 import AdminRoutes from "./AdminRoutes";
+import ManagerProfile from "../layout/managerLayout/order/ManagerProfile";
+import EditManagerProfile from "../layout/managerLayout/order/editManagerProfile";
 // import AdminRoutes from "./AdminRoutes";
 
 
@@ -443,7 +445,7 @@ import AdminRoutes from "./AdminRoutes";
     },
     {
         path: "managerlayout",
-        element: <AdminRoutes>  <ManagerLayout /> </AdminRoutes>,
+        element: <AdminRoutes> <ManagerLayout /> </AdminRoutes>,
         children: [
             {
                 path: "managerorder",
@@ -455,12 +457,12 @@ import AdminRoutes from "./AdminRoutes";
             },
           
             {
-                path: "personalInformation",
-                element: <PersonalInformation/>
+                path: "managerpersonalInformation",
+                element: <ManagerProfile />
             },
             {
-                path: "editprofile",
-                element:<EditProfile />
+                path: "managereditprofile",
+                element:<EditManagerProfile />
             },
         ]
     },

@@ -108,7 +108,7 @@ const Login = () => {
                 style={{
                   marginTop: "12px",
                 }}
-                defaultCountry="US"
+                defaultCountry="BD"
                 value={phoneNumber}
                 onChange={setPhoneNumber}
               />
