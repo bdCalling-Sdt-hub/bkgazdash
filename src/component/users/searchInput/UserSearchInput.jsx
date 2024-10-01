@@ -15,7 +15,7 @@ const suffix = (
   />
 );
 const onSearch = (value, _e, info) => console.log(info?.source, value);
-const UserSearchInput = () => (
+const UserSearchInput = ({onSearch}) => (
   <Space direction="vertical">
     <Search
       placeholder="User Name"

@@ -84,8 +84,8 @@ const handleYearSearch = (selectedYear) => {
           <BarChart
             width={500}
             height={300}
-            // data={dashEarning?.data?.attributes?.monthlyIncomeRatio}
-            data={data}
+            data={dashEarning?.data?.attributes?.monthlyIncomeRatio}
+            // data={data}
             margin={{
               top: 5,
               right: 30,
@@ -94,7 +94,7 @@ const handleYearSearch = (selectedYear) => {
             }}
             barSize={20}
           >
-            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+            <XAxis dataKey="month" scale="point" padding={{ left: 10, right: 10 }} />
             <YAxis 
        
               tickFormatter={formatYAxis} 
@@ -106,7 +106,7 @@ const handleYearSearch = (selectedYear) => {
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="pv" fill="#193664" background={{ fill: '#eee' }} />
+            <Bar dataKey="totalEarnings" fill="#193664" background={{ fill: '#eee' }} />
           </BarChart>
         </ResponsiveContainer>
       </div>

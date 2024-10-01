@@ -6,7 +6,7 @@ const DashHomeStatus = () => {
   // console.log("Auth Token page 10", token);
 
   // Fetch data using the query hook, passing the token as a header or parameter if needed
-  const { data, isLoading, isError, error } = useGetDashHomeStatusApiQuery(undefined, {
+  const { data: data, isLoading, isError, error } = useGetDashHomeStatusApiQuery(undefined, {
     skip: !token, // Skip fetching if there's no token
   });
 

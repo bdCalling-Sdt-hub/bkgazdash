@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Modal, Button } from 'antd';
+import { Table, Modal, Button, DatePicker } from 'antd';
 import { CloseOutlined } from "@ant-design/icons";
 // import './earning.css'
 import styles from './../../../style.module.css'
@@ -10,6 +10,7 @@ import { useGetEarningRecentTransactionQuery } from '../../../redux/features/get
 import EarningSearchByDate from '../earningSearchByDate/EarningSearchByDate';
 import SearchInput from '../../comnon/searchInput/SearchInput';
 import jsPDF from 'jspdf';
+import UserSearchInput from '../../users/searchInput/UserSearchInput';
   
 const dataSource = [
   {
@@ -42,25 +43,26 @@ const dataSource = [
 ]
 
 const RecentTransactionTable = () => {
- 
- const {data: earning, isLoading} = useGetEarningRecentTransactionQuery()
+ const [datee , setDate] = useState('')
+ const [name , setName] = useState('')
+ const {data: earning, isLoading} = useGetEarningRecentTransactionQuery({date: datee, userName :name})
 //  console.log("earnin>>>>>>>>>>>",earning?.data?.attributes);
  
   const [isModalOpen, setIsModalOpen] = useState(false);
  const [transaction, setTransaction] = useState()
 //  console.log(transaction);
  
-  // console.log(transaction?.createdAt);
+ 
   
  let date = transaction?.createdAt?.split("T")[0] ? transaction?.createdAt?.split("T")[0] : "N/A"
-//  console.log(date);
+ 
  
  const handleDownload = () => {
   const doc = new jsPDF();
   // Adding content to PDF
   doc.text("Full Name: " + transaction?.userId?.fullName, 10, 10);
   doc.text("Email: " + transaction?.userId?.email, 10, 20);
-  doc.text("Transaction ID: " +  transaction?.transactionID, 10, 30);
+  doc.text("Transaction ID: " +  transaction?.transitionId, 10, 30);
   doc.text("Phone: " + transaction?.userId?.phoneNumber, 10, 40);
   doc.text("Date: " + date, 10, 50);
   doc.text("Address: " + transaction?.userId?.address, 10, 60);
@@ -101,7 +103,7 @@ const columns = [
     dataIndex: 'Amount',
     key: 'Amount',
     render: (_, record) => (
-      <p>{record?.userId?.totalCashBalance}</p>
+      <p>{record?.assignedEmployee?.totalCashBalance}</p>
  ),
   },
   {
@@ -131,7 +133,14 @@ const handleView = (value) => {
     setPage(page);
      
   };
- 
+  const handleSearch = (value) => {
+    console.log(value);
+    setName(value)
+    
+  } 
+  const onChange = (date, dateString) => {
+    setDate(dateString); 
+  };
 
   return (
     <div className="table-container">
@@ -140,8 +149,8 @@ const handleView = (value) => {
         <div className='grid grid-cols-3 gap-4 py-4'>
         </div>
         <div className='flex justify-end gap-4 p-4'> 
-          <EarningSearchByDate  />
-          <SearchInput /> 
+        <DatePicker onChange={onChange} />
+          <UserSearchInput onSearch={handleSearch} />
         </div>
       </div>
       <Table
@@ -150,7 +159,7 @@ const handleView = (value) => {
         pagination={{
           total: earning?.data?.attributes?.results.length,
           showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-          defaultPageSize: 2,
+          defaultPageSize: 10,
           showSizeChanger: false,
           itemRender: (current, type, originalElement) => {
             if (type === 'prev') {
@@ -186,7 +195,7 @@ const handleView = (value) => {
       <div>
         <div style={{fontFamily:'Aldrich'}} className="flex justify-center py-4 items-center gap-2 flex-col border-b border-b-gray-300">
           {/* <img className="w-[140px] h-[140px] rounded-full my-4"   src={users} alt="" /> */}
-          <p className="text-[16px] mb-[16px]">absayed</p>
+          <p className="text-[16px] mb-[16px]">Earning details</p>
         </div>
         <div style={{fontFamily:'Aldrich'}} className="p-[20px]">
         <div className="flex justify-between border-b py-[16px]">
