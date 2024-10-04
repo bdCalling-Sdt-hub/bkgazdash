@@ -75,7 +75,7 @@ const Details = () => {
         </div>
         {/* Employee chart */}
         <div className="w-8/12">
-          <DeliveryChart />
+          <DeliveryChart id = {employeeDetails._id} />
         </div>
       </div>
   <div className='px-12'>

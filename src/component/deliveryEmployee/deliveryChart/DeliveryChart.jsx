@@ -3,11 +3,16 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 // import SearchByDate from './../../comnon/datePicker/SearchByDate';
 import moment from 'moment';
 import DemployeeSearchByYear from './../../comnon/datePicker/SearchByDate';
+import { useEmployeeChartQuery } from '../../../redux/features/deliveryEmploye/getEmployeechart';
 
-const DeliveryChart = () => {
+const DeliveryChart = ({id}) => {
+  console.log(id);
+  
   const [year, setYear] = useState('2024');
  
-
+ const {data: chartData} = useEmployeeChartQuery({id, year})
+ console.log(chartData);
+ 
   const data = [
     { name: 'Jan', uv: 4000, pv: 2000, amt: 2400 },
     { name: 'Feb', uv: 3000, pv: 5000, amt: 2210 },
@@ -64,7 +69,7 @@ const handleDateSearch = (date) => {
           <BarChart
             width={500}
             height={300}
-            data={data}
+            data={chartData?.data?.attributes}
             margin={{
               top: 5,
               right: 30,
@@ -73,7 +78,7 @@ const handleDateSearch = (date) => {
             }}
             barSize={20}
           >
-            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+            <XAxis dataKey="month" scale="point" padding={{ left: 10, right: 10 }} />
             <YAxis 
               tickFormatter={formatYAxis} 
               ticks={[0, 2000, 4000, 6000, 8000, 10000, 12000, 14000]} // Custom tick values including 12k
@@ -83,7 +88,7 @@ const handleDateSearch = (date) => {
             <Tooltip />
             {/* <Legend /> */}
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="pv" fill="#193664" background={{ fill: '#eee' }} />
+            <Bar dataKey="deliveryCount" fill="#193664" background={{ fill: '#eee' }} />
           </BarChart>
         </ResponsiveContainer>
       </div>

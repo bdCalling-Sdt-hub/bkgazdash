@@ -12,7 +12,7 @@ const imageUrl = baseUrl;
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Review</h1>
+      
         {
           review?.data?.results?.map(rev =>  
 

@@ -26,7 +26,7 @@ const AssignSelectItem = ({ onChange }) => {
       style={{
         width: '200px',
         height: "38px",
-        border: "1px solid #193664",
+       
         borderRadius: "20px"
       }}
       value={value}

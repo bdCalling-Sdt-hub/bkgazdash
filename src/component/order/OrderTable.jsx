@@ -7,7 +7,9 @@ import OrderTransactionModal from "./OrderTransactionModal";
 import jsPDF from "jspdf";
 import { DatePicker } from 'antd';
 import { useGetAllOrderQuery } from "../../redux/features/order/getAllorder";
+import SearchInput_itemName from "./searchInput_itemName/SearchInput_itemName";
 const { RangePicker } = DatePicker;
+import exportFromJSON from 'export-from-json'
 
 // Define columns for the table
 const columns = (onActionClick) => [
@@ -123,46 +125,55 @@ const OrderTable = () => {
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
-
+     const [productName, setProductName] = useState('')
+     console.log(productName);
+     
     const handleRangeChange = (dates) => {
         if (dates) {
-            const startDate = dates[0].format("YYYY-MM-DD");
-            const endDate = dates[1].format("YYYY-MM-DD");
-            setStartDate(startDate);
-            setEndDate(endDate);
-            console.log(`Selected dates: ${startDate} to ${endDate}`);
+            const start = dates[0].format("YYYY-MM-DD");
+            const end = dates[1].format("YYYY-MM-DD");
+            setStartDate(start);
+            setEndDate(end);
+            console.log(`Selected dates: ${start} to ${end}`);
         } else {
             console.log('No date selected');
         }
     };
 
-    // Only trigger the query when both startDate and endDate are present
-    const { data: allOrder, isLoading, refetch } = useGetAllOrderQuery();
+    // Pass startDate and endDate to the query
+    const { data: allOrder, isLoading, refetch } = useGetAllOrderQuery({ startDate, endDate,  productName });
+
     console.log(allOrder);
+    const filteredOrders = allOrder?.data?.attributes?.results.filter(order =>
+        order.productId?.name.toLowerCase().includes(searchValue.toLowerCase())
+    ) || [];
     
 
     const onActionClick = (record) => {
         navigate(`/dashboard/Order/orderDetails/${record?._id}`, { state: { orderDetails: record } });
     };
-
-    const handleDownload = (record) => {
-        const doc = new jsPDF();
-        const padding = 20;
-        doc.setFontSize(22);
-        doc.setTextColor(40);
-        doc.text("Order Details", 105, padding, null, null, "center");
-        doc.setDrawColor(0, 0, 0);
-        doc.line(padding, padding + 5, 210 - padding, padding + 5);
-
-        doc.setFontSize(16);
-        doc.setTextColor(0);
-        doc.text(`Order ID:`, padding, padding + 15);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.orderId}`, padding + 50, padding + 15);
-        // Rest of the fields...
-        doc.save(`${record.orderId}.pdf`);
+    const handleDownload = () => {
+        const dataToDownload = filteredOrders.map(order => ({
+            OrderID: order?.transitionId,
+            ProductName: order?.productId?.name,
+            PaymentMethod: order?.paymentMethod,
+            PaymentStatus: order?.paymentStatus,
+            Date: order?.createdAt ? order?.createdAt.split("T")[0] : "n/a",
+            Status: order?.status,
+            TotalPrice: order?.totalPrice
+        }));
+    
+        const fileName = 'orderData';
+        const exportType = exportFromJSON.types.csv;
+        exportFromJSON({ data: dataToDownload, fileName, exportType });
     };
+
+    const onsearch = (value) => {
+        setProductName(value)
+        
+    }
 
     return (
         <div className={`bg-[#E8EBF0] w-[79vw] ${styles.tableContainer}`}>
@@ -172,6 +183,7 @@ const OrderTable = () => {
                 </div>
                 <div className="justify-end space-x-4 p-4 flex">
                     <RangePicker onChange={handleRangeChange} />
+                    <SearchInput_itemName onSearch={onsearch} />
                     <p onClick={handleDownload} className="px-2 py-1 bg-blue-400 flex items-center text-center rounded cursor-pointer">Download</p>
                 </div>
             </div>

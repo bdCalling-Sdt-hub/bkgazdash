@@ -5,47 +5,56 @@ import baseUrl from '../../redux/api/baseUrl';
 import jsPDF from 'jspdf';
 
 const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedTransaction, selectedTransaction }) => {
-    // const handleDownload = () => {
-    //     if (selectedTransaction) {
-    //         const element = document.createElement("a");
-    //         const file = new Blob(
-    //             [JSON.stringify(selectedTransaction, null, 2)],
-    //             { type: "text/plain" }
-    //         );
-    //         element.href = URL.createObjectURL(file);
-    //         element.download = `transaction_${selectedTransaction.taxId}.txt`;
-    //         document.body.appendChild(element);
-    //         element.click();
-    //     }
-    // };
-    const handleDownload = () => {
-        if (selectedTransaction) {
-            const doc = new jsPDF();
-            
-            // Add content to the PDF
-            doc.text("Transaction Details", 10, 10);
-            doc.text(`Name: ${selectedTransaction?.fullName}`, 10, 20);
-            doc.text(`PhoneNumber: ${selectedTransaction?.phoneNumber}`, 10, 30);
-            doc.text(`Address: ${selectedTransaction?.address || " n/a"}`, 10, 40);
-            
-            doc.text(`Date: ${selectedTransaction?.createdAt?.split("T")[0] ? selectedTransaction?.createdAt?.split("T")[0] : "N/A"}`, 10, 60);
-            
+    const handleDownload = (record) => {
+        const doc = new jsPDF();
+        const padding = 20;
     
-            // Save the generated PDF
-            doc.save(`transaction_${selectedTransaction.taxId}.pdf`);
-        }
+        // Add Title
+        doc.setFontSize(22);
+        doc.setTextColor(40);
+        doc.text("Manager Details", 105, padding, null, null, "center");
+        doc.setDrawColor(0, 0, 0);
+        doc.line(padding, padding + 5, 210 - padding, padding + 5);
+    
+        // Define the content data
+        const content = [
+            { label: "Manager Name", value: selectedTransaction?.fullName || "N/A" },
+            
+            { label: "phoneNumber ", value: selectedTransaction?.phoneNumber || "N/A" },
+            { label: "Add Date", value: selectedTransaction?.createdAt ? selectedTransaction?.createdAt.split("T")[0] : "N/A" },
+            { label: "Address", value: selectedTransaction?.address || "N/A" },
+             
+        ];
+    
+        // Add each line to the PDF
+        doc.setFontSize(16);
+        doc.setTextColor(0);
+        content.forEach((item, index) => {
+            doc.setFont("helvetica", "normal");
+            doc.text(`${item.label}:`, padding, padding + 15 + index * 10);
+            doc.setFont("helvetica", "bold");
+            doc.text(`${item.value}`, padding + 50, padding + 15 + index * 10);
+        });
+    
+        // Add a closing message
+        doc.setFontSize(12);
+        doc.text("Thank you for your order!", 105, 280, null, null, "center");
+    
+        // Save the PDF
+        doc.save(`${' Manager Details' || 'manager'}.pdf`);
     };
+ 
     
 
-    const handlePrint = () => {
-        if (selectedTransaction) {
-            const printContent = document.getElementById("print-section").innerHTML;
-            const originalContent = document.body.innerHTML;
-            document.body.innerHTML = printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-        }
-    };
+    // const handlePrint = () => {
+    //     if (selectedTransaction) {
+    //         const printContent = document.getElementById("print-section").innerHTML;
+    //         const originalContent = document.body.innerHTML;
+    //         document.body.innerHTML = printContent;
+    //         window.print();
+    //         document.body.innerHTML = originalContent;
+    //     }
+    // };
 
     console.log(selectedTransaction);
     
@@ -76,7 +85,7 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
                     key="download" onClick={handleDownload}>
                     Download
                 </Button>,
-                <Button 
+                {/* <Button 
                     style={{
                         backgroundColor: '#193664', 
                         color: 'white', 
@@ -86,7 +95,7 @@ const TransactionTableModal = ({ isModalVisible, setIsModalVisible, setSelectedT
                     }}
                     key="print" onClick={handlePrint}>
                     Print
-                </Button>,
+                </Button>, */}
                </div>
             }
             className="custom-modal rounded-lg"

@@ -44,9 +44,7 @@ const Sidebar = () => {
       }
     });
   };
-const handleBackHome = () => {
-  navigate('/')
-}
+ 
   return (
     <div className={`fixed flex-col bg-[#193664] rounded-e-3xl border-2 border-[#193664] transition-width duration-300 ${collapsed ? 'w-20' : 'xl:w-80 xl:h-[940px] 2xl:h-[screen] lg:h-[screen] lg:w-60'}`}>
       {collapsed ? <button
@@ -55,7 +53,7 @@ const handleBackHome = () => {
       >
         <FiMenu size={15} />
       </button> : ""}
-      <div onClick={handleBackHome} className="text-center py-6 cursor-pointer">
+      <div className="text-center py-6 cursor-pointer">
         <img
           // src={`https://i.ibb.co/1Q0796s/image-1-1-removebg-preview-2.png`}
           src={logo}
@@ -75,7 +73,7 @@ const handleBackHome = () => {
           }`
         }>
           <MdOutlineCalendarToday size={20} />
-          {!collapsed && <span className='text-[18px]'>Order Mananeg</span>}
+          {!collapsed && <span className='text-[18px]'>Order Management</span>}
         </NavLink>
         
         {/* <NavLink to="/deliveryEmployee" className={({ isActive }) =>

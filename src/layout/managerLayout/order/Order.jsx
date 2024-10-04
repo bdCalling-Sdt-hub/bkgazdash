@@ -6,6 +6,7 @@ import styles from './Order.module.css';  // Import all styles from CSS module
 import jsPDF from "jspdf";
 import { useGetAllOrderQuery } from "../../../redux/features/order/getAllorder";
 import SearchInput_itemName from "../../../component/order/searchInput_itemName/SearchInput_itemName";
+import exportFromJSON from 'export-from-json'
 
 const { RangePicker } = DatePicker;
 
@@ -112,111 +113,87 @@ const columns = (onActionClick) => [
 const Order = () => {
     const [searchValue, setSearchValue] = useState('');
     // console.log(searchValue);
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-    
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const navigate = useNavigate();
-
-
+     const [productName, setProductName] = useState('')
+     console.log(productName);
+     
     const handleRangeChange = (dates) => {
         if (dates) {
-            const startDate = dates[0].format("YYYY-MM-DD");
-            const endDate = dates[1].format("YYYY-MM-DD");
-            setStartDate(startDate)
-            setEndDate(endDate)
-            console.log(`Selected dates: ${startDate} to ${endDate}`);
-
+            const start = dates[0].format("YYYY-MM-DD");
+            const end = dates[1].format("YYYY-MM-DD");
+            setStartDate(start);
+            setEndDate(end);
+            console.log(`Selected dates: ${start} to ${end}`);
         } else {
             console.log('No date selected');
         }
     };
 
+    // Pass startDate and endDate to the query
+    const { data: allOrder, isLoading, refetch } = useGetAllOrderQuery({ startDate, endDate,  productName });
 
-    const { data: allOrder, isLoading, error } = useGetAllOrderQuery({startDate, endDate});
+    console.log(allOrder);
     
     const onActionClick = (record) => {
-        navigate(`/dashboard/Order/orderDetails/${record?._id}`, { state: { orderDetails: record } });
+        navigate(`orderdetails/${record?._id}`, { state: { orderDetails: record } });
     };
 
+    // const handleDownload = () => {
+    //     // Get the data you want to download (filteredOrders in your case)
+    //     const dataToDownload = filteredOrders.map(order => ({
+    //         orderId: order?.transitionId,
+    //         productName: order?.productId?.name,
+    //         paymentMethod: order?.paymentMethod,
+    //         paymentStatus: order?.paymentStatus,
+    //         createdAt: order?.createdAt,
+    //         status: order?.status,
+    //         totalPrice: order?.totalPrice,
+    //     }));
+    
+    //     // Create a JSON blob
+    //     const jsonBlob = new Blob([JSON.stringify(dataToDownload, null, 2)], { type: 'application/json' });
+    
+    //     // Create a download link and trigger it programmatically
+    //     const downloadLink = document.createElement('a');
+    //     downloadLink.href = URL.createObjectURL(jsonBlob);
+    //     downloadLink.download = 'orders.json';
+    //     downloadLink.click();
+    // };
     
  
 
     // Filter the orders based on the search value
+    
+    
+
     const filteredOrders = allOrder?.data?.attributes?.results.filter(order =>
         order.productId?.name.toLowerCase().includes(searchValue.toLowerCase())
     ) || [];
 
-    const handleDownload = (record) => {
-        const doc = new jsPDF();
-        const padding = 20;  // Define padding value
+   console.log(filteredOrders);
 
-        // Set up content with styling
-        doc.setFontSize(22);
-        doc.setTextColor(40);
-        doc.text("Order Details", 105, padding, null, null, "center");
+   const handleDownload = () => {
+    const dataToDownload = filteredOrders.map(order => ({
+        OrderID: order?.transitionId,
+        ProductName: order?.productId?.name,
+        PaymentMethod: order?.paymentMethod,
+        PaymentStatus: order?.paymentStatus,
+        Date: order?.createdAt ? order?.createdAt.split("T")[0] : "n/a",
+        Status: order?.status,
+        TotalPrice: order?.totalPrice
+    }));
 
-     
-        doc.setDrawColor(0, 0, 0);
-        doc.line(padding, padding + 5, 210 - padding, padding + 5);
+    const fileName = 'orderData';
+    const exportType = exportFromJSON.types.csv;
+    exportFromJSON({ data: dataToDownload, fileName, exportType });
+};
 
-        doc.setFontSize(16);
-        doc.setTextColor(0);
-        doc.text(`Order ID:`, padding, padding + 15);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${'tractdsdd'}`, padding + 50, padding + 15);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Package Item:`, padding, padding + 25);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.package}`, padding + 50, padding + 25);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Payment Status:`, padding, padding + 35);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.paymentType}`, padding + 50, padding + 35);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Location & Date:`, padding, padding + 45);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.date_time}`, padding + 50, padding + 45);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Order Status:`, padding, padding + 55);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.status}`, padding + 50, padding + 55);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`User Name:`, padding, padding + 65);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.userName}`, padding + 50, padding + 65);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Email:`, padding, padding + 75);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.email}`, padding + 50, padding + 75);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Phone Number:`, padding, padding + 85);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.phoneNumber}`, padding + 50, padding + 85);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Amount:`, padding, padding + 95);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.amount}`, padding + 50, padding + 95);
-
-        doc.setFont("helvetica", "normal");
-        doc.text(`Address:`, padding, padding + 105);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${record.address}`, padding + 50, padding + 105);
-
-        // Optional: Add a footer
-        doc.setFontSize(12);
-        doc.text("Thank you for your order!", 105, 280, null, null, "center");
-
-        // Save the PDF with the order ID as the file name
-        doc.save(`${record.orderId}.pdf`);
-    };
+   
+    const onsearch = (value) => {
+        setProductName(value)
+    }
 
     return (
         <div className={`bg-[#E8EBF0] w-[79vw] ${styles.tableContainer}`}>
@@ -226,6 +203,7 @@ const Order = () => {
                 </div>
                 <div className="justify-end space-x-4 p-4 flex">
                 <RangePicker onChange={handleRangeChange} />
+                <SearchInput_itemName onSearch={onsearch} />
                     <p onClick={handleDownload} className="px-2 py-1 bg-blue-400 flex items-center text-center rounded cursor-pointer">Download</p>
                     {/* <SearchInput_itemName onSearch={onSearch} /> */}
                 </div>

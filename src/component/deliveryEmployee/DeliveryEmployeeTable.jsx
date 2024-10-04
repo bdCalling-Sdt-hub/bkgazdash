@@ -93,7 +93,11 @@ for (let i = 0; i < 46; i++) {
 const DeliveryEmployeeTable = () => { 
 
   const navigate = useNavigate();
-  const {data: allEmployee, isLoading,} = useGetEmployeeQuery()
+
+  const [name, setName] = useState(''); 
+
+  
+    const { data: allEmployee, isLoading } = useGetEmployeeQuery(name);
   // console.log(allEmployee?.data?.attributes?.results);
   
 
@@ -136,6 +140,11 @@ const DeliveryEmployeeTable = () => {
   const handleAddEmployee = () => {
     navigate("/dashboard/deliveryEmployee/addEmployee");
   };
+  const onSearch = (value) => {
+    setName(value)
+    // console.log(value);
+    
+  }
 
   return (
     <div>
@@ -158,7 +167,7 @@ const DeliveryEmployeeTable = () => {
             <div className=""></div>
           </div>
           <div className="justify-end p-4 gap-4 flex">
-            <SearchInput />{" "}
+            <SearchInput onSearch={onSearch}/>{" "}
           </div>
         </div>
         <Table

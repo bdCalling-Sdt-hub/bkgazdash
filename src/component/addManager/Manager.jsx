@@ -6,6 +6,7 @@ import TransactionModal from "./ManagerModal";
 import { useNavigate } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import { useAllManagerQuery } from "../../redux/features/manager/getAllManager";
+import SearchInput from "../comnon/searchInput/SearchInput";
   
  
 
@@ -116,8 +117,9 @@ const Manager = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [fomattedData, setFormattedData] = useState([]);
   console.log("88, recent Transaction",fomattedData);
+  const [name, setName] = useState(''); 
 
- const {data: allManager, isLoading} = useAllManagerQuery()
+ const {data: allManager, isLoading} = useAllManagerQuery(name)
  console.log(allManager?.data?.attributes?.results);
  
 
@@ -134,8 +136,15 @@ const Manager = () => {
   //   return <div>Error: {error.message}</div>
   // }
 const navigate = useNavigate()
+const onSearch = (value) => {
+  setName(value)
+ 
+  
+}
   return (
     <div className="w-[1500px]">
+      <div>
+
    <Button
           onClick={()=> navigate('/dashboard/manager/addmanager')}
           type="primary"
@@ -144,9 +153,14 @@ const navigate = useNavigate()
           <GoPlus className="mr-2" />
           Add Manager
         </Button>
-    <div className="bg-[#E8EBF0] my-12">
         
+      </div>
+    <div className="bg-[#E8EBF0] my-12">
+        <div className="flex justify-between items-center px-4">
       <h1 className="p-4">Manager List</h1>
+      <SearchInput onSearch={onSearch}/>
+
+        </div>
       <Table
         className="custom-table"
         columns={columns(onActionClick)}

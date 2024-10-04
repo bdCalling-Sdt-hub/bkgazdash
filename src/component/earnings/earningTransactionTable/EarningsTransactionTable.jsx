@@ -56,20 +56,59 @@ const RecentTransactionTable = () => {
   
  let date = transaction?.createdAt?.split("T")[0] ? transaction?.createdAt?.split("T")[0] : "N/A"
  
- 
- const handleDownload = () => {
+ const handleDownload = (record) => {
   const doc = new jsPDF();
-  // Adding content to PDF
-  doc.text("Full Name: " + transaction?.userId?.fullName, 10, 10);
-  doc.text("Email: " + transaction?.userId?.email, 10, 20);
-  doc.text("Transaction ID: " +  transaction?.transitionId, 10, 30);
-  doc.text("Phone: " + transaction?.userId?.phoneNumber, 10, 40);
-  doc.text("Date: " + date, 10, 50);
-  doc.text("Address: " + transaction?.userId?.address, 10, 60);
-  
+  const padding = 20;
+
+  // Add Title
+  doc.setFontSize(22);
+  doc.setTextColor(40);
+  doc.text("Earning Details", 105, padding, null, null, "center");
+  doc.setDrawColor(0, 0, 0);
+  doc.line(padding, padding + 5, 210 - padding, padding + 5);
+
+  // Define the content data
+  const content = [
+      { label: "Order ID", value: transaction?.transitionId || "N/A" },
+      { label: "Package Item", value: transaction?.userId?.fullName || "N/A" },
+      { label: "Payment Status", value: transaction?.userId?.email || "N/A" },
+      { label: "Location & Date", value: record?.createdAt ? record.createdAt.split("T")[0] : "N/A" },
+      { label: "Order Status", value: transaction?.userId?.phoneNumber || "N/A" },
+      { label: "Amount", value: record?.subtotal || "N/A" },
+      { label: "Address", value: transaction?.userId?.address || "N/A" },
+  ];
+
+  // Add each line to the PDF
+  doc.setFontSize(16);
+  doc.setTextColor(0);
+  content.forEach((item, index) => {
+      doc.setFont("helvetica", "normal");
+      doc.text(`${item.label}:`, padding, padding + 15 + index * 10);
+      doc.setFont("helvetica", "bold");
+      doc.text(`${item.value}`, padding + 50, padding + 15 + index * 10);
+  });
+
+  // Add a closing message
+  doc.setFontSize(12);
+  doc.text("Thank you for your order!", 105, 280, null, null, "center");
+
   // Save the PDF
-  doc.save(`Earning_details.pdf`);
+  doc.save(`${'Earning Details' || 'Erning'}.pdf`);
 };
+ 
+//  const handleDownload = () => {
+//   const doc = new jsPDF();
+//   // Adding content to PDF
+//   doc.text("Full Name: " + transaction?.userId?.fullName, 10, 10);
+//   doc.text("Email: " + transaction?.userId?.email, 10, 20);
+//   doc.text("Transaction ID: " +  transaction?.transitionId, 10, 30);
+//   doc.text("Phone: " + transaction?.userId?.phoneNumber, 10, 40);
+//   doc.text("Date: " + date, 10, 50);
+//   doc.text("Address: " + transaction?.userId?.address, 10, 60);
+  
+//   // Save the PDF
+//   doc.save(`Earning_details.pdf`);
+// };
 
 
 
