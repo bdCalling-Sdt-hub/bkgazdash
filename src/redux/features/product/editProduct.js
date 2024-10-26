@@ -1,7 +1,4 @@
-
-
 import { baseApi } from "../../api/baseApi";
-
 
 const updateProduct = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,12 +6,12 @@ const updateProduct = baseApi.injectEndpoints({
             query: ({data, id}) => ({
                 url: `/product/${id}`,
                 method: "PATCH",
-                body: data,
-                
+                body: data
             }),
-            invalidatesTags: [{ type: "Product" }],
+            invalidatesTags: [{type: "Product"}]
         })
     })
 })
 
-export const {  useUpdateProductMutation } = updateProduct;
+
+export const {useUpdateProductMutation} = updateProduct;

@@ -19,9 +19,9 @@ const EditPrivacyPolicy = () => {
     
     const {data: privacy} = useGetPrivacyQuery()
    const [editPrivacy, {isLoading}] = useEditPrivacyMutation()
-    // console.log(privacy?.data?.attributes[0]?.content);
+    console.log(privacy?.data?.attributes[0]?.content);
     const id = privacy?.data?.attributes[0]?._id;
-    console.log(id);
+    // console.log(id);
 
     const decodeHtml = (html) => {
       const parser = new DOMParser();
@@ -71,14 +71,14 @@ const EditPrivacyPolicy = () => {
         
         <div className="relative ml-[24px]">
           <Toaster />
-        <div onClick={handleBackPrivacyPolicy} className=" mt-[44px] cursor-pointer flex items-center pb-3 gap-2">
+        <div  className=" mt-[44px]  flex items-center pb-3 gap-2">
           <MdOutlineKeyboardArrowLeft
-            className=""
-           
+            className="cursor-pointer"
+            onClick={handleBackPrivacyPolicy}
             size={34}
           />
           <h1 className="text-[24px] font-semibold">
-            Edit Privacy Policy
+            Edit Privacy Policyd
           </h1>
         </div>
         <div className="text-justify  mt-[24px] relative ">

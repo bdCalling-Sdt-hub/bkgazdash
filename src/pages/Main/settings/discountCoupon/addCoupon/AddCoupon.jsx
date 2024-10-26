@@ -76,7 +76,7 @@ const AddCoupon = () => {
         <Form className='mx-auto' name="form_item_path" layout="vertical" onFinish={onFinish}>
           <MyFormItemGroup prefix={['name']}>
             <div className='flex space-x-14'>
-              <MyFormItem name="couponName" label="Company Name">
+              <MyFormItem name="couponName" label="Coupon-Name">
                 <Input size='large' style={{ width: '400px', height: "45px", paddingLeft: '12px', borderColor: "#193664" }} />
               </MyFormItem>
               <MyFormItem name="discount" label="Discount">

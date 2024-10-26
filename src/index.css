@@ -145,21 +145,21 @@ body {
 .PhoneInputInput {
   outline: none;
   /* background-color: #EBF6FE; */
-  background-color: #E7F2E6;
+  /* background-color: #E7F2E6; */
   padding: 1rem;
   color: black;
   border-radius: 5px;
-  border: 2px solid #0A8100;
+  border: 1px solid #193664;
 }
 
 .PhoneInputCountry {
   margin-right: 15px !important;
   display: flex !important;
   gap: 10px;
-  background-color: #E7F2E6;
+  /* background-color: #E7F2E6; */
   padding: 1rem;
   border-radius: 5px;
-  border: 2px solid #0A8100;
+  border: 1px solid #193664;
 }
 
 .react-tel-input .form-control {

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Upload } from 'antd';
 import { FaCamera } from "react-icons/fa";
-// import './EditProduct.css';
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAllCategoryQuery } from '../../redux/features/category/getAllCategory';
- import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useSingleProductQuery } from '../../redux/features/product/singleProduct';
-import { useUpdateProductMutation } from '../../redux/features/product/updateProduct';
-import baseUrl from '../../redux/api/baseUrl';
+ import baseUrl from '../../redux/api/baseUrl';
+import { useUpdateProductMutation } from '../../redux/features/product/editProduct';
 
 const MyFormItemContext = React.createContext([]);
 
@@ -29,17 +28,15 @@ const MyFormItem = ({ name, ...props }) => {
 };
 
 const UpdateProduct = () => {
-  const { id } = useParams(); 
-  console.log(id);
-  
+  const { id } = useParams();
   const navigate = useNavigate();
+ const [editProduct, {isLoading}] = useUpdateProductMutation()
 
   const { data: allCategory } = useAllCategoryQuery();
   const { data: productData, isLoading: isLoadingProduct } = useSingleProductQuery(id);
-  console.log(productData);
-  
-  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+   
   const [fileList, setFileList] = useState([]);
+  const [form] = Form.useForm();
 
   // Set form with fetched product data
   useEffect(() => {
@@ -47,31 +44,27 @@ const UpdateProduct = () => {
       form.setFieldsValue({
         name: productData?.data?.attributes?.name,
         price: productData?.data?.attributes?.price,
-        categoryId: productData?.data?.attributes?.categoryId?._id, // Set categoryId to the actual ID
+        categoryId: productData?.data?.attributes?.categoryId?._id,
         loyaltyPrice: productData?.data?.attributes?.loyaltyPrice,
         deliveryFee: productData?.data?.attributes?.deliveryFee,
         taxFee: productData?.data?.attributes?.taxFee,
         description: productData?.data?.attributes?.description,
         loyaltyGift: productData?.data?.attributes?.loyaltyGift,
       });
-  
+
       // Set the image file list from the product data if available
       if (productData?.data?.attributes?.image) {
         setFileList([
           {
             uid: '-1',
-            name: 'image.png', // You can replace this with the actual image name
+            name: 'image.png',
             status: 'done',
-            url: baseUrl + productData?.data?.attributes?.image, // Assuming the image URL is available here
+            url: baseUrl + productData?.data?.attributes?.image,
           },
         ]);
       }
     }
   }, [productData]);
-  
-  
-  // Ant Design form instance
-  const [form] = Form.useForm();
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -90,35 +83,32 @@ const UpdateProduct = () => {
     // Prepare FormData for updating the product
     const formData = new FormData();
     formData.append('name', values.name);
-formData.append('price', values.price);
-formData.append('categoryId', values.categoryId);
-formData.append('loyaltyPrice', values.loyaltyPrice);
-formData.append('deliveryFee', values.deliveryFee);
-formData.append('taxFee', values.taxFee);
-formData.append('description', values.description);
-formData.append('loyaltyGift', values.loyaltyGift);
+    formData.append('price', values.price);
+    formData.append('categoryId', values.categoryId);
+    formData.append('loyaltyPrice', values.loyaltyPrice);
+    formData.append('deliveryFee', values.deliveryFee);
+    formData.append('taxFee', values.taxFee);
+    formData.append('description', values.description);
+    formData.append('loyaltyGift', values.loyaltyGift);
 
+    if (fileList && fileList.length > 0) {
+      formData.append('file', fileList[0].originFileObj);
+    }
 
-if (fileList && fileList.length > 0) {
-  formData.append('file', fileList[0].originFileObj);
-}
+    try {
+      const res = await editProduct({ id: id, data: formData }).unwrap();
+      console.log('Update Response:', res);
 
-
-try {
-  const res = await updateProduct({ id, formData }).unwrap();
-  console.log('Update Response:', res);
-
-  if (res?.code === 200) {
-    toast.success(res?.message);
-    // Optionally, refetch or reload the updated product data
-    navigate('/dashboard/product');
-  } else {
-    toast.error('Something went wrong!');
-  }
-} catch (error) {
-  console.error('Submission Error:', error);
-  toast.error(error?.data?.message || 'Failed to update product');
-}
+      if (res?.code === 200) {
+        toast.success(res?.message);
+        navigate('/dashboard/product'); // Navigate after successful update
+      } else {
+        toast.error('Something went wrong!');
+      }
+    } catch (error) {
+      console.error('Submission Error:', error);
+      toast.error(error?.data?.message || 'Failed to update product');
+    }
   };
 
   return (
@@ -135,7 +125,6 @@ try {
           layout="vertical"
           onFinish={onFinish}
           form={form}
-          initialValues={productData}
         >
           <div className="flex space-x-6">
             <MyFormItem name="name" label="Product Name">

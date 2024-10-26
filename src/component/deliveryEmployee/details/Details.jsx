@@ -66,9 +66,9 @@ const Details = () => {
           {/* Employee Img */}
           <div className="bg-[#E7F5FB] p-8">
             <div className=" rounded-full h-48 w-48 overflow-hidden">
-              <img src={baseUrl + employeeDetails?.image} width={200} height={250} />
+              <img src={baseUrl + employeeDetails?.image}  />
             </div>
-            <h1 className="py-4 text-center">{employeeDetails?.fullName}</h1>
+            <h1 className=" text-center">{employeeDetails?.fullName}</h1>
             <h1 className=" text-center">{employeeDetails?.role}</h1>
           </div>
           {/* Button */}

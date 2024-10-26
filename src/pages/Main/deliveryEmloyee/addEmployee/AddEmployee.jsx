@@ -1,29 +1,33 @@
  
 
 
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, Upload } from "antd";
 import { FaCamera } from "react-icons/fa";
 import "./addEmployee.css";
+// import "./../../../Auth/login/Login.css"
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useAddEmployeeMutation } from "../../../../redux/features/deliveryEmploye/AddEmployee";
 import toast, { Toaster } from "react-hot-toast";
+import PhoneInput from "react-phone-number-input";
+
 
 const AddEmployee = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [addEmployee, { isLoading }] = useAddEmployeeMutation();
 
   const onFinish = async (values) => {
-    // console.log("Form values:", values);
+    console.log("Form values:", values);
     const formData = new FormData();
 
     // Append the required fields to the formData
     formData.append('fullName', values?.fullName);  // Correct field name
     formData.append('password', values?.password);  // Ensure lowercase 'password'
     formData.append('address', values?.address);    // Ensure 'address' is included
+    formData.append('email', values?.email);    // Ensure 'address' is included
     formData.append('phoneNumber', values?.phoneNumber);
     formData.append('role', values?.role); // Employee role
 
@@ -118,22 +122,38 @@ const AddEmployee = () => {
             </div>
 
             <div className="flex space-x-4">
-              <Form.Item
-                name="phoneNumber"
-                label="Phone Number"
-                rules={[{ required: true, message: "Please input your phone number!" }]}
-              >
-                <Input
-                  placeholder="Enter phone number"
-                  style={{
-                    width: "500px",
-                    height: "56px",
-                    borderRadius: "8px",
-                    paddingLeft: "10px",
-                    borderColor: "#193664",
-                  }}
-                />
-              </Form.Item>
+
+
+            <Form.Item
+              name="phoneNumber"
+              label={
+                <span className="text-secondary text-[12px] font-medium">
+                  Phone Number
+                </span>
+              }
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your phone number!",
+                },
+              ]}
+            >
+              <PhoneInput
+                placeholder="Enter phone number"
+                international
+                countryCallingCodeEditable={false}
+                style={{
+                  width: "500px",
+                  height: "56px",
+                  borderRadius: "8px", 
+                  
+                }}
+                defaultCountry="BD"
+                value={phoneNumber}
+                onChange={setPhoneNumber}
+              />
+            </Form.Item>
+
 
               <Form.Item
                 name="address"
@@ -152,7 +172,7 @@ const AddEmployee = () => {
                 />
               </Form.Item>
             </div>
-
+            <div className="flex space-x-4">
             <Form.Item
               name="role"
               label="Role"
@@ -163,7 +183,7 @@ const AddEmployee = () => {
                 value="employee"
                 disabled
                 style={{
-                  width: "1000px",
+                  width: "500px",
                   height: "56px",
                   borderRadius: "8px",
                   paddingLeft: "10px",
@@ -172,6 +192,27 @@ const AddEmployee = () => {
               />
             </Form.Item>
 
+            <Form.Item
+                name="email"
+                label="Email"
+                rules={[{ required: true, message: "Please input your Email!" }]}
+              >
+                <Input
+                  placeholder="Enter Email"
+                  type="email"
+                  style={{
+                    
+                    width: "500px",
+                    height: "56px",
+                    borderRadius: "8px",
+                    paddingLeft: "10px",
+                    borderColor: "#193664",
+                  }}
+                />
+              </Form.Item>
+
+            </div>
+            
             <Form.Item
               name="file"
               label="Upload Photo"
@@ -183,13 +224,31 @@ const AddEmployee = () => {
                 name="file"
                 listType="picture-card"
                 beforeUpload={() => false} // Prevent upload immediately to server
+                maxCount={1} // Restrict to 1 file
+                onChange={({ fileList }) => {
+                  // If a new file is selected, clear the old one
+                  if (fileList.length > 1) {
+                    fileList.splice(0, fileList.length - 1); // Keep only the latest file
+                  }
+                  // Update the file list in the form item
+                  setFieldsValue({ file: fileList });
+                }}
               >
                 <button
-                  style={{ border: 0, background: "none" }}
+                  style={{
+                    border: 0,
+                    background: "none",
+                  }}
                   type="button"
                 >
                   <FaCamera className="text-6xl text-[#193664]" />
-                  <div style={{ marginTop: 8 }}>Upload</div>
+                  <div
+                    style={{
+                      marginTop: 8,
+                    }}
+                  >
+                    Upload
+                  </div>
                 </button>
               </Upload>
             </Form.Item>

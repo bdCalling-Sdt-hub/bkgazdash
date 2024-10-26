@@ -63,7 +63,7 @@ const [verifyOtp, {isLoading}] = useVerifyOtpMutation()
           <div className="mx-auto">
             <img className="mx-auto w-48" src={logo} alt="" />
             <div className="flex items-center justify-center gap-2">
-              <Link to="/forgetPassword">
+              <Link to="forgotpassword">
                 <GoArrowLeft className="text-[32px]" />
               </Link>
 
