@@ -22,7 +22,7 @@ const AddPromotion = () => {
 
     const formData = new FormData();
     
-    // Append the description and image file to the FormData object
+   
     formData.append('description', value.description);
     if (imageFile) {
       formData.append('file', imageFile); 

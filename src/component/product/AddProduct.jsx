@@ -249,6 +249,7 @@ const MyFormItem = ({ name, ...props }) => {
 const AddProduct = () => {
   const navigate = useNavigate();
   const { data: allCategory } = useAllCategoryQuery();
+  console.log("category>>>>>>>>>", allCategory)
   const [addProduct, { isLoading }] = useAddProductMutation();
   const [fileList, setFileList] = useState([]);
 
