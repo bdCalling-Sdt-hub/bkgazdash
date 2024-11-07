@@ -7,6 +7,7 @@ const Notification = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Set the number of notifications to display per page
   const { data: notification, isLoading } = useGetNotificationQuery();
+  console.log(notification)
 
   const notifications = notification?.data?.attributes?.results || [];
   const totalNotifications = notifications.length;

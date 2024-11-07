@@ -80,7 +80,7 @@ const AddCoupon = () => {
                 <Input size='large' style={{ width: '400px', height: "45px", paddingLeft: '12px', borderColor: "#193664" }} />
               </MyFormItem>
               <MyFormItem name="discount" label="Discount">
-                <InputNumber size='large' style={{ width: '400px', height: "45px", paddingLeft: '12px', borderColor: "#193664" }} min={0} max={100} />
+                <InputNumber size='large' style={{ width: '400px', height: "45px", paddingLeft: '12px', borderColor: "#193664" }} />
               </MyFormItem>
             </div>
           </MyFormItemGroup>

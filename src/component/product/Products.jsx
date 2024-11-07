@@ -1,6 +1,6 @@
  
 
-import { Button, Pagination } from "antd";
+import { Button, Card, Pagination } from "antd";
 import { GoPlus } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import OpenCloseSlectItem from "./OpenCloseSlectItem";
@@ -13,12 +13,14 @@ import baseUrl from "../../redux/api/baseUrl";
 import { useState } from "react";
 import { useDeleteProductMutation } from "../../redux/features/product/deleteProduct";
 import toast, { Toaster } from "react-hot-toast";
-
+import { useAllCategoryQuery } from "../../redux/features/category/getAllCategory";
+import {  DeleteOutlined } from '@ant-design/icons';
+import { useDeleteCategoryMutation } from "../../redux/features/category/deleteCategory";
 const Products = () => {
   const navigate = useNavigate();
   const { data: allProduct, isLoading } = useGetAllProductQuery();
   const [deleteProduct, {}] = useDeleteProductMutation()
-console.log("all product listt>>>>>>>>>>>>>>: ",allProduct);
+// console.log("all product listt>>>>>>>>>>>>>>: ",allProduct);
 
 const  productDelete = async (id) => {
    try{
@@ -59,17 +61,57 @@ const  productDelete = async (id) => {
   const handleUpdate = (id) => {
     navigate(`/dashboard/product/updateProduct/${id}`);
   };
-
+  const {data: categories} = useAllCategoryQuery()
+  console.log(categories?.data?.attributes?.results)
+ const [deleteCategory] = useDeleteCategoryMutation()
+ const CategoryD = async(id) => {
+    try{
+      const res = await deleteCategory(id).unwrap();
+      if(res.code == 200){
+        toast.success(res?.message)
+      }
+    }catch(error){
+      console.log(error)
+    }
+ }
+ 
   return (
     <div>
       <Toaster reverseOrder = {false} />
       <div className="flex justify-between 2xl:w-[79vw] xl:w-[76vw] lg:w-[75vw] py-6">
+        <div>
+
          <h1 className="text-2xl">Products</h1>
-        <Button onClick={handleAddProduct} type="primary" className="flex items-center w-[206px] h-[56px] rounded-md  bg-[#193664]">
+        </div>
+        <div>
+         <div className="flex items-center gap-4">
+
+        <Button  onClick={() => navigate('addcaregory')} type="primary" className="flex items-center w-[150px] h-[46px] rounded-md  bg-[#193664]">
+          <GoPlus className="mr-2"/>
+          Add Category
+        </Button>
+        <Button onClick={handleAddProduct} type="primary" className="flex items-center w-[150px] h-[46px] rounded-md  bg-[#193664]">
           <GoPlus className="mr-2" />
           Add Product
         </Button>
+         </div>
+        </div>
       </div>
+      <h1 className="text-xl font-medium py-2">Product Category</h1>
+      <div className="grid grid-cols-10 gap-2">
+        {
+          categories?.data?.attributes?.results.map(category => 
+
+            <div className="">
+              <Card className="shadow-md rounded-lg p-4 border bg-[#c7d7f1]">
+        <div className="text-lg font-semibold">{category?.name}</div>
+        <DeleteOutlined  className="" key="delete" onClick={() => CategoryD(category?._id)}/>
+      </Card>
+            </div>
+          )
+        }
+       
+    </div>
 
       {/* card */}
       <div className="grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-5 gap-4 py-8">
@@ -83,8 +125,8 @@ const  productDelete = async (id) => {
               <h3 className="pt-2 text-bold text-2xl">{product?.name}</h3>
               <p className="py-2 text-xs">{product?.categoryId?.name}</p>
               <div className="flex justify-between">
-                <p>{product?.price}</p>
-                <p>Rating: {product?.avgRating}</p>
+                <p>{product?.price.toFixed(2)}</p>
+                <p>Rating: {product?.avgRating?.toFixed(2)}</p>
               </div>
             </div>
             <div className="flex space-x-4 justify-center py-6">

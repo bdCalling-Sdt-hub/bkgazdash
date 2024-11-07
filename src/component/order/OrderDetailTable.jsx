@@ -265,7 +265,7 @@ const navigate = useNavigate()
             <Toaster />
             <div className='grid grid-cols-3 gap-2'>
                 <div className='flex items-center p-4'> 
-                    <p onClick={() => navigate('/managerlayout/managerorder')} > <MdArrowBack /> </p>
+                    <p onClick={() => navigate('/dashboard/order')} > <MdArrowBack /> </p>
                     <h1 className=''>Order</h1>
                 </div>
                 <div className='grid grid-cols-3 gap-4 py-4'>

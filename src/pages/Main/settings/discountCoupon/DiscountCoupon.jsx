@@ -76,7 +76,7 @@ const DiscountCoupon = () => {
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{ coupon?.couponName}</div>
         <p className="text-gray-700 text-base">
-          Discount: <span className="font-semibold">{coupon?.discount}%</span>
+          Discount: <span className="font-semibold">{coupon?.discount}</span>
         </p>
         <p className="text-gray-700 text-base">
           Start Date: <span className="font-semibold">{coupon?.startingDate?.split("T")[0]}</span>
