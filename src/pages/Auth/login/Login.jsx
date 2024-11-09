@@ -102,16 +102,17 @@ const Login = () => {
               ]}
             >
               <PhoneInput
-                placeholder="Enter phone number"
-                international
-                countryCallingCodeEditable={false}
-                style={{
-                  marginTop: "12px",
-                }}
-                defaultCountry="BD"
-                value={phoneNumber}
-                onChange={setPhoneNumber}
-              />
+  placeholder="Enter phone number"
+  international
+  countryCallingCodeEditable={false}
+  style={{
+    marginTop: "12px",
+  }}
+  defaultCountry="ML" // Set to Mali
+  value={phoneNumber}
+  onChange={setPhoneNumber}
+/>
+
             </Form.Item>
        
             <Form.Item

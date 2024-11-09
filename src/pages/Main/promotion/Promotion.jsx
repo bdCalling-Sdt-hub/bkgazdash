@@ -39,7 +39,7 @@ const handleEdit = () => {
          <h1 className='text-2xl'>Promotion</h1>
         <Button onClick={() => navigate('addpromotion')} type="primary" className="flex items-center w-[206px] h-[56px] rounded-md  bg-[#193664]">
           <GoPlus className="mr-2" />
-          Add Product
+          Add Promotion
         </Button>
       </div>
            <div className='grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 grid-cols-1'>

@@ -135,7 +135,7 @@ const AddPromotion = () => {
               htmlType="submit"
               className="w-[353px] h-[57px] py-4 mt-2 text-white hover:border-none border-none rounded-2xl"
             >
-              Create post
+              Add Promotion
             </Button>
           </Form.Item>
         </Form>

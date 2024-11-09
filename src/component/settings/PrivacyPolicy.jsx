@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
 
     const {data: privacy} = useGetPrivacyQuery()
 
-    // console.log(privacy?.data?.attributes[0]?.content);
+    console.log(privacy?.data?.attributes);
   
     const decodeHtml = (html) => {
       const parser = new DOMParser();

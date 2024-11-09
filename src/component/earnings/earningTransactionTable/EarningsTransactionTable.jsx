@@ -142,7 +142,7 @@ const columns = [
     dataIndex: 'Amount',
     key: 'Amount',
     render: (_, record) => (
-      <p>{record?.assignedEmployee?.totalCashBalance}</p>
+      <p>{record?.subtotal}</p>
  ),
   },
   {
@@ -189,7 +189,7 @@ const handleView = (value) => {
         </div>
         <div className='flex justify-end gap-4 p-4'> 
         <DatePicker onChange={onChange} />
-          <UserSearchInput onSearch={handleSearch} />
+          {/* <UserSearchInput onSearch={handleSearch} /> */}
         </div>
       </div>
       <Table

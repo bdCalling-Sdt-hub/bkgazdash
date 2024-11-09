@@ -72,7 +72,7 @@ const columns = [
     dataIndex: 'Amount',
     key: 'Amount',
     render: (_, record) => (
-      <p>{record?.userId?.totalCashBalance}</p>
+      <p>{record?.subtotal}</p>
  ),
   },
   {
