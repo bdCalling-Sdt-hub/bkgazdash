@@ -358,7 +358,22 @@ const columns = (onActionClick) => [
             },
         }),
         render: (_, record) => (
-            <p>{record?.paymentMethod}</p>
+            <p>{record?.paymentStatus}</p>
+        )
+    },
+    {
+        title: "Amount",
+        dataIndex: "paymentType",
+        onHeaderCell: () => ({
+            style: {
+                backgroundColor: '#193664',
+                color: 'white',
+                fontWeight: 'bold',
+                border: 'none'
+            },
+        }),
+        render: (_, record) => (
+            <p>{record?.totalPrice}</p>
         )
     },
     {

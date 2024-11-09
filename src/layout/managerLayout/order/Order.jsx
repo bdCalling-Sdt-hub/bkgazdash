@@ -371,7 +371,7 @@ const columns = (onActionClick) => [
             },
         }),
         render: (_, record) => (
-            <p>{record?.paymentMethod}</p>
+            <p>{record?.paymentStatus}</p>
         )
     },
     {

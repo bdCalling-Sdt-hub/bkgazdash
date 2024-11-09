@@ -95,7 +95,7 @@ const PersonalInformation = () => {
                         marginTop: "12px",
                         
                       }}
-                      defaultCountry="US"
+                    defaultCountry="ML" 
                       value={phoneNumber?.toString()}
                       onChange={setPhoneNumber}
                     /> */}

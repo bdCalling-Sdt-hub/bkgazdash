@@ -35,8 +35,8 @@ const DashHomeStatus = () => {
       <div className="bg-[#E8EBF0] px-[20px] py-[32px] flex justify-between items-center rounded-lg">
         <div>
           <p className="text-black font-bold">Total Earnings</p>
-          <h1 className="text-secondary text-[44px]">
-            ${totalEarnings}
+          <h1 className="text-secondary text-[24px]">
+            Cfa {totalEarnings}
             {/* ${'35'} */}
           </h1>
         </div>
